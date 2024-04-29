@@ -4,6 +4,7 @@ namespace App\Providers;
 
 // use Illuminate\Support\Facades\Gate;
 use Illuminate\Foundation\Support\Providers\AuthServiceProvider as ServiceProvider;
+use Laravel\Passport\Passport;
 
 class AuthServiceProvider extends ServiceProvider
 {
@@ -25,6 +26,24 @@ class AuthServiceProvider extends ServiceProvider
     {
         $this->registerPolicies();
 
-        //
+        // 令牌的有效期
+        $this->passportConfig();
+    }
+
+    /**
+     * passportConfig function
+     *
+     * @return void
+     * @Description 令牌的有效期 配置
+     * @Author hg <bishashiwo@gmail.com>
+     * @Time 2021-09-21
+     */
+    public function passportConfig()
+    {
+        Passport::tokensExpireIn(now()->addDays(7));
+
+        Passport::refreshTokensExpireIn(now()->addDays(14));
+
+        Passport::personalAccessTokensExpireIn(now()->addMonths(6));
     }
 }
