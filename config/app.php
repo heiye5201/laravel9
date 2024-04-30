@@ -1,5 +1,6 @@
 <?php
 
+use App\Providers\RepositoryServiceProvider;
 use Illuminate\Support\Facades\Facade;
 
 return [
@@ -197,6 +198,9 @@ return [
 
         Maatwebsite\Excel\ExcelServiceProvider::class,
         Laravel\Passport\PassportServiceProvider::class,
+
+        Prettus\Repository\Providers\RepositoryServiceProvider::class,
+        RepositoryServiceProvider::class,
     ],
 
     /*

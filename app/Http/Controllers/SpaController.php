@@ -7,17 +7,25 @@
 
 namespace App\Http\Controllers;
 
+use App\Repositories\ConfigsRepository;
 use Illuminate\Http\Request;
 
 class SpaController extends Controller
 {
+
+     /**
+     * @var PostRepository
+     */
+    protected $repository;
+
+    public function __construct(ConfigsRepository $repository)
+    {
+        $this->repository = $repository;
+    }
     
     public function index(Request $request)
     {
-        $data['web_name'] = '夜听雨商城';
-        $data['index_name'] = '夜听雨商城';
-        $data['keyword'] = '夜听雨';
-        $config = ['status'=>true,'data'=>$data,'msg'=>'success'];
-        return view('vue', $config['status'] ? $config['data'] : []);
+        $data = $this->repository->all()->pluck('content', 'name');
+        return view('vue', $data);
     }
 }
