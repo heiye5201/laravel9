@@ -4,8 +4,6 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\SoftDeletes;
-use Prettus\Repository\Contracts\Transformable;
-use Prettus\Repository\Traits\TransformableTrait;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Passport\HasApiTokens;
@@ -15,13 +13,9 @@ use Laravel\Passport\HasApiTokens;
  *
  * @package namespace App\Models;
  */
-class Admins extends Authenticatable implements Transformable
+class Admins extends Authenticatable
 {
     use HasApiTokens, HasFactory, Notifiable, SoftDeletes;
-
-    use TransformableTrait;
-
-    protected $table = 'admins';
 
     /**
      * The attributes that are mass assignable.
@@ -36,4 +30,10 @@ class Admins extends Authenticatable implements Transformable
     protected $hidden = [
         'password',
     ];
+
+
+    public function findForPassport($username)
+    {
+        return $this->orWhere('username', $username)->first(); // ->orWhere('phone', $login)
+    }
 }

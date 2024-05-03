@@ -25,24 +25,7 @@ class AuthServiceProvider extends ServiceProvider
     {
         $this->registerPolicies();
 
-//        Passport::loadKeysFrom(__DIR__.'/../secrets/oauth');
-
-//        Passport::hashClientSecrets();
         // 令牌的有效期
-        $this->passportConfig();
-
-    }
-
-    /**
-     * passportConfig function
-     *
-     * @return void
-     * @Description 令牌的有效期 配置
-     * @Author hg <bishashiwo@gmail.com>
-     * @Time 2021-09-21
-     */
-    public function passportConfig()
-    {
         Passport::tokensExpireIn(now()->addDays(15));
         Passport::refreshTokensExpireIn(now()->addDays(30));
         Passport::personalAccessTokensExpireIn(now()->addMonths(6));

@@ -28,7 +28,7 @@ use Laravel\Passport\Http\Controllers\TransientTokenController;
 //Route::delete('/oauth/tokens/{token_id}', [TransientTokenController::class, 'destroy']);
 
 
-Route::prefix('Admin')->middleware('auth:admins')->group(function ($route) {
+//Route::prefix('Admin')->middleware('auth:admins')->group(function ($route) {
 
 //    $route->get('load_permission', [App\Http\Controllers\Admin\PermissionsController::class,'loadPermission']);
 //    $route->any('/auth/info', [App\Http\Controllers\Auth\AuthController::class,'info'])->name('admin.auth.info');
@@ -37,7 +37,7 @@ Route::prefix('Admin')->middleware('auth:admins')->group(function ($route) {
 //    $route->resource('users', App\Http\Controllers\Admin\UsersController::class);
 //    $route->post('users/money/handle', [App\Http\Controllers\Admin\UsersController::class,'money']);
 
-});
+//});
 
 // Route::get('/', function () {
 //     return view('welcome');
@@ -51,6 +51,9 @@ Route::prefix('Admin')->middleware('auth:admins')->group(function ($route) {
 //Route::get('/oauth/tokens', [\Laravel\Passport\Http\Controllers\TransientTokenController::class, 'forUser']);
 //Route::delete('/oauth/tokens/{token_id}', [\Laravel\Passport\Http\Controllers\TransientTokenController::class, 'destroy']);
 
+//Route::post('/oauth/token', function () {
+//    return [];
+//});
 
 // 放到最下面，用来访问vue地址
 Route::get('/{any}', [\App\Http\Controllers\SpaController::class,'index'])->where('any', '.*');

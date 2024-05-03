@@ -18,9 +18,15 @@ use Illuminate\Support\Facades\Route;
 //    return $request->user();
 //});
 
-Route::any('/login', [App\Http\Controllers\Auth\AuthController::class,'login']);
-Route::any('/logout', [App\Http\Controllers\Auth\AuthController::class,'logout']);
-Route::any('/register', [App\Http\Controllers\Auth\AuthController::class,'register']);
-Route::any('/set_lang', [App\Http\Controllers\Auth\AuthController::class,'set_lang']);
+Route::post('/test', [App\Http\Controllers\Api\DemoController::class,'index']);
 
 
+//Route::any('/login', [App\Http\Controllers\Auth\AuthController::class,'login']);
+//Route::any('/logout', [App\Http\Controllers\Auth\AuthController::class,'logout']);
+//Route::any('/register', [App\Http\Controllers\Auth\AuthController::class,'register']);
+//Route::any('/set_lang', [App\Http\Controllers\Auth\AuthController::class,'set_lang']);
+
+
+//Route::post('/oauth/token', function () {
+//    return [];
+//});

@@ -40,14 +40,13 @@ return [
             'driver' => 'session',
             'provider' => 'users',
         ],
-        // API 服务
-        'admins' => [
-            'driver' => 'passport',
-            'provider' => 'admins',
-        ],
         'users' => [
             'driver' => 'passport',
             'provider' => 'users',
+        ],
+        'admins' => [
+            'driver' => 'passport',
+            'provider' => 'admins',
         ],
     ],
 
@@ -73,16 +72,10 @@ return [
             'driver' => 'eloquent',
             'model' => App\Models\User::class,
         ],
-
         'admins' => [
             'driver' => 'eloquent',
             'model' => App\Models\Admins::class,
         ],
-        
-//         'users' => [
-//             'driver' => 'database',
-//             'table' => 'users',
-//         ],
     ],
 
     /*
@@ -119,7 +112,6 @@ return [
     | confirmation screen. By default, the timeout lasts for three hours.
     |
     */
-
     'password_timeout' => 10800,
 
 ];

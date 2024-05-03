@@ -12,7 +12,7 @@ class User extends Authenticatable
 {
     use HasApiTokens, HasFactory, Notifiable, SoftDeletes;
 
-    protected $table = 'users';
+    protected $guarded = [];
 
 
     /**
@@ -44,4 +44,10 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+
+
+    public function findForPassport($username)
+    {
+        return $this->orWhere('name', $username)->orWhere('phone', $username)->first(); // ->orWhere('phone', $login)
+    }
 }

@@ -195,12 +195,11 @@ return [
         // App\Providers\BroadcastServiceProvider::class,
         App\Providers\EventServiceProvider::class,
         App\Providers\RouteServiceProvider::class,
-
         Maatwebsite\Excel\ExcelServiceProvider::class,
-        Laravel\Passport\PassportServiceProvider::class,
 
         Prettus\Repository\Providers\RepositoryServiceProvider::class,
         RepositoryServiceProvider::class,
+        Laravel\Passport\PassportServiceProvider::class,
     ],
 
     /*
@@ -219,6 +218,7 @@ return [
         'Excel' => Maatwebsite\Excel\Facades\Excel::class,
         'Redis' => Illuminate\Support\Facades\Redis::class,
         'Cache' => Illuminate\Support\Facades\Cache::class,
+        'Password' => Illuminate\Support\Facades\Password::class,
     ])->toArray(),
 
 ];
