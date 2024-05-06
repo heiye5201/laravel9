@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Auth;
 use App\Http\Controllers\Controller;
 use App\Services\AuthService;
 use Illuminate\Http\Request;
+use Illuminate\Validation\Rule;
 
 class AuthController extends Controller
 {
@@ -29,4 +30,14 @@ class AuthController extends Controller
         return $this->success($rs);
     }
 
+
+    public function info(Request $request)
+    {
+        $validated = $request->validate([
+            'provider' => ['required',  Rule::in(['admins', 'users']),],
+        ]);
+        $prefix = $request->route()->action['prefix'];
+        $rs = app(AuthService::class)->info($request->all(), $prefix);
+        return $this->success($rs);
+    }
 }

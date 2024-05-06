@@ -1,6 +1,5 @@
 <?php
 
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -14,19 +13,17 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-//Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
-//    return $request->user();
-//});
+Route::any('/login', [App\Http\Controllers\Auth\AuthController::class,'login']);
+Route::any('/logout', [App\Http\Controllers\Auth\AuthController::class,'logout']);
+Route::any('/register', [App\Http\Controllers\Auth\AuthController::class,'register']);
 
-Route::post('/test', [App\Http\Controllers\Api\DemoController::class,'index']);
+Route::prefix('Admin')->middleware('auth:admins')->group(function ($route) {
+    $route->any('/auth/info', [App\Http\Controllers\Auth\AuthController::class,'info'])->name('admin.auth.info');
+    $route->any('/load_menu', [App\Http\Controllers\Admin\MenusController::class,'loadMenu']);
+});
 
+Route::prefix('Seller')->middleware('auth:users')->group(function ($route) {
+    $route->any('/auth/info', [App\Http\Controllers\Auth\AuthController::class,'info'])->name('admin.auth.info');
+    $route->get('/load_menu', [App\Http\Controllers\Seller\MenusController::class,'loadMenu']);
 
-//Route::any('/login', [App\Http\Controllers\Auth\AuthController::class,'login']);
-//Route::any('/logout', [App\Http\Controllers\Auth\AuthController::class,'logout']);
-//Route::any('/register', [App\Http\Controllers\Auth\AuthController::class,'register']);
-//Route::any('/set_lang', [App\Http\Controllers\Auth\AuthController::class,'set_lang']);
-
-
-//Route::post('/oauth/token', function () {
-//    return [];
-//});
+});

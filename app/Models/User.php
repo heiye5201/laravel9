@@ -10,7 +10,7 @@ use Laravel\Sanctum\HasApiTokens;
 
 class User extends Authenticatable
 {
-    use HasApiTokens, HasFactory, Notifiable, SoftDeletes;
+    use HasApiTokens, HasFactory, Notifiable;
 
     protected $guarded = [];
 
@@ -21,7 +21,7 @@ class User extends Authenticatable
      * @var array<int, string>
      */
     protected $fillable = [
-        'name',
+        'username',
         'email',
         'password',
     ];
@@ -48,6 +48,6 @@ class User extends Authenticatable
 
     public function findForPassport($username)
     {
-        return $this->orWhere('name', $username)->orWhere('phone', $username)->first(); // ->orWhere('phone', $login)
+        return $this->orWhere('username', $username)->orWhere('phone', $username)->first();
     }
 }

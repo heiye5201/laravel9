@@ -34,6 +34,12 @@ class Admins extends Authenticatable
 
     public function findForPassport($username)
     {
-        return $this->orWhere('username', $username)->first(); // ->orWhere('phone', $login)
+        return $this->orWhere('username', $username)->first();
+    }
+
+
+    public function roles()
+    {
+        return $this->belongsToMany('App\Models\AdminRole', 'admin_to_roles', 'admin_id', 'role_id');
     }
 }

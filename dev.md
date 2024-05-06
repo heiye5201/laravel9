@@ -18,6 +18,7 @@ xdebug.mode=debug
 
 # 创建表
 php artisan make:migration create_configs_table --create="configs"
+php artisan make:migration create_user_menus_table --create="user_menus"
 
 
 # 添加字段
@@ -33,10 +34,11 @@ https://github.com/andersao/l5-repository
 ``` shell
 composer require prettus/l5-repository
 ```
+admin_menus
 
-php artisan make:repository "Admins"
+php artisan make:repository "AdminMenu"
 
-php artisan make:bindings Admins
+php artisan make:bindings AdminMenu
 
 
 php artisan make:controller  Auth/AuthController
@@ -80,4 +82,14 @@ public function boot(): void {
 ``` xshell
 curl --request POST --header 'accept: application/json' --header 'content-type: application/json' --data '{"username":"person@example.com","password":"ZCP7kT","grant_type":"password","client_id":2,"client_secret":"<secret>","scope":"*","device_uuid":"B11D89CD-2208-4893-DAEB-1545C3351858"}' 'http://jwj.test/oauth/token'
 ```
+
+## 清理路由
+
+```php
+php artisan route:clear
+php artisan route:cache
+```
+
+## 表单验证
+php artisan make:request StorePostRequest
 

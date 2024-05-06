@@ -1,9 +1,11 @@
 <?php
 namespace App\Services;
 
+use App\Models\Admins;
+use App\Models\User;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Http;
-use Laravel\Passport\Passport;
 
 class AuthService extends BaseService
 {
@@ -25,11 +27,9 @@ class AuthService extends BaseService
             ->select('id', 'secret', 'user_id', 'redirect')
             ->where($where)
             ->first();
-
         if (!$client) {
             return $this->formatError(__('tip.oauthThr'));
         }
-        
         $respData = [
             'grant_type'    =>  $grantType,
             'client_id'     =>  $client->id,
@@ -45,7 +45,11 @@ class AuthService extends BaseService
         }
         if ($resp->getStatusCode() == 200) {
             // 登录成功修改登录时间
-            $authModel = new \App\Models\Admins();
+            if ($provider !== 'admins') {
+                $authModel = new User();
+            } else {
+                $authModel = new Admins();
+            }
             if ($provider !== 'admins') $authModel = $authModel->orWhere('phone', $username);
             $authModel = $authModel->orWhere('username', $username)->first();
             $authModel->last_login_time = !empty($authModel->login_time) ? $authModel->login_time : now();
@@ -66,7 +70,35 @@ class AuthService extends BaseService
 
     public function registers($data)
     {
-
+        $username = $data['username'] ?? '';
+        $password = $data['password'] ?? '';
+        $type = $data['type'] ?? 'username'; // 注册方式 phone email
+        $provider = $data['provider'] ?? 'users'; // 用户类型 users | admins
+        if ($provider == 'admins') {
+            return [];
+        }
+        $model = new User();
+        // 判断是否存在相同得账号和电话
+        if ($model->where($type, $username)->exists()) {
+            // 该账号已经存在
+            return $this->formatError(__('tip.userExist'));
+        }
+        $regData = [
+            'nickname'  =>  $username,
+            'username'  =>  $username,
+            'phone'     =>  $type == 'phone' ? $username : '',
+            'email'     =>  $type == 'email' ? $username : '',
+            'password'  =>  Hash::make($password),
+            'pay_password'  =>  Hash::make('123456'),
+            'belong_id' =>  0,
+        ];
+        if (!empty(request('inviter_id'))) {
+            $regData['inviter_id'] = request('inviter_id');
+        }
+        if (!$model->create($regData)) {
+            return []; // 账号建立失败
+        }
+        return $this->login(false, ['username' => $username, 'password' => $password, 'provider' => $provider]);
     }
 
 
@@ -77,5 +109,67 @@ class AuthService extends BaseService
             auth($provider)->user()->token()->delete();
         }
         return true;
+    }
+
+
+    // 获取用户信息
+    public function info($data, $prefix)
+    {
+        $info = $this->getUser($data['provider']);
+        if ($info['status']) {
+            if (isset($info['data']['password'])) {
+                unset($info['data']['password']);
+            }
+            if (isset($info['data']['pay_password'])) {
+                unset($info['data']['pay_password']);
+            }
+        }
+        $pro = lcfirst(str_replace('api/', '', $prefix));
+        if ($data['provider'] != 'users') {
+//            $defaultUrl = $this->getService($pro.'Menu', true)->whereRaw('apis!=""')->orderBy('is_sort', 'asc')->first();
+//            if ($defaultUrl) {
+//                $info['data']['defaultUrl'] = $defaultUrl->apis??'/';
+//            }
+            $info['data']['prefix'] = $pro;
+            $info['data']['defaultUrl'] = '/Admin/admins';
+        }
+        return $info['data'] ?? [];
+    }
+
+    // 账号编辑
+    public function edit($data)
+    {
+//        $data = $request->except('provider');
+//        $id = $this->getUserId($request->provider);
+//        $pro = lcfirst(str_replace('api/', '', $request->route()->action['prefix']));
+//        if ($pro != 'Admin') {
+//            $pro = 'User';
+//        }
+//        if (!isset($data['password']) || empty($data['password'])) {
+//            unset($data['password']);
+//        }
+//        if (isset($data['password'])) {
+//            $data['password'] = Hash::make($data['password']);
+//        }
+//        if (!isset($data['pay_password']) || empty($data['pay_password'])) {
+//            unset($data['pay_password']);
+//        }
+//        if (isset($data['pay_password'])) {
+//            $data['pay_password'] = Hash::make($data['pay_password']);
+//        }
+//        // 修改手机号码
+//        if (isset($data['phone']) && !empty($data['phone']) && $pro == 'User') {
+//            if ($this->getService($pro, true)->whereNotIn('id', [$id])->where('phone', $data['phone'])->exists()) {
+//                return $this->error(__('tip.phoneExist'));
+//            }
+//            $sms = $this->getService('Sms')->checkSms($data['phone'], $data['code']);
+//            if (!$sms['status']) {
+//                return $this->error($sms['msg']);
+//            } else {
+//                unset($data['code']);
+//            }
+//        }
+//        $rs = $this->getService($pro, true)->where('id', $id)->update($data);
+//        return $this->success($rs);
     }
 }
