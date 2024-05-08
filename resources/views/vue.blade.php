@@ -10,6 +10,8 @@
     <meta name="keywords" content="{{$keyword??'-'}}">
     <meta name="description" content="{{$description??'-'}}" />
 
+    <!-- <script src="https://cdn.jsdelivr.net/npm/vue-i18n@8.24.2/dist/vue-i18n.min.js"></script> 国际化 -->
+
     <link rel="stylesheet" href="//unpkg.com/element-plus@2.1.7/dist/index.css" />
     <script src="//unpkg.com/vue@3.2.26/dist/vue.global.prod.js"></script>
     <script src="//unpkg.com/vue-router@4.0.12/dist/vue-router.global.prod.js"></script>

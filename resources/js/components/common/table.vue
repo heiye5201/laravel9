@@ -79,10 +79,10 @@
                     <el-row :gutter="20">
                         <el-col v-for="(v,k) in dialogParams.add.column" :key="k" :span="v.span || dialogParams.span"><div class="table-form-content">
                             <el-form-item :label="v.label" :prop="v.value">
-                                <q-input :params="v" :dictData="dialogParams.dictData||[]" v-model:formData="formData.add[v.value]" />
+<!--                              <q-input :params="v" :dictData="dialogParams.dictData || []" v-model="formData.add[v.value]"></q-input>-->
+                              <q-input :params="v" :dictData="dialogParams.dictData||[]" v-model:formData="formData.add[v.value]" />
                             </el-form-item>
                         </div></el-col>
-                        <!-- <el-col :span="12"><div class="table-form-content"></div></el-col> -->
                     </el-row>
 
                     <!-- 按钮处理 -->

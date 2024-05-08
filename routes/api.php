@@ -20,6 +20,9 @@ Route::any('/register', [App\Http\Controllers\Auth\AuthController::class,'regist
 Route::prefix('Admin')->middleware('auth:admins')->group(function ($route) {
     $route->any('/auth/info', [App\Http\Controllers\Auth\AuthController::class,'info'])->name('admin.auth.info');
     $route->any('/load_menu', [App\Http\Controllers\Admin\MenusController::class,'loadMenu']);
+    $route->get('/notices', [App\Http\Controllers\Admin\NoticesController::class,'index']);
+    $route->get('/notices/{id}', [App\Http\Controllers\Admin\NoticesController::class,'info']);
+
 });
 
 Route::prefix('Seller')->middleware('auth:users')->group(function ($route) {

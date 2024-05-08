@@ -1,49 +1,54 @@
 <template>
   <div class="qw_input">
+<!--    <q-font v-if="params.type=='icon'" v-model:value="formData" />-->
+    <q-font v-if="params.type === 'icon'" :value="formData" @update:value="formData = $event" />
+<!--    <table-select v-if="params.type=='table_select'" v-model:value="formData" :params="params" @changeVla="cascaderChange" />-->
+    <table-select v-if="params.type === 'table_select'" :value="formData" :params="params" @update:value="formData = $event" @changeVla="cascaderChange" />
+<!--    <el-input v-if="params.type=='text' || params.type=='password' || params.type=='number' || params.type==undefined" :type="params.type||'text'" v-model="formData" :placeholder="params.placeholder||''"  />-->
+    <el-input v-if="params.type === 'text' || params.type === 'password' || params.type === 'number' || params.type === undefined" :type="params.type || 'text'" :value="formData" @input="formData = $event" :placeholder="params.placeholder || ''" />
 
-    <q-font
-        v-if="params.type === 'icon'"
-        :model-value="formData"
-        @update:model-value="formData = $event"
-    />
+<!--    <el-input v-if="params.type=='textarea'" :type="'textarea'" class="input_textarea" :show-word-limit="params.showWordLimit||true" :maxlength="params.maxlength||15" v-model="formData" :placeholder="params.placeholder||''"  />-->
+    <el-input v-if="params.type === 'textarea'" type="textarea" class="input_textarea" :show-word-limit="params.showWordLimit || true" :maxlength="params.maxlength || 15" :value="formData" @input="formData = $event" :placeholder="params.placeholder || ''" />
 
-    <table-select v-if="params.type === 'table_select'" :model-value="formData" :params="params" @update:model-value="formData = $event" @changeVla="cascaderChange" />
-    <el-input v-if="params.type  === 'text' || params.type === 'password' || params.type === 'number' || params.type === undefined" :type="params.type || 'text'" :model-value="formData" @update:model-value="formData = $event" :placeholder="params.placeholder || ''" />
-
-    <el-input v-if="params.type === 'textarea'" type="textarea" class="input_textarea" :show-word-limit="params.showWordLimit || true" :maxlength="params.maxlength || 15" :model-value="formData" @update:model-value="formData = $event" :placeholder="params.placeholder || ''" />
+<!--    <el-cascader @change="cascaderChange"  style="width:100%" v-if="params.type=='cascader'" v-model="formData" :options="dictData[params.value]||[]" :props="params.props||{}" :placeholder="params.placeholder||''" />-->
     <el-cascader
         v-if="params.type === 'cascader'"
         style="width:100%"
-        :model-value="formData"
-        @update:model-value="formData = $event"
+        :value="formData"
+        @input="formData = $event"
         @change="cascaderChange"
         :options="dictData[params.value] || []"
         :props="params.props || {}"
         :placeholder="params.placeholder || ''"
     />
 
+<!--    <el-cascader @change="cascaderChange"  style="width:100%" v-if="params.type=='cascader_lazy'" v-model="formData" :options="dictData[params.value]||[]" :props="params.props||{emitPath:true,label:'name',value:'id',lazy:true,lazyLoad:lazyLoad}" :placeholder="params.placeholder||''" />-->
     <el-cascader
         v-if="params.type === 'cascader_lazy'"
         style="width:100%"
-        :model-value="formData"
-        @update:model-value="formData = $event"
+        :value="formData"
+        @input="formData = $event"
         @change="cascaderChange"
         :options="dictData[params.value] || []"
         :props="{
-          emitPath: true,
-          label: 'name',
-          value: 'id',
-          lazy: true,
-          lazyLoad: lazyLoad
-        }"
+    emitPath: true,
+    label: 'name',
+    value: 'id',
+    lazy: true,
+    lazyLoad: lazyLoad
+  }"
         :placeholder="params.placeholder || ''"
     />
+
+<!--    <el-select style="width:100%" v-if="params.type=='select'" v-model="formData" :filterable="params.filterable||false" :multiple="params.multiple||false" :placeholder="params.placeholder||''" >-->
+<!--      <el-option v-for="(v,k) in (dictData[params.value] || [])" :key="k" :label="params.oneArray?v:(v[(params.labelName||'label')])" :value="params.oneArray?v:v[(params.valueName||'value')]" />-->
+<!--    </el-select>-->
 
     <el-select
         v-if="params.type === 'select'"
         style="width:100%"
-        :model-value="formData"
-        @update:model-value="formData = $event"
+        :value="formData"
+        @input="formData = $event"
         :filterable="params.filterable || false"
         :multiple="params.multiple || false"
         :placeholder="params.placeholder || ''"
@@ -56,10 +61,15 @@
       />
     </el-select>
 
+<!--    <el-autocomplete v-if="params.type=='autocomplete'" v-model="formData"  @select="cascaderChange" :fetch-suggestions="querySearch" >-->
+<!--      <template #default="{ item }">-->
+<!--        <div class="value">{{item}}</div>-->
+<!--      </template>-->
+<!--    </el-autocomplete>-->
     <el-autocomplete
         v-if="params.type === 'autocomplete'"
-        :model-value="formData"
-        @update:model-value="formData = $event"
+        :value="formData"
+        @input="formData = $event"
         @select="cascaderChange"
         :fetch-suggestions="querySearch"
     >
@@ -101,49 +111,12 @@
       <div :id="'toolbar'+rand"></div>
       <div class="editClass" :style="'height:'+(params.height||'300px')" :id="'editor'+rand" ></div>
     </div>
-    <el-switch
-        v-if="params.type === 'switch'"
-        :model-value="formData"
-        @update:model-value="formData = $event"
-        :active-text="params.activeText || $t('btn.yes')"
-        :inactive-text="params.inactiveText || $t('btn.no')"
-        :inline-prompt="params.inlinePrompt || true"
-    />
-
-    <el-radio-group
-        v-if="params.type === 'radio'"
-        :model-value="formData"
-        @update:model-value="formData = $event"
-    >
-      <el-radio
-          v-for="(v, k) in (dictData[params.value] || [])"
-          :key="k"
-          :label="params.oneArray ? v : (v[(params.labelName || 'value')])"
-      >
-        {{ params.oneArray ? v : (v[(params.valueName || 'label')]) }}
-      </el-radio>
-    </el-radio-group>
-
-    <el-date-picker
-        v-if="params.type === 'datetime'"
-        style="width:100%"
-        type="datetime"
-        value-format="YYYY-MM-DD HH:mm:ss"
-        :placeholder="params.placeholder || ''"
-        :model-value="formData"
-        @update:model-value="formData = $event"
-    />
-
-    <el-date-picker
-        v-if="params.type === 'date'"
-        style="width:100%"
-        type="date"
-        value-format="YYYY-MM-DD"
-        :placeholder="params.placeholder || ''"
-        :model-value="formData"
-        @update:model-value="formData = $event"
-    />
-
+<!--    <el-switch v-model="formData"  v-if="params.type=='switch'" :active-text="params.activeText||$t('btn.yes')" :inactive-text="params.inactiveText||$t('btn.no')" :inline-prompt="params.inlinePrompt||true" />-->
+<!--    <el-radio-group v-model="formData" v-if="params.type=='radio'">-->
+<!--      <el-radio v-for="(v,k) in (dictData[params.value] || [])" :key="k" :label="params.oneArray?v:(v[(params.labelName||'value')])" >{{params.oneArray?v:(v[(params.valueName||'label')])}}</el-radio>-->
+<!--    </el-radio-group>-->
+<!--    <el-date-picker v-if="params.type=='datetime'" style="width:100%" type="datetime" value-format="YYYY-MM-DD HH:mm:ss" :placeholder="params.placeholder||''" v-model="formData" />-->
+<!--    <el-date-picker v-if="params.type=='date'"  style="width:100%" type="date" value-format="YYYY-MM-DD" :placeholder="params.placeholder||''" v-model="formData" />-->
   </div>
 </template>
 

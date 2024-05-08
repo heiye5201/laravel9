@@ -93,3 +93,16 @@ php artisan route:cache
 ## 表单验证
 php artisan make:request StorePostRequest
 
+
+## 生成模型并生成迁移文件
+php artisan make:model Notice -m
+
+
+# 前端代码打包
+npm run prod
+
+npm run watch
+
+npm audit fix
+
+

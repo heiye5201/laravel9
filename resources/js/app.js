@@ -21,8 +21,9 @@ router.afterEach(() => {
 const app = createApp(App)
 app.component('q-input',qInput)
 app.use(i18n)
-.use(store)
-.use(router)
-.use(ElementPlus,elementInit)
+    // .use(i18n_val)
+    .use(store)
+    .use(router)
+    .use(ElementPlus,elementInit)
 app.config.globalProperties.R = R
 app.mount('#app')

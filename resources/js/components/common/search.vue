@@ -4,7 +4,7 @@
             <el-col :sm="24" :md="4" v-for="(v,k) in advanced?optionsRef.slice(0,5):optionsRef" :key="k">
                 <div class="search-content">
                     <q-input :params="v" :dictData="JSON.stringify(dictData) != '{}'?dictData:(v.data||{})" v-model:formData="searchParams[v.value]" />
-                    <!-- <el-input v-if="v.type='text'" :type="v.type" v-model="searchParams[v.value]" :placeholder="v.label" /> -->
+<!--                    <el-input v-if="v.type='text'" :type="v.type" v-model="searchParams[v.value]" :placeholder="v.label" />-->
                 </div>
             </el-col>
 

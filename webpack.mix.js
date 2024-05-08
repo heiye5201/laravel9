@@ -13,6 +13,9 @@ const path = require('path')
 require('laravel-mix-polyfill');
 mix.js('resources/js/app.js', 'public/dist/js').vue({ version: 3 })
     .sass('resources/js/plugins/css/base.scss','public/css')
+    // .postCss('resources/css/app.css', 'public/dist/css', [
+    //     //
+    // ])
     .setPublicPath('public/dist')
     .setResourceRoot('/dist/')
     .polyfill({
@@ -31,6 +34,7 @@ mix.js('resources/js/app.js', 'public/dist/js').vue({ version: 3 })
             'clipboardjs':'ClipboardJS',
             'g2plot':'G2Plot',
             'amap-loader':'AMapLoader',
+            // 'vue-i18n':'VueI18n',
         },
         output: {
             publicPath: '/dist/',
