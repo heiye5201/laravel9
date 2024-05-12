@@ -1,28 +1,26 @@
 <?php
-/**
- * autor      : jiweijian
- * createTime : 2024/5/6 21:55
- * description:
- */
+
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
-use App\Http\Queries\NoticesQuery;
-use App\Models\Notice;
+use App\Http\Queries\ArticleQuery;
+use App\Http\Resources\Admin\ArticleResource;
+use App\Models\Article;
 use Illuminate\Http\Request;
 
-class NoticesController extends Controller
+class ArticlesController extends Controller
 {
-    public function index(Request $request, NoticesQuery $query)
+
+    public function index(Request $request, ArticleQuery $query)
     {
-        $data = $query->orderBy('id', 'desc')
+        $data = $query->with(['class'])->orderBy('id', 'desc')
             ->paginate(intval($request->input('page_size', 25)));
         return $this->success($data);
     }
 
     public function show($id)
     {
-        $data = Notice::query()->find($id);
+        $data = Article::query()->find($id);
         return $this->success($data);
     }
 
@@ -30,13 +28,11 @@ class NoticesController extends Controller
     public function store(Request $request)
     {
         try {
-            $data = Notice::query()->create([
-                'tag' => $request->input('tag'),
+            $data = Article::query()->create([
                 'name' => $request->input('name'),
+                'type' => $request->input('type'),
+                'pid' => $request->input('pid'),
                 'content' => $request->input('content'),
-                'is_type' => 0,
-                'is_send' => 0,
-                'belong_id' => 0,
             ]);
             return $this->handle($data);
         } catch (\Exception $e) {
@@ -47,9 +43,10 @@ class NoticesController extends Controller
     public function update(Request $request, $id)
     {
         try {
-            $data = Notice::query()->where('id', $id)->update([
-                'tag' => $request->input('tag'),
+            $data = Article::query()->where('id', $id)->update([
                 'name' => $request->input('name'),
+                'type' => $request->input('type'),
+                'pid' => $request->input('pid'),
                 'content' => $request->input('content'),
             ]);
             return $this->handle(['status'=>200, 'data'=>$data]);
@@ -62,11 +59,12 @@ class NoticesController extends Controller
     public function destroy($id)
     {
         try {
-            $ids = explode(",", $id);
-            $data = Notice::query()->whereIn('id', $ids)->delete();
+            $ids = explode(", ", $id);
+            $data = Article::query()->whereIn('id', $ids)->delete();
             return $this->handle($data);
         } catch (\Exception $e) {
             return $this->error($e->getMessage());
         }
     }
+
 }

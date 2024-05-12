@@ -2,12 +2,13 @@
 
 namespace App\Models;
 
+use App\Traits\TimeTrait;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
 class AdminRole extends Model
 {
-    use HasFactory;
+    use HasFactory, TimeTrait;
 
 
     public function permissions()

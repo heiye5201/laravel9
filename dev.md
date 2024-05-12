@@ -41,7 +41,7 @@ php artisan make:repository "AdminMenu"
 php artisan make:bindings AdminMenu
 
 
-php artisan make:controller  Auth/AuthController
+php artisan make:controller  Admin/ArticlesController
 
 
 导出镜像 命令
@@ -95,7 +95,7 @@ php artisan make:request StorePostRequest
 
 
 ## 生成模型并生成迁移文件
-php artisan make:model Notice -m
+php artisan make:model Article -m
 
 
 # 前端代码打包

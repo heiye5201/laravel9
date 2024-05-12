@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Traits\TimeTrait;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Foundation\Auth\User as Authenticatable;
@@ -15,7 +16,7 @@ use Laravel\Passport\HasApiTokens;
  */
 class Admins extends Authenticatable
 {
-    use HasApiTokens, HasFactory, Notifiable, SoftDeletes;
+    use HasApiTokens, HasFactory, Notifiable, SoftDeletes, TimeTrait;
 
     /**
      * The attributes that are mass assignable.

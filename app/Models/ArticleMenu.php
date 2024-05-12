@@ -5,18 +5,17 @@ namespace App\Models;
 use App\Traits\TimeTrait;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
-class Notice extends Model
+class ArticleMenu extends Model
 {
-    use HasFactory, TimeTrait;
+    use HasFactory, SoftDeletes, TimeTrait;
 
     protected $fillable = [
         'belong_id',
-        'tag',
+        'pid',
         'name',
-        'content',
-        'is_type',
-        'is_send',
+        'is_sort',
     ];
 
     protected $hidden = [

@@ -16,12 +16,27 @@ use Illuminate\Support\Facades\Route;
 Route::any('/login', [App\Http\Controllers\Auth\AuthController::class,'login']);
 Route::any('/logout', [App\Http\Controllers\Auth\AuthController::class,'logout']);
 Route::any('/register', [App\Http\Controllers\Auth\AuthController::class,'register']);
+Route::get('/load_article_menu', [App\Http\Controllers\Admin\ArticleMenusController::class,'loadMenu']);
 
-Route::prefix('Admin')->middleware('auth:admins')->group(function ($route) {
+Route::prefix('Admin')->middleware('auth:admins')->namespace('Admin')->group(function ($route) {
     $route->any('/auth/info', [App\Http\Controllers\Auth\AuthController::class,'info'])->name('admin.auth.info');
+
     $route->any('/load_menu', [App\Http\Controllers\Admin\MenusController::class,'loadMenu']);
-    $route->get('/notices', [App\Http\Controllers\Admin\NoticesController::class,'index']);
-    $route->get('/notices/{id}', [App\Http\Controllers\Admin\NoticesController::class,'info']);
+
+    $route->get('/notices', 'NoticesController@index')->name('admin.notices.index');
+    $route->get('/notices/{id}', 'NoticesController@show')->name('admin.notices.info');
+    $route->post('/notices',  'NoticesController@store')->name('admin.notices.store');
+    $route->put('/notices/{id}',  'NoticesController@update')->name('admin.notices.update');
+    $route->delete('/notices/{id}', 'NoticesController@destroy')->name('admin.notices.destroy');
+
+    $route->get('/article_menus', [App\Http\Controllers\Admin\ArticleMenusController::class,'index']);
+    $route->get('/article_menus/{id}', [App\Http\Controllers\Admin\ArticleMenusController::class,'show']);
+    $route->post('/article_menus', [App\Http\Controllers\Admin\ArticleMenusController::class,'store']);
+    $route->put('/article_menus/{id}', [App\Http\Controllers\Admin\ArticleMenusController::class,'update']);
+    $route->delete('/article_menus/{id}', [App\Http\Controllers\Admin\ArticleMenusController::class,'destroy']);
+
+    $route->resource('articles', 'ArticlesController');
+
 
 });
 
