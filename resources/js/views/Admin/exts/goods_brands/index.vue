@@ -11,10 +11,9 @@ export default {
         const {ctx,proxy} = getCurrentInstance()
         const options = reactive([
             {label:'品牌图标',value:'thumb',type:'avatar'},
-
             {label:'品牌名称',value:'name'},
+            {label:'排序',value:'is_sort'},
             {label:'推荐',value:'recommend',type:'dict_tags'},
-
             {label:'wap品牌图标',value:'wap_logo',type:'avatar'},
             {label:'创建时间',value:'created_at'},
         ]);
@@ -27,6 +26,7 @@ export default {
         // 表单配置
         const addColumn = [
             {label:'品牌名称',value:'name'},
+            {label:'排序',value:'is_sort',type:'number'},
             {label:'推荐',value:'recommend',type:'select',viewType:'dict_tags'},
             {label:'品牌图标',value:'thumb',type:'avatar',span:24},
             {label:'wap品牌图标',value:'wap_logo',type:'avatar',span:24},

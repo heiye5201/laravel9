@@ -41,7 +41,7 @@ php artisan make:repository "AdminMenu"
 php artisan make:bindings AdminMenu
 
 
-php artisan make:controller  Admin/ArticlesController
+php artisan make:controller  Admin/AreasController
 
 
 导出镜像 命令
@@ -93,9 +93,11 @@ php artisan route:cache
 ## 表单验证
 php artisan make:request StorePostRequest
 
+php artisan make:controller  Admin/IntegralGoodsClassesController
+
 
 ## 生成模型并生成迁移文件
-php artisan make:model Article -m
+php artisan make:model IntegralGoods -m
 
 
 # 前端代码打包
@@ -104,5 +106,7 @@ npm run prod
 npm run watch
 
 npm audit fix
+
+composer require intervention/image
 
 

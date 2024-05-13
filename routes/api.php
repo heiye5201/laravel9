@@ -17,10 +17,11 @@ Route::any('/login', [App\Http\Controllers\Auth\AuthController::class,'login']);
 Route::any('/logout', [App\Http\Controllers\Auth\AuthController::class,'logout']);
 Route::any('/register', [App\Http\Controllers\Auth\AuthController::class,'register']);
 Route::get('/load_article_menu', [App\Http\Controllers\Admin\ArticleMenusController::class,'loadMenu']);
+Route::get('/load_goods_classes', [App\Http\Controllers\Admin\GoodsClassesController::class,'loadMenu'])->name('base.loadMenu');
+Route::get('/load_areas', [\App\Http\Controllers\Admin\AreasController::class, 'loadArea'])->name('base.loadAreas');
 
 Route::prefix('Admin')->middleware('auth:admins')->namespace('Admin')->group(function ($route) {
     $route->any('/auth/info', [App\Http\Controllers\Auth\AuthController::class,'info'])->name('admin.auth.info');
-
     $route->any('/load_menu', [App\Http\Controllers\Admin\MenusController::class,'loadMenu']);
 
     $route->get('/notices', 'NoticesController@index')->name('admin.notices.index');
@@ -36,7 +37,17 @@ Route::prefix('Admin')->middleware('auth:admins')->namespace('Admin')->group(fun
     $route->delete('/article_menus/{id}', [App\Http\Controllers\Admin\ArticleMenusController::class,'destroy']);
 
     $route->resource('articles', 'ArticlesController');
+    $route->resource('goods_classes', 'GoodsClassesController');
+    $route->post('uploads', 'UploadsController@upload')->name('admin.uploads');
+    $route->resource('goods_brands', 'GoodsBrandsController');
 
+    $route->get('configs', 'ConfigsController@index')->name('admin.configs');
+    $route->put('configs/update', 'ConfigsController@edit')->name('admin.configs.update');
+
+    $route->resource('areas', 'AreasController');
+    $route->resource('expresses', 'ExpressesController');
+    $route->resource('integral_goods_classes', 'IntegralGoodsClassesController');
+    $route->resource('integral_goods', 'IntegralGoodsController');
 
 });
 
