@@ -23,7 +23,7 @@ class Admins extends Authenticatable
      *
      * @var array
      */
-    protected $fillable = ['username', 'password', 'nickname', 'avatar', 'is_super', 'ip'];
+    protected $fillable = ['username', 'password', 'nickname', 'avatar', 'is_super', 'ip', 'belong_id'];
 
 
     protected $guarded = [];

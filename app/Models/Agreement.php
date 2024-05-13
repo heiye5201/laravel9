@@ -7,17 +7,14 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
-class Notice extends Model
+class Agreement extends Model
 {
     use HasFactory, SoftDeletes, TimeTrait;
 
     protected $fillable = [
-        'belong_id',
-        'tag',
         'name',
+        'ename',
         'content',
-        'is_type',
-        'is_send',
     ];
 
     protected $hidden = [

@@ -9,4 +9,10 @@ use Illuminate\Database\Eloquent\Model;
 class UserMenu extends Model
 {
     use HasFactory, TimeTrait;
+
+
+    public function hasChildren()
+    {
+        return $this->hasOne('App\Models\UserMenu', 'pid', 'id');
+    }
 }

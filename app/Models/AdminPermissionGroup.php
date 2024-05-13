@@ -7,20 +7,18 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
-class Notice extends Model
+class AdminPermissionGroup extends Model
 {
-    use HasFactory, SoftDeletes, TimeTrait;
+    use HasFactory, TimeTrait, SoftDeletes;
 
     protected $fillable = [
-        'belong_id',
-        'tag',
+        'id',
         'name',
-        'content',
-        'is_type',
-        'is_send',
+        'content'
     ];
 
     protected $hidden = [
         'deleted_at',
     ];
+
 }

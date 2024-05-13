@@ -7,17 +7,21 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
-class Notice extends Model
+class Adv extends Model
 {
     use HasFactory, SoftDeletes, TimeTrait;
 
     protected $fillable = [
         'belong_id',
-        'tag',
+        'pid',
         'name',
-        'content',
+        'url',
+        'image',
+        'adv_start',
+        'adv_end',
+        'is_sort',
         'is_type',
-        'is_send',
+        'status',
     ];
 
     protected $hidden = [

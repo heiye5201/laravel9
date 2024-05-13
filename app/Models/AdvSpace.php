@@ -7,17 +7,16 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
-class Notice extends Model
+class AdvSpace extends Model
 {
     use HasFactory, SoftDeletes, TimeTrait;
 
     protected $fillable = [
         'belong_id',
-        'tag',
+        'local_type',
         'name',
-        'content',
-        'is_type',
-        'is_send',
+        'width',
+        'height',
     ];
 
     protected $hidden = [

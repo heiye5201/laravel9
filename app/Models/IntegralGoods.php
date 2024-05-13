@@ -9,11 +9,12 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 
 class IntegralGoods extends Model
 {
-    use HasFactory, SoftDeletes, TimeTrait;
+    use HasFactory, SoftDeletes;
 
     protected $casts = [
         'goods_status' => 'boolean',
         'is_recommend' => 'boolean',
+        'created_at' => 'datetime:Y-m-d H:i',
     ];
 
     protected $fillable = [

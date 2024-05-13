@@ -7,17 +7,17 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
-class Notice extends Model
+class SmsLog extends Model
 {
     use HasFactory, SoftDeletes, TimeTrait;
 
     protected $fillable = [
-        'belong_id',
-        'tag',
+        'phone',
         'name',
         'content',
-        'is_type',
-        'is_send',
+        'status',
+        'error_msg',
+        'ip',
     ];
 
     protected $hidden = [

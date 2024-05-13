@@ -49,6 +49,25 @@ Route::prefix('Admin')->middleware('auth:admins')->namespace('Admin')->group(fun
     $route->resource('integral_goods_classes', 'IntegralGoodsClassesController');
     $route->resource('integral_goods', 'IntegralGoodsController');
 
+    $route->resource('admins', 'AdminsController');
+    $route->resource('users', 'UsersController');
+    $route->resource('roles', 'RolesController');
+    $route->resource('menus', 'MenusController');
+
+    $route->resource('permission_groups', 'PermissionGroupsController');
+    $route->resource('permissions', 'PermissionsController');
+    $route->get('load_permission', 'PermissionsController@loadPermission');
+
+    $route->resource('sms', 'SmsController');
+    $route->resource('sms_logs', 'SmsLogsController');
+
+    $route->resource('adv_spaces', 'AdvSpacesController');
+    $route->resource('advs', 'AdvsController');
+
+    $route->resource('seller_menus', 'SellerMenusController');
+    $route->get('load_seller_menu', 'SellerMenusController@loadMenu');
+    $route->resource('agreements', 'AgreementsController');
+
 });
 
 Route::prefix('Seller')->middleware('auth:users')->group(function ($route) {

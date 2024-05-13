@@ -8,6 +8,8 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Http\Queries\Admin\AdminMenuQuery;
+use App\Http\Queries\AdvsQuery;
 use App\Services\AdminMenusService;
 use Illuminate\Http\Request;
 
@@ -22,4 +24,17 @@ class MenusController extends Controller
         }
         return $this->success($tree);
     }
+
+    public function index(Request $request, AdminMenuQuery $query)
+    {
+        $isChildren = boolval(request('isChildren') ?? false);
+        if ($isChildren) {
+            $belong_id = request('pid') ?? 0;
+            $query = $query->where('pid', $belong_id)->with('hasChildren');
+        }
+        $data = $query->orderBy('id', 'desc')
+            ->get();
+        return $this->success($data);
+    }
+
 }

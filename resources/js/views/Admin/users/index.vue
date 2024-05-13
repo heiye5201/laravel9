@@ -55,28 +55,32 @@ export default {
             {label:'头像',value:'avatar',type:'avatar',perView:true},
             {label:'昵称',value:'nickname'},
             {label:'用户名',value:'username',type:'tags'},
+            {label:'邮箱',value:'email',type:'tags'},
             {label:'余额',value:'money',type:'tags'},
             {label:'冻结资金',value:'frozen_money',type:'tags'},
             {label:'积分',value:'integral',type:'tags'},
             {label:'登陆时间',value:'last_login_time'},
-            {label:'创建时间',value:'created_at'},
+            // {label:'创建时间',value:'created_at'},
         ]);
 
         // 搜索字段
         const searchOptions = reactive([
             {label:'昵称',value:'nickname',where:'likeRight'},
-            {label:'用户名',value:'username',where:'likeRight'}
+            {label:'用户名',value:'username',where:'likeRight'},
+            {label:'邮箱',value:'email',where:'likeRight'}
         ])
 
         // 表单配置 
         const addColumn = [
              {label:'昵称',value:'nickname'},
              {label:'用户名',value:'username'},
+             {label:'邮箱',value:'email'},
              {label:'密码',value:'password',type:'password'},
              {label:'头像',value:'avatar',type:'avatar',perView:true,option:JSON.stringify({width:150,height:150})},
         ]
         let viewColumn = _.cloneDeep(addColumn)
         viewColumn = viewColumn.filter(item=>!item.type || item.type.indexOf('password') == -1)
+        viewColumn.push({label: '创建时间', value: 'created_at'});
         const dialogParam = reactive({
             rules:{
                 username:[{required:true,message:proxy.$t('msg.requiredMsg')}],
