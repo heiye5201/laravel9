@@ -37,9 +37,4 @@ class Article extends Model
     {
         return $this->class->name ?? '';
     }
-
-//    public function setProductIdsAttribute($value)
-//    {
-//        $this->filters = $value;
-//    }
 }

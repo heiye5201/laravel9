@@ -9,7 +9,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Freight extends Model
 {
-    use HasFactory, SoftDeletes,TimeTrait;
+    use HasFactory, SoftDeletes, TimeTrait;
 
     protected $guarded = [];
 

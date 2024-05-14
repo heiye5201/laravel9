@@ -12,4 +12,8 @@ class UserToRole extends Model
     use HasFactory, SoftDeletes, TimeTrait;
 
     protected $guarded = [];
+
+    protected $hidden = [
+        'deleted_at',
+    ];
 }

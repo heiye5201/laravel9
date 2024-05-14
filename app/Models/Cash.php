@@ -9,7 +9,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Cash extends Model
 {
-    use HasFactory, SoftDeletes,TimeTrait;
+    use HasFactory, SoftDeletes, TimeTrait;
 
     protected $guarded = [];
 
