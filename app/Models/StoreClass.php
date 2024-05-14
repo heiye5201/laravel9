@@ -7,15 +7,15 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
-class UserMenu extends Model
+class StoreClass extends Model
 {
     use HasFactory, SoftDeletes, TimeTrait;
 
-
-    public function hasChildren()
-    {
-        return $this->hasOne('App\Models\UserMenu', 'pid', 'id');
-    }
+    protected $fillable = [
+        'store_id',
+        'class_id',
+        'class_name',
+    ];
 
     protected $hidden = [
         'deleted_at',

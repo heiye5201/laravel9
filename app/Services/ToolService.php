@@ -1,14 +1,15 @@
 <?php
+
 namespace App\Services;
 
 class ToolService extends BaseService
 {
     /**
-    * 对银行卡号进行掩码处理
-    * 掩码规则头4位,末尾余数位不变，中间4的整数倍字符用星号替换，并且用每隔4位空格隔开
-    * @param  string $bankCardNo 银行卡号
-    * @return string             掩码后的银行卡号
-    */
+     * 对银行卡号进行掩码处理
+     * 掩码规则头4位,末尾余数位不变，中间4的整数倍字符用星号替换，并且用每隔4位空格隔开
+     * @param string $bankCardNo 银行卡号
+     * @return string             掩码后的银行卡号
+     */
     public function formatBankCardNo($bankCardNo)
     {
         //每隔4位分割为数组
@@ -21,11 +22,11 @@ class ToolService extends BaseService
     }
 
     /**
-    * 对手机号进行掩码处理
-    * 手机号掩码的规则是末尾4位，开头余数位不变，中间4的整数倍字符用星号替换
-    * @param string $mobile 手机号
-    * @return string
-    */
+     * 对手机号进行掩码处理
+     * 手机号掩码的规则是末尾4位，开头余数位不变，中间4的整数倍字符用星号替换
+     * @param string $mobile 手机号
+     * @return string
+     */
     public function formatMobile($mobile)
     {
         //颠倒顺序每隔4位分割为数组
@@ -38,23 +39,23 @@ class ToolService extends BaseService
     }
 
     /**
-    * 姓名第一个字掩码
-    * @param string $true_name 真实姓名
-    * @return string
-    */
+     * 姓名第一个字掩码
+     * @param string $true_name 真实姓名
+     * @return string
+     */
     public function formatTrueName($true_name)
     {
         return "*" . mb_substr($true_name, 1);
     }
 
     /**
-    * 只显示最后一个字符
-    * @param string $true_name 真实姓名
-    * @return string
-    */
+     * 只显示最后一个字符
+     * @param string $true_name 真实姓名
+     * @return string
+     */
     public function formatTrueName2($true_name)
     {
-        if (mb_strlen($true_name)>4) {
+        if (mb_strlen($true_name) > 4) {
             return "***" . mb_substr($true_name, -4, 4);
         } else {
             return "***" . mb_substr($true_name, -1, 1);
@@ -62,11 +63,11 @@ class ToolService extends BaseService
     }
 
     /**
-    * 对身份证进行掩码
-    * 掩码规则是显示头两位和末尾1位，中间星号
-    * @param string $id_card 身份证号
-    * @return string
-    */
+     * 对身份证进行掩码
+     * 掩码规则是显示头两位和末尾1位，中间星号
+     * @param string $id_card 身份证号
+     * @return string
+     */
     public function formatIdCard($id_card)
     {
         //每隔1位分割为数组
@@ -79,31 +80,31 @@ class ToolService extends BaseService
     }
 
     // 递归无线树状结构
-    public function getTree($data, $pid=0, $lev=0)
+    public function getTree($data, $pid = 0, $lev = 0)
     {
         static $arr = [];
         foreach ($data as $v) {
-            if ($v['pid']==$pid) {
+            if ($v['pid'] == $pid) {
                 $v['lev'] = $lev;
                 $arr[] = $v;
-                $this->getTree($data, $v['id'], $lev+1);
+                $this->getTree($data, $v['id'], $lev + 1);
             }
         }
         return $arr;
     }
 
     // 递归无线树状结构 多元数组
-    public function getChildren($data, $pid=0, $lev=0, $deep=-1)
+    public function getChildren($data, $pid = 0, $lev = 0, $deep = -1)
     {
         $arr = [];
-        if ($deep>-1 && $lev == $deep) {
+        if ($deep > -1 && $lev == $deep) {
             return $arr;
         }
         foreach ($data as $v) {
-            if ($v['pid']==$pid) {
+            if ($v['pid'] == $pid) {
                 $v['lev'] = $lev;
-                $v['children'] = $this->getChildren($data, $v['id'], $lev+1, $deep);
-                if (count($v['children'])<=0) {
+                $v['children'] = $this->getChildren($data, $v['id'], $lev + 1, $deep);
+                if (count($v['children']) <= 0) {
                     unset($v['children']);
                 }
                 $arr[] = $v;
@@ -113,17 +114,17 @@ class ToolService extends BaseService
     }
 
     // 递归无线树状结构 多元数组
-    public function getAreaChildren($data, $pid=0, $lev=0, $deep=-1)
+    public function getAreaChildren($data, $pid = 0, $lev = 0, $deep = -1)
     {
         $arr = [];
-        if ($deep>-1 && $lev == $deep) {
+        if ($deep > -1 && $lev == $deep) {
             return $arr;
         }
         foreach ($data as $v) {
-            if ($v['pid']==$pid) {
+            if ($v['pid'] == $pid) {
                 $v['lev'] = $lev;
-                $v['children'] = $this->getAreaChildren($data, $v['code'], $lev+1, $deep);
-                if (count($v['children'])<=0) {
+                $v['children'] = $this->getAreaChildren($data, $v['code'], $lev + 1, $deep);
+                if (count($v['children']) <= 0) {
                     unset($v['children']);
                 }
                 $arr[] = $v;
@@ -150,12 +151,12 @@ class ToolService extends BaseService
      *
      */
 
-    public function thumb($path, $size='300')
+    public function thumb($path, $size = '300')
     {
         $len = strripos($path, '.');
         $ext = substr($path, $len);
         $name = substr($path, 0, $len);
-        return $name.'_'.$size.$ext;
+        return $name . '_' . $size . $ext;
     }
 
     /**
@@ -165,14 +166,14 @@ class ToolService extends BaseService
      *
      */
 
-    public function thumb_array($arr, $size='150')
+    public function thumb_array($arr, $size = '150')
     {
         $data = [];
         foreach ($arr as $path) {
             $len = strripos($path, '.');
             $ext = substr($path, $len);
             $name = substr($path, 0, $len);
-            $data[] = $name.'_'.$size.$ext;
+            $data[] = $name . '_' . $size . $ext;
         }
         return $data;
     }

@@ -7,15 +7,12 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
-class UserMenu extends Model
+class GoodsSku extends Model
 {
-    use HasFactory, SoftDeletes, TimeTrait;
+    use HasFactory, SoftDeletes,TimeTrait;
 
+    protected $guarded = [];
 
-    public function hasChildren()
-    {
-        return $this->hasOne('App\Models\UserMenu', 'pid', 'id');
-    }
 
     protected $hidden = [
         'deleted_at',

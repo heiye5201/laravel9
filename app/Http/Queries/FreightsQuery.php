@@ -1,25 +1,24 @@
 <?php
 /**
  * autor      : jiweijian
- * createTime : 2024/5/13 14:12
+ * createTime : 2024/5/13 22:03
  * description:
  */
 namespace App\Http\Queries;
 
-use App\Models\User;
+use App\Models\Freight;
 use Spatie\QueryBuilder\AllowedFilter;
 use Spatie\QueryBuilder\AllowedSort;
 use Spatie\QueryBuilder\QueryBuilder;
 
-class UserQuery extends QueryBuilder
+class FreightsQuery extends QueryBuilder
 {
     public function __construct()
     {
-        parent::__construct(User::query());
+        parent::__construct(Freight::query());
         $this->defaultSort('-ID')
             ->allowedFilters([
-                AllowedFilter::scope('username'),
-                AllowedFilter::scope('email'),
+                AllowedFilter::scope('name'),
             ])
             ->allowedSorts([
                 AllowedSort::field('date', 'created_at'),

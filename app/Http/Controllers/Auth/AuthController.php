@@ -3,8 +3,10 @@
 namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
+use App\Models\User;
 use App\Services\AuthService;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Hash;
 use Illuminate\Validation\Rule;
 
 class AuthController extends Controller
@@ -38,6 +40,38 @@ class AuthController extends Controller
         ]);
         $prefix = $request->route()->action['prefix'];
         $rs = app(AuthService::class)->info($request->all(), $prefix);
+        return $this->success($rs);
+    }
+
+    public function edit(Request $request)
+    {
+        $data = $request->except('provider');
+        $id = $this->getUserId($request->provider);
+        if (!isset($data['password']) || empty($data['password'])) {
+            unset($data['password']);
+        }
+        if (isset($data['password'])) {
+            $data['password'] = Hash::make($data['password']);
+        }
+        if (!isset($data['pay_password']) || empty($data['pay_password'])) {
+            unset($data['pay_password']);
+        }
+        if (isset($data['pay_password'])) {
+            $data['pay_password'] = Hash::make($data['pay_password']);
+        }
+        // 修改手机号码
+        if (isset($data['phone']) && !empty($data['phone'])) {
+            if (User::query()->whereNotIn('id', [$id])->where('phone', $data['phone'])->exists()) {
+                return $this->error(__('tip.phoneExist'));
+            }
+//            $sms =  $this->getService('Sms')->checkSms($data['phone'], $data['code']);
+//            if (!$sms['status']) {
+//                return $this->error($sms['msg']);
+//            } else {
+//                unset($data['code']);
+//            }
+        }
+        $rs = User::query()->where('id', $id)->update($data);
         return $this->success($rs);
     }
 }

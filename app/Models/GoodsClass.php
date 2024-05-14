@@ -22,4 +22,16 @@ class GoodsClass extends Model
     protected $hidden = [
         'deleted_at',
     ];
+
+
+    public function hasChildren()
+    {
+        return $this->hasOne('App\Models\GoodsClass', 'pid', 'id');
+    }
+
+
+    public function children()
+    {
+        return $this->hasMany('App\Models\GoodsClass', 'pid', 'id');
+    }
 }

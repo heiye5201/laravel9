@@ -6,16 +6,16 @@
  */
 namespace App\Http\Queries;
 
-use App\Models\User;
+use App\Models\UserRole;
 use Spatie\QueryBuilder\AllowedFilter;
 use Spatie\QueryBuilder\AllowedSort;
 use Spatie\QueryBuilder\QueryBuilder;
 
-class UserQuery extends QueryBuilder
+class UserRoleQuery extends QueryBuilder
 {
     public function __construct()
     {
-        parent::__construct(User::query());
+        parent::__construct(UserRole::query());
         $this->defaultSort('-ID')
             ->allowedFilters([
                 AllowedFilter::scope('username'),

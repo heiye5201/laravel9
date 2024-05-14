@@ -51,4 +51,9 @@ class User extends Authenticatable
     {
         return $this->orWhere('username', $username)->orWhere('phone', $username)->first();
     }
+
+    public function roles()
+    {
+        return $this->belongsToMany('App\Models\UserRole', 'user_to_roles', 'user_id', 'role_id');
+    }
 }

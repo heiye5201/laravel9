@@ -70,8 +70,23 @@ Route::prefix('Admin')->middleware('auth:admins')->namespace('Admin')->group(fun
 
 });
 
-Route::prefix('Seller')->middleware('auth:users')->group(function ($route) {
+Route::prefix('Seller')->middleware('auth:users')->namespace('Seller')->group(function ($route) {
     $route->any('/auth/info', [App\Http\Controllers\Auth\AuthController::class,'info'])->name('admin.auth.info');
     $route->get('/load_menu', [App\Http\Controllers\Seller\MenusController::class,'loadMenu']);
+    $route->resource('goods_attrs', 'GoodsAttrsController');
+
+    $route->any('/auth/edit', 'AuthController@edit')->name('seller.auth.edit');
+    $route->resource('users', 'UsersController');
+    $route->resource('roles', 'RolesController');
+
+    $route->resource('goods', 'GoodsController');
+    $route->resource('goods_brands', 'GoodsBrandsController');
+
+    $route->resource('stores', 'StoresController');
+    $route->get('store_classes', 'StoresController@store_classes');
+    $route->resource('freights', 'FreightsController');
+    $route->resource('cashes', 'CashesController')->except(['update']);
+    $route->resource('money_logs', 'MoneyLogsController')->only(['index','show']);
+
 
 });
