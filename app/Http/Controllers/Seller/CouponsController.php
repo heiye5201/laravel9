@@ -1,0 +1,68 @@
+<?php
+
+namespace App\Http\Controllers\Seller;
+
+use App\Http\Controllers\Controller;
+use App\Http\Queries\CouponsQuery;
+use App\Models\Coupon;
+use App\Services\StoreService;
+use Illuminate\Http\Request;
+
+class CouponsController extends Controller
+{
+
+    public function index(Request $request, CouponsQuery $query)
+    {
+        $storeId = app(StoreService::class)->getStoreId()['data'];
+        $query = $query->where('store_id', $storeId)->orderBy('id', 'desc');
+        $data = $query->paginate(intval($request->input('page_size', 25)));
+        return $this->success($data);
+    }
+
+    public function store(Request $request)
+    {
+        $storeId = app(StoreService::class)->getStoreId()['data'];
+        $data = Coupon::query()->create([
+            'store_id' => $storeId,
+            'name' => $request->input('name'),
+            'money' => $request->input('money'),
+            'use_money' => $request->input('use_money'),
+            'stock' => $request->input('stock'),
+            'start_time' => $request->input('start_time'),
+            'end_time' => $request->input('end_time'),
+        ]);
+        return $this->success($data);
+    }
+
+    public function update(Request $request, $id)
+    {
+        $storeId = app(StoreService::class)->getStoreId()['data'];
+        $data = Coupon::query()->where('id', $id)
+            ->where('store_id', $storeId)->update([
+                'name' => $request->input('name'),
+                'money' => $request->input('money'),
+                'use_money' => $request->input('use_money'),
+                'stock' => $request->input('stock'),
+                'start_time' => $request->input('start_time'),
+                'end_time' => $request->input('end_time'),
+            ]);
+        return $this->success($data);
+    }
+
+    public function destroy($id)
+    {
+        $storeId = app(StoreService::class)->getStoreId()['data'];
+        $idArray = array_filter(explode(',', $id), function ($item) {
+            return is_numeric($item);
+        });
+        $res = Coupon::query()->whereIn('id', $idArray)->where('store_id', $storeId)->delete();
+        return $this->success($res);
+    }
+
+
+    public function show($id)
+    {
+        $data = Coupon::query()->find($id)->toArray();
+        return $this->success($data);
+    }
+}

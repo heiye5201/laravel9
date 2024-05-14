@@ -88,5 +88,21 @@ Route::prefix('Seller')->middleware('auth:users')->namespace('Seller')->group(fu
     $route->resource('cashes', 'CashesController')->except(['update']);
     $route->resource('money_logs', 'MoneyLogsController')->only(['index','show']);
 
+    $route->resource('distributions', 'DistributionsController');
+    $route->resource('distribution_logs', 'DistributionLogsController')->only(['index']);
+
+    $route->resource('coupons', 'CouponsController');
+    $route->resource('coupon_logs', 'CouponLogsController')->only(['index']);
+
+
+    $route->resource('seckills', 'SeckillsController');
+    $route->resource('collectives', 'CollectivesController');
+    $route->resource('full_reductions', 'FullReductionsController');
+
+
+//    Route::resource('seckills', App\Http\Controllers\Seller\SeckillsController::class);
+//    Route::resource('collectives', App\Http\Controllers\Seller\CollectivesController::class);
+//    Route::resource('full_reductions', App\Http\Controllers\Seller\FullReductionsController::class);
+
 
 });

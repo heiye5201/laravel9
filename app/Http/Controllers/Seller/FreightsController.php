@@ -41,4 +41,10 @@ class FreightsController extends Controller
         $rs = $model->where('store_id', $storeId)->whereIn('id', $idArray)->delete();
         return $this->success($rs);
     }
+
+    public function show($id)
+    {
+        $data = Freight::query()->find($id)->toArray();
+        return $this->success($data);
+    }
 }

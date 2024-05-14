@@ -93,11 +93,11 @@ php artisan route:cache
 ## 表单验证
 php artisan make:request StorePostRequest
 
-php artisan make:controller  Seller/UploadsController
+php artisan make:controller  Seller/FullReductionsController
 
 
 ## 生成模型并生成迁移文件 store_classes
-php artisan make:model UserToMenu -m
+php artisan make:model CollectiveLog -m
 
 
 # 前端代码打包
