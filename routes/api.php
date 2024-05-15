@@ -16,93 +16,89 @@ use Illuminate\Support\Facades\Route;
 Route::any('/login', [App\Http\Controllers\Auth\AuthController::class,'login']);
 Route::any('/logout', [App\Http\Controllers\Auth\AuthController::class,'logout']);
 Route::any('/register', [App\Http\Controllers\Auth\AuthController::class,'register']);
-Route::get('/load_article_menu', [App\Http\Controllers\Admin\ArticleMenusController::class,'loadMenu']);
-Route::get('/load_goods_classes', [App\Http\Controllers\Admin\GoodsClassesController::class,'loadMenu'])->name('base.loadMenu');
-Route::get('/load_areas', [\App\Http\Controllers\Admin\AreasController::class, 'loadArea'])->name('base.loadAreas');
 
-Route::prefix('Admin')->middleware('auth:admins')->namespace('Admin')->group(function ($route) {
-    $route->any('/auth/info', [App\Http\Controllers\Auth\AuthController::class,'info'])->name('admin.auth.info');
-    $route->any('/load_menu', [App\Http\Controllers\Admin\MenusController::class,'loadMenu']);
+//Route::any('/set_lang', [App\Http\Controllers\Auth\AuthController::class,'set_lang']);
+//Route::post('/uploads', [App\Http\Controllers\Home\UploadsController::class,'upload'])->name('home.uploads');
+//Route::post('/sms', [App\Http\Controllers\Home\SmsController::class,'send'])->name('home.sms'); // 短信发送
+//Route::get('/article/{type}', [App\Http\Controllers\Home\ArticlesController::class,'article'])->name('home.Article'); // 文章
 
-    $route->get('/notices', 'NoticesController@index')->name('admin.notices.index');
-    $route->get('/notices/{id}', 'NoticesController@show')->name('admin.notices.info');
-    $route->post('/notices',  'NoticesController@store')->name('admin.notices.store');
-    $route->put('/notices/{id}',  'NoticesController@update')->name('admin.notices.update');
-    $route->delete('/notices/{id}', 'NoticesController@destroy')->name('admin.notices.destroy');
+//Route::get('/common', [App\Http\Controllers\Home\IndexController::class,'common'])->name('home.config.common');
+//Route::get('/home', [App\Http\Controllers\Home\IndexController::class,'home'])->name('home.common.index'); // 首页信息
+//Route::get('/stores', [App\Http\Controllers\Home\StoresController::class,'stores'])->name('home.stores.index'); // 店铺列表
+//Route::get('/store/{id}', [App\Http\Controllers\Home\StoresController::class,'show'])->name('home.store.show'); // 无权限获取店铺信息
+//Route::get('/goods', [App\Http\Controllers\Home\GoodsController::class,'goods'])->name('home.goods.index'); // 商品列表 | 搜索
+//Route::get('/goods/{id}', [App\Http\Controllers\Home\GoodsController::class,'show'])->name('home.goods.show'); // 商品详情
+//Route::get('/goods_comments/{id}', [App\Http\Controllers\Home\GoodsController::class,'goods_comments'])->name('home.goods.comments'); // 商品评论
+//Route::get('/is_fav', [App\Http\Controllers\Home\FavoritesController::class,'is_fav'])->name('home.user.isfav'); // 是否收藏关注
+//Route::get('/cart_count', [App\Http\Controllers\Home\CartsController::class,'count'])->name('home.cart.count'); // 统计购物车数量
+//Route::get('/integral/home', [App\Http\Controllers\Home\IntegralController::class,'home'])->name('home.integral.home'); // 积分商城
+//Route::get('/integral/class', [App\Http\Controllers\Home\IntegralController::class,'integral_class'])->name('home.integral.class');
+//Route::get('/integral/goods', [App\Http\Controllers\Home\IntegralController::class,'index'])->name('home.integral.goods');
+//Route::get('/integral/goods/{id}', [App\Http\Controllers\Home\IntegralController::class,'show'])->name('home.integral.show');
+//Route::get('/seckills', [App\Http\Controllers\Home\SeckillsController::class,'index'])->name('home.seckills.index');
 
-    $route->get('/article_menus', [App\Http\Controllers\Admin\ArticleMenusController::class,'index']);
-    $route->get('/article_menus/{id}', [App\Http\Controllers\Admin\ArticleMenusController::class,'show']);
-    $route->post('/article_menus', [App\Http\Controllers\Admin\ArticleMenusController::class,'store']);
-    $route->put('/article_menus/{id}', [App\Http\Controllers\Admin\ArticleMenusController::class,'update']);
-    $route->delete('/article_menus/{id}', [App\Http\Controllers\Admin\ArticleMenusController::class,'destroy']);
 
-    $route->resource('articles', 'ArticlesController');
-    $route->resource('goods_classes', 'GoodsClassesController');
-    $route->post('uploads', 'UploadsController@upload')->name('admin.uploads');
-    $route->resource('goods_brands', 'GoodsBrandsController');
+Route::middleware('auth:users')->namespace('Api')->group(function ($route) {
+    Route::post('/auth/info', [App\Http\Controllers\Auth\AuthController::class,'info'])->name('home.auth.info');
+    Route::post('/auth/edit', [App\Http\Controllers\Auth\AuthController::class,'edit'])->name('home.auth.edit');
 
-    $route->get('configs', 'ConfigsController@index')->name('admin.configs');
-    $route->put('configs/update', 'ConfigsController@edit')->name('admin.configs.update');
-
-    $route->resource('areas', 'AreasController');
-    $route->resource('expresses', 'ExpressesController');
-    $route->resource('integral_goods_classes', 'IntegralGoodsClassesController');
-    $route->resource('integral_goods', 'IntegralGoodsController');
-
-    $route->resource('admins', 'AdminsController');
-    $route->resource('users', 'UsersController');
-    $route->resource('roles', 'RolesController');
-    $route->resource('menus', 'MenusController');
-
-    $route->resource('permission_groups', 'PermissionGroupsController');
-    $route->resource('permissions', 'PermissionsController');
-    $route->get('load_permission', 'PermissionsController@loadPermission');
-
-    $route->resource('sms', 'SmsController');
-    $route->resource('sms_logs', 'SmsLogsController');
-
-    $route->resource('adv_spaces', 'AdvSpacesController');
-    $route->resource('advs', 'AdvsController');
-
-    $route->resource('seller_menus', 'SellerMenusController');
-    $route->get('load_seller_menu', 'SellerMenusController@loadMenu');
-    $route->resource('agreements', 'AgreementsController');
+    // 入驻
+//    Route::post('/store/join', [App\Http\Controllers\Home\StoresController::class,'join'])->name('home.store.join');
+//    Route::put('/store', [App\Http\Controllers\Home\StoresController::class,'edit'])->name('home.store.edit');
+//    Route::get('/store', [App\Http\Controllers\Home\StoresController::class,'info'])->name('home.store.info');
+//
+//    Route::get('/user/default', [App\Http\Controllers\Home\IndexController::class,'default']); // 用户首页
+//    Route::resource('/user/addresses', App\Http\Controllers\Home\AddressesController::class); // 收货地址
+//    Route::get('/user/addresses/default/{id}', [App\Http\Controllers\Home\AddressesController::class,'set_default'])->name('home.address.default');
+//    Route::resource('/user/comments', App\Http\Controllers\Home\CommentsController::class)->only(['update','index','store','show']);
+//    Route::put('/auth/edit', [App\Http\Controllers\Auth\AuthController::class,'edit'])->name('home.auth.edit'); // 编辑用户信息
+//    Route::post('/user/check', [App\Http\Controllers\Home\UserChecksController::class,'edit'])->name('home.user.check.edit');
+//    Route::get('/user/check', [App\Http\Controllers\Home\UserChecksController::class,'check'])->name('home.user.check');
+//    Route::resource('/user/cashes', App\Http\Controllers\Home\CashesController::class)->only(['store','index']); // 提现
+//    Route::resource('/user/favorites', App\Http\Controllers\Home\FavoritesController::class)->only(['store','index','destroy']);
+//    Route::resource('/user/money_logs', App\Http\Controllers\Home\MoneyLogsController::class)->only(['index']);
+//    Route::resource('/user/carts', App\Http\Controllers\Home\CartsController::class)->except(['show']);
+//    Route::get('/user/orders', [App\Http\Controllers\Home\OrdersController::class,'orders'])->name('home.orders');
+//    Route::put('/user/order/{id}', [App\Http\Controllers\Home\OrdersController::class,'edit'])->name('home.orders.edit');
+//    Route::get('/user/order/{id}', [App\Http\Controllers\Home\OrdersController::class,'show'])->name('home.orders.show');
+//    Route::post('/user/order/before', [App\Http\Controllers\Home\OrdersController::class,'before'])->name('home.order.before');
+//    Route::post('/user/order/create', [App\Http\Controllers\Home\OrdersController::class,'create'])->name('home.order.create');
+//    Route::post('/user/order/after', [App\Http\Controllers\Home\OrdersController::class,'after'])->name('home.order.after');
+//    Route::post('/user/order/pay', [App\Http\Controllers\Home\OrdersController::class,'pay'])->name('home.order.pay');
+//    Route::post('/user/order/check', [App\Http\Controllers\Home\OrdersController::class,'check'])->name('home.order.check');
+//    Route::post('/user/order/express', [App\Http\Controllers\Home\OrdersController::class,'express'])->name('home.order.express');
+//    Route::resource('/user/order/refund', App\Http\Controllers\Home\RefundsController::class)->only(['store','show','update']);
+//    Route::resource('/user/coupons', App\Http\Controllers\Home\CouponsController::class)->only(['index']);
+//    Route::post('/user/coupon/receive', [App\Http\Controllers\Home\CouponsController::class,'receive'])->name('home.coupon.receive'); // 领取优惠劵
+//    Route::post('/integral/pay', [App\Http\Controllers\Home\IntegralController::class,'pay'])->name('home.integral.pay');
+//    Route::get('/integral/orders', [App\Http\Controllers\Home\IntegralController::class,'integral_orders'])->name('home.integral.orders');
+//    Route::get('/user/distributions', [App\Http\Controllers\Home\DistributionsController::class,'index'])->name('home.distribution.index');
+//    Route::get('/user/distribution_logs', [App\Http\Controllers\Home\DistributionsController::class,'index'])->name('home.distribution_log.index');
 
 });
 
-Route::prefix('Seller')->middleware('auth:users')->namespace('Seller')->group(function ($route) {
-    $route->any('/auth/info', [App\Http\Controllers\Auth\AuthController::class,'info'])->name('admin.auth.info');
-    $route->get('/load_menu', [App\Http\Controllers\Seller\MenusController::class,'loadMenu']);
-    $route->resource('goods_attrs', 'GoodsAttrsController');
 
-    $route->any('/auth/edit', 'AuthController@edit')->name('seller.auth.edit');
-    $route->resource('users', 'UsersController');
-    $route->resource('roles', 'RolesController');
+/**
+ *
+ * @author hg <bishashiwo@gmail.com>
+ * 在线聊天
+ *
+ */
+Route::prefix('Chat')->namespace('Chat')->group(function () {
+//    Route::post('/friends', [App\Http\Controllers\Chat\IndexController::class,'friends']);  // 好友列表
+//    Route::post('/add', [App\Http\Controllers\Chat\IndexController::class,'add']);  // 互相关注好友
+//    Route::post('/friend_content', [App\Http\Controllers\Chat\IndexController::class,'friend_content']); // 查看聊天内容
+//    Route::post('/send', [App\Http\Controllers\Chat\IndexController::class,'send']);  // 发送信息
+});
 
-    $route->resource('goods', 'GoodsController');
-    $route->resource('goods_brands', 'GoodsBrandsController');
-
-    $route->resource('stores', 'StoresController');
-    $route->get('store_classes', 'StoresController@store_classes');
-    $route->resource('freights', 'FreightsController');
-    $route->resource('cashes', 'CashesController')->except(['update']);
-    $route->resource('money_logs', 'MoneyLogsController')->only(['index','show']);
-
-    $route->resource('distributions', 'DistributionsController');
-    $route->resource('distribution_logs', 'DistributionLogsController')->only(['index']);
-
-    $route->resource('coupons', 'CouponsController');
-    $route->resource('coupon_logs', 'CouponLogsController')->only(['index']);
-
-
-    $route->resource('seckills', 'SeckillsController');
-    $route->resource('collectives', 'CollectivesController');
-    $route->resource('full_reductions', 'FullReductionsController');
-
-
-//    Route::resource('seckills', App\Http\Controllers\Seller\SeckillsController::class);
-//    Route::resource('collectives', App\Http\Controllers\Seller\CollectivesController::class);
-//    Route::resource('full_reductions', App\Http\Controllers\Seller\FullReductionsController::class);
-
-
+/**
+ *
+ * @author hg <bishashiwo@gmail.com>
+ * 商城支付回调|其他回调 路由
+ *
+ */
+Route::namespace('PayCallBack')->group(function () {
+//    Route::any('/payment/{name}/{device}', [App\Http\Controllers\PayCallBack\PaymentController::class,'payment']); // 回调地址  [/api/payment/wechat/web] | [/api/payment/alipay/mini]
+//    Route::any('/oauth/{name}', [App\Http\Controllers\PayCallBack\OauthController::class,'oauth']); // Oauth 第三方登录  [/api/oauth/weixin] | [/api/oauth/weixinweb] | [/api/oauth/github]
+//    Route::any('/oauth/callback/{name}', [App\Http\Controllers\PayCallBack\OauthController::class,'oauthCallback']); // Oauth 第三方登录回调地址  [/api/oauth/callback/weixin|/api/callback/oauth/weixinweb] | [/api/payment/github]
 });
