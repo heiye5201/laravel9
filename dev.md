@@ -93,7 +93,7 @@ php artisan route:cache
 ## 表单验证
 php artisan make:request StorePostRequest
 
-php artisan make:controller  Home/StoresController
+php artisan make:controller  Home/GoodsController
 
 
 ## 生成模型并生成迁移文件 store_classes

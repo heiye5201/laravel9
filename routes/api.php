@@ -29,11 +29,12 @@ Route::namespace('Home')->group(function ($route) {
     $route->get('/stores', 'StoresController@stores')->name('home.stores.index'); // 店铺列表
     $route->get('/stores/{id}', 'StoresController@show')->name('home.stores.show'); // 无权限获取店铺信息
 
-    // TODO
+
     $route->get('/goods', 'GoodsController@goods')->name('home.goods.index'); // 商品列表 | 搜索
     $route->get('/goods/{id}', 'GoodsController@show')->name('home.goods.show'); // 商品详情
     $route->get('/goods_comments/{id}', 'GoodsController@goods_comments')->name('home.goods.comments'); // 商品评论
 
+    // TODO 未开发
     $route->get('/is_fav', 'FavoritesController@is_fav')->name('home.user.is_fav'); // 是否收藏关注
 
     $route->get('/cart_count', 'CartsController@count')->name('home.cart.count'); // 统计购物车数量
@@ -51,6 +52,7 @@ Route::middleware('auth:users')->namespace('Home')->group(function ($route) {
     Route::post('/auth/info', [App\Http\Controllers\Auth\AuthController::class,'info'])->name('home.auth.info');
     Route::put('/auth/edit', [App\Http\Controllers\Auth\AuthController::class,'edit'])->name('home.auth.edit');
 
+    // TODO 未开发
     // 入驻
     $route->get('/store/join', 'StoresController@join')->name('home.store.join');
     $route->put('/store', 'StoresController@edit')->name('home.store.edit'); // 编辑用户信息
