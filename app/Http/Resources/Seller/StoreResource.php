@@ -11,12 +11,7 @@ use Illuminate\Support\Facades\DB;
 
 class StoreResource extends JsonResource
 {
-    /**
-     * Transform the resource into an array.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return array|\Illuminate\Contracts\Support\Arrayable|\JsonSerializable
-     */
+
     public function toArray($request)
     {
         $stroeClass = DB::table('store_classes')->where('store_id', $this->id)->first();

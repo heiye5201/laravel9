@@ -93,11 +93,11 @@ php artisan route:cache
 ## 表单验证
 php artisan make:request StorePostRequest
 
-php artisan make:controller  Seller/FullReductionsController
+php artisan make:controller  Home/StoresController
 
 
 ## 生成模型并生成迁移文件 store_classes
-php artisan make:model CollectiveLog -m
+php artisan make:model OrderComment -m
 
 
 # 前端代码打包
@@ -109,4 +109,4 @@ npm audit fix
 
 composer require intervention/image
 
-
+composer require yansongda/pay

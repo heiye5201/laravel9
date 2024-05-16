@@ -7,13 +7,42 @@
 
 namespace App\Services;
 
+use App\Http\Resources\Home\StoreHomeCollection;
 use App\Http\Resources\Seller\StoreResource;
 use App\Models\Area;
+use App\Models\OrderComment;
 use App\Models\Store;
 use App\Models\StoreClass;
+use Illuminate\Support\Facades\DB;
 
 class StoreService extends BaseService
 {
+
+    public function createStore($auth = 'users')
+    {
+        try {
+            $userInfo = $this->getUser($auth)['data'];
+        } catch (\Exception $e) {
+            return $this->formatError($e->getMessage());
+        }
+        $userId = $userInfo['id'];
+        if (!empty($userId['belong_id'])) {
+            return $this->formatError(__('tip.store.subLimit'));
+        }
+        $store = Store::query()->where('user_id', $userId)->first();
+        if ($store) {
+            return $this->formatError(__('tip.store.defined'), $store);
+        }
+        $rs = Store::query()->create([
+            'user_id' => $userId,
+            'store_verify' => 1,
+            'store_status' => 0,
+            'store_refuse_info' => '',
+            'after_sale_service' => '',
+        ]);
+        return $this->format($rs, __('tip.success'));
+    }
+
 
     public function getStoreId($whereName = 'user_id', $auth = 'users')
     {
@@ -75,7 +104,6 @@ class StoreService extends BaseService
         if ($whereName == 'belong_id') {
             $whereName = 'user_id';
         }
-
         $store_model = new Store();
         $store_model = $store_model->where($whereName, $storeId)->first();
         if ($whereName != 'user_id' && $auth != 'admins') {
@@ -134,7 +162,7 @@ class StoreService extends BaseService
                 foreach ($areaList as $v) {
                     $areaInfo .= ' ' . $v['name'];
                 }
-                $store_model->area_info =  ltrim($areaInfo, ' ');
+                $store_model->area_info = ltrim($areaInfo, ' ');
             }
         }
         // 纬度
@@ -235,5 +263,58 @@ class StoreService extends BaseService
             return $this->formatError(__('tip.error'));
         }
         return $this->format([], __('tip.success'));
+    }
+
+    // 获取店铺信息和评分信息
+    public function getStoreInfoAndRate($storeId)
+    {
+        $storeInfo = Store::query()->find($storeId)->toArray();
+        $info = OrderComment::query()->where('store_id', $storeId)->first([
+            DB::raw('avg(score) as scoreAll'),
+            DB::raw('avg(agree) as agreeAll'),
+            DB::raw('avg(service) as serviceAll'),
+            DB::raw('avg(speed) as speedAll'),
+        ])->toArray();
+        foreach ($info as $k => $v) {
+            $info[$k] = intval($v) == 0 ? 5 : intval($v);
+        }
+        $storeInfo['rate'] = $info;
+        $storeInfo['store_logo'] = getUrlByPath($storeInfo['store_logo']);
+        unset($storeInfo['id_card_b'], $storeInfo['id_card_t'], $storeInfo['id_card_no'], $storeInfo['store_money'], $storeInfo['legal_person'], $storeInfo['emergency_contact_phone'], $storeInfo['emergency_contact'], $storeInfo['business_license']);
+        return $this->format($storeInfo);
+    }
+
+    public $storeStatus = ['store_status' => 1, 'store_verify' => 4]; // 正常店铺
+
+    // 无权限获取店铺
+    public function stores()
+    {
+        $params = request()->params ?? '';
+        $lat = request()->lat ?? '39.56';
+        $lng = request()->lng ?? '116.20'; // 默认北京的经纬度
+        $distance = "ROUND(6378.138 * 2 * ASIN(SQRT(POW(SIN(('$lat' * PI() / 180 - store_lat * PI() / 180) / 2),2) + COS(40.0497810000 * PI() / 180) * COS(store_lat * PI() / 180) * POW(SIN(('$lng' * PI() / 180 - store_lng * PI() / 180) / 2),2))) * 1000 )  AS distance ";
+        $storeModel = Store::query()->select(DB::raw('*,' . $distance))->withCount(['comments', 'comments as good_comment' => function ($q) {
+            $q->whereRaw('(score+agree+speed+service)>=15');
+        }])->where($this->storeStatus);
+        try {
+            if (!empty($params)) {
+                $params_array = json_decode(base64_decode($params), true);
+                // 排序
+                if (isset($params_array['sort_type']) && !empty($params_array['sort_type'])) {
+                    $storeModel = $storeModel->orderBy($params_array['sort_type'], $params_array['sort_order']);
+                } else {
+                    $storeModel = $storeModel->orderBy('distance', 'desc')->orderBy('id', 'desc');
+                }
+                // 关键词
+                if (isset($params_array['keywords']) && !empty($params_array['keywords'])) {
+                    $params_array['keywords'] = urldecode($params_array['keywords']);
+                    $storeModel = $storeModel->where('store_name', 'like', '%' . $params_array['keywords'] . '%');
+                }
+            }
+            $list = $storeModel->paginate(request()->per_page ?? 30);
+            return $this->format(new StoreHomeCollection($list));
+        } catch (\Exception $e) {
+            return $this->formatError($e->getMessage());
+        }
     }
 }

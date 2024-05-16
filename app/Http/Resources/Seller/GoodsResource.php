@@ -10,7 +10,6 @@ use Illuminate\Http\Resources\Json\JsonResource;
 
 class GoodsResource extends JsonResource
 {
-
     public function toArray($request)
     {
         return [
