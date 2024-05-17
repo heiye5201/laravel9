@@ -15,6 +15,10 @@ class Favorite extends Model
 
     protected $guarded = [];
 
+    protected $hidden = [
+        'deleted_at',
+    ];
+
     public function goods()
     {
         return $this->hasOne('App\Models\Goods', 'id', 'out_id')->withTrashed();

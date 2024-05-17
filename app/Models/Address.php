@@ -14,4 +14,8 @@ class Address extends Model
     use SoftDeletes, TimeTrait;
 
     protected $guarded = [];
+
+    protected $hidden = [
+        'deleted_at',
+    ];
 }

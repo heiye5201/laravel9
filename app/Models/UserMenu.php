@@ -11,7 +11,6 @@ class UserMenu extends Model
 {
     use HasFactory, SoftDeletes, TimeTrait;
 
-
     public function hasChildren()
     {
         return $this->hasOne('App\Models\UserMenu', 'pid', 'id');

@@ -30,6 +30,7 @@ class Admins extends Authenticatable
 
     protected $hidden = [
         'password',
+        'deleted_at',
     ];
 
 

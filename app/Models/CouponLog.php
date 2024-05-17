@@ -17,6 +17,10 @@ class CouponLog extends Model
 
     protected $dates = ['start_time','end_time'];
 
+    protected $hidden = [
+        'deleted_at',
+    ];
+
     public function user()
     {
         return $this->hasOne('App\Models\User', 'id', 'user_id')->withTrashed();
