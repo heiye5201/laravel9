@@ -17,7 +17,6 @@ class FavoriteService extends BaseService
     {
         $type = request()->is_type ?? 0;
         $userId = $this->getUserId('users');
-
         $model = Favorite::query()->where(['user_id' => $userId, 'is_type' => $type]);
         if ($type == 0) {
             $model = $model->with(['goods' => function ($q) {

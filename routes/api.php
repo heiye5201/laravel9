@@ -34,9 +34,7 @@ Route::namespace('Home')->group(function ($route) {
     $route->get('/goods/{id}', 'GoodsController@show')->name('home.goods.show'); // 商品详情
     $route->get('/goods_comments/{id}', 'GoodsController@goods_comments')->name('home.goods.comments'); // 商品评论
 
-    // TODO 未开发
     $route->get('/is_fav', 'FavoritesController@is_fav')->name('home.user.is_fav'); // 是否收藏关注
-
     $route->get('/cart_count', 'CartsController@count')->name('home.cart.count'); // 统计购物车数量
 
     $route->get('/integral/home', 'IntegralController@home')->name('home.integral.home'); // 积分商城
@@ -52,7 +50,6 @@ Route::middleware('auth:users')->namespace('Home')->group(function ($route) {
     Route::post('/auth/info', [App\Http\Controllers\Auth\AuthController::class,'info'])->name('home.auth.info');
     Route::put('/auth/edit', [App\Http\Controllers\Auth\AuthController::class,'edit'])->name('home.auth.edit');
 
-    // TODO 未开发
     // 入驻
     $route->get('/store/join', 'StoresController@join')->name('home.store.join');
     $route->put('/store', 'StoresController@edit')->name('home.store.edit'); // 编辑用户信息
@@ -90,6 +87,7 @@ Route::middleware('auth:users')->namespace('Home')->group(function ($route) {
 
     $route->resource('/user/coupons', 'CouponsController')->only(['index']);
     $route->post('/user/coupon/receive', 'CouponsController@receive')->name('home.coupon.receive'); // 领取优惠劵
+
 
     $route->post('/integral/pay', 'IntegralController@pay')->name('home.integral.pay');
     $route->get('/integral/orders', 'IntegralController@integral_orders')->name('home.integral.orders');
