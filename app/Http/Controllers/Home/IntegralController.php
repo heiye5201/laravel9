@@ -38,8 +38,11 @@ class IntegralController extends Controller
     }
 
     // 获取订单列表
-    public function integral_orders()
+    public function integral_orders(Request $request)
     {
-        return $this->handle($this->getService('base')->getPageData('IntegralOrder'));
+        $data = IntegralGoods::query()->orderBy('id', 'desc')
+            ->where('user_id', $this->getUserId('users'))
+            ->paginate(intval($request->input('page_size', 25)));
+        return $this->handle($data);
     }
 }

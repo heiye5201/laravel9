@@ -93,11 +93,11 @@ php artisan route:cache
 ## 表单验证
 php artisan make:request StorePostRequest
 
-php artisan make:controller  Home/DistributionsController
+php artisan make:controller  Seller/OrderCommentsController
 
 
 ## 生成模型并生成迁移文件 store_classes
-php artisan make:model Refund -m
+php artisan make:model OrderSeller -m
 
 
 # 前端代码打包
@@ -110,3 +110,6 @@ npm audit fix
 composer require intervention/image
 
 composer require yansongda/pay
+
+
+500 (Internal Server Error) Method App\Http\Controllers\Home\ArticlesController::getService does not exist.

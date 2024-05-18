@@ -7,11 +7,11 @@
 use Illuminate\Support\Facades\Route;
 
 
-Route::prefix('Seller')->middleware('auth:users')->namespace('Seller')->group(function ($route) {
-    $route->any('/auth/info', [App\Http\Controllers\Auth\AuthController::class,'info'])->name('admin.auth.info');
+Route::prefix('Seller')->middleware('auth:users')->name('seller.')->namespace('Seller')->group(function ($route) {
+    $route->any('/auth/info', [App\Http\Controllers\Auth\AuthController::class,'info'])->name('auth.info');
     $route->get('/load_menu', [App\Http\Controllers\Seller\MenusController::class,'loadMenu']);
-    $route->post('uploads', [App\Http\Controllers\Seller\UploadsController::class,'upload'])->name('seller.uploads');
-    $route->any('/auth/edit', 'AuthController@edit')->name('seller.auth.edit');
+    $route->post('uploads', [App\Http\Controllers\Seller\UploadsController::class,'upload'])->name('uploads');
+    $route->any('/auth/edit', 'AuthController@edit')->name('auth.edit');
 
     $route->resource('goods_attrs', 'GoodsAttrsController');
     $route->resource('users', 'UsersController');
@@ -23,6 +23,14 @@ Route::prefix('Seller')->middleware('auth:users')->namespace('Seller')->group(fu
     $route->resource('stores', 'StoresController');
     $route->get('store_classes', 'StoresController@store_classes');
     $route->resource('freights', 'FreightsController');
+
+    $route->resource('orders', 'OrdersController')->only(['index','show','update']);
+    $route->resource('order_settlements', 'OrderSettlementsController')->only(['index','show']);
+    $route->resource('order_comments', 'OrderCommentsController');
+
+//    Route::resource('order_comments', App\Http\Controllers\Seller\OrderCommentsController::class);
+
+
     $route->resource('cashes', 'CashesController')->except(['update']);
     $route->resource('money_logs', 'MoneyLogsController')->only(['index','show']);
 

@@ -92,13 +92,14 @@ class AuthService extends BaseService
             'pay_password'  =>  Hash::make('123456'),
             'belong_id' =>  0,
         ];
+        $type == 'phone' ? $regData['email'] = $regData['phone'].'@139.com':'';
         if (!empty(request('inviter_id'))) {
             $regData['inviter_id'] = request('inviter_id');
         }
         if (!$model->create($regData)) {
             return []; // 账号建立失败
         }
-        return $this->login(false, ['username' => $username, 'password' => $password, 'provider' => $provider]);
+        return $this->login(['username' => $username, 'password' => $password, 'provider' => $provider]);
     }
 
 

@@ -105,7 +105,10 @@ class StoreService extends BaseService
             $whereName = 'user_id';
         }
         $store_model = new Store();
-        $store_model = $store_model->where($whereName, $storeId)->first();
+        $storeInfo = $store_model->where($whereName, $storeId)->first();
+        if ($storeInfo) {
+            $store_model = $storeInfo;
+        }
         if ($whereName != 'user_id' && $auth != 'admins') {
             if ($store_model->user_id != $userId && $store_model->user_id != $userInfo['belong_id']) {
                 return $this->formatError(__('tip.store.notMall'));
@@ -217,27 +220,7 @@ class StoreService extends BaseService
         if (isset(request()->after_sale_service)) {
             $store_model->after_sale_service = request()->after_sale_service;
         }
-        // 商家商品栏目
-        if (isset(request()->class_id) && !empty(request()->class_id)) {
-            $store_classes_model = new StoreClass();
-            $store_classes_info = $store_classes_model->where('store_id', $store_model->id)->first();
-            $class_id = [];
-            foreach (request()->class_id as $k => $v) {
-                if (count($v) > 3) {
-                    $class_id[] = $v;
-                }
-            }
-            $data = [
-                'store_id' => $store_model->id,
-                'class_id' => json_encode(request('class_id', [])),
-                'class_name' => '',
-            ];
-            if (empty($store_classes_info)) {
-                $store_classes_model->insert($data);
-            } else {
-                $store_classes_model->where('store_id', $store_model->id)->update($data);
-            }
-        }
+
         if ($auth != 'admins') {
             $store_verify = $store_model->store_verify;
             if ($store_model->store_verify == 1) {
@@ -259,8 +242,29 @@ class StoreService extends BaseService
         }
         try {
             $store_model->save();
+            // 商家商品栏目
+            if (isset(request()->class_id) && !empty(request()->class_id)) {
+                $store_classes_model = new StoreClass();
+                $store_classes_info = $store_classes_model->where('store_id', $store_model->id)->first();
+                $class_id = [];
+                foreach (request()->class_id as $k => $v) {
+                    if (count($v) > 3) {
+                        $class_id[] = $v;
+                    }
+                }
+                $data = [
+                    'store_id' => $store_model->id,
+                    'class_id' => json_encode(request('class_id', [])),
+                    'class_name' => '',
+                ];
+                if (empty($store_classes_info)) {
+                    $store_classes_model->insert($data);
+                } else {
+                    $store_classes_model->where('store_id', $store_model->id)->update($data);
+                }
+            }
         } catch (\Exception $e) {
-            return $this->formatError(__('tip.error'));
+            return $this->formatError(__('tip.error').$e->getMessage());
         }
         return $this->format([], __('tip.success'));
     }

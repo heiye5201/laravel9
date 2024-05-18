@@ -29,6 +29,7 @@ return new class extends Migration
             $table->unsignedDecimal('coupon_money', 5, 2)->default(0.00)->comment('优惠金额');
             $table->unsignedTinyInteger('order_status')->default(1)->comment('订单支付 0 取消 1 等待支付 2等待发货 3确认收货 4等待评论 5售后 6订单完成');
             $table->unsignedTinyInteger('refund_status')->default(0)->comment('0 退款 1退货 2 处理结束');
+            $table->unsignedTinyInteger('apply_status')->default(0)->comment('审核状态');
             $table->unsignedTinyInteger('is_settlement')->default(0)->comment('是否结算');
             $table->string('delivery_no', 20)->default('')->comment('快递订单号');
             $table->string('delivery_code', 10)->default('')->comment('快递公司编码');

@@ -12,8 +12,13 @@ class GoodsBrandsController extends Controller
 
     public function index(Request $request, GoodsBrandQuery $query)
     {
-        $data = $query->orderBy('id', 'desc')
-            ->paginate(intval($request->input('page_size', 25)));
+        $isAll = $request->input('isAll', false);
+        $query = $query->orderBy('id', 'desc');
+        if ($isAll) {
+            $data = $query->get();
+        } else {
+            $data = $query->paginate(intval($request->input('page_size', 25)));
+        }
         return $this->success($data);
     }
 

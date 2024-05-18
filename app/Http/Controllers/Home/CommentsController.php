@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Home;
 
 use App\Http\Controllers\Controller;
+use App\Http\Queries\OrderCommentQuery;
 use App\Models\Order;
 use App\Models\OrderComment;
 use App\Models\OrderGoods;
@@ -11,6 +12,14 @@ use Illuminate\Support\Facades\DB;
 
 class CommentsController extends Controller
 {
+
+    public function index(Request $request, OrderCommentQuery $query)
+    {
+        $data = $query->orderBy('id', 'desc')
+            ->where('user_id', $this->getUserId('users'))
+            ->paginate(intval($request->input('page_size', 25)));
+        return $this->success($data);
+    }
 
     public function store(Request $request)
     {

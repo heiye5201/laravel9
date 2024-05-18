@@ -42,10 +42,10 @@ return new class extends Migration
             $table->string('emergency_contact_phone', 12)->default('')->comment('紧急联系人电话');
             $table->unsignedDecimal('store_money', 9, 2)->default(0.00)->comment('账号余额');
             $table->unsignedDecimal('store_frozen_money', 9, 2)->default(0.00)->comment('账号冻结资金');
-            $table->unsignedTinyInteger('store_status')->default(1)->comment('店铺状态');
-            $table->unsignedTinyInteger('store_verify')->default(0)->comment('店铺审核状态');
+            $table->unsignedTinyInteger('store_status')->nullable()->default(1)->comment('店铺状态');
+            $table->unsignedTinyInteger('store_verify')->nullable()->default(0)->comment('店铺审核状态');
             $table->string('store_refuse_info', 20)->default('')->comment('拒绝原因');
-            $table->text('after_sale_service')->comment('售后服务');
+            $table->text('after_sale_service')->nullable()->comment('售后服务');
             $table->timestamps();
             $table->softDeletes();
         });
