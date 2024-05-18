@@ -50,6 +50,6 @@ class OrdersController extends Controller
     }
 
     public function applyStatus(Request $request){
-        return $this->handle($this->getService('Order')->applyStatus());
+        return $this->handle(app(OrderService::class)->applyStatus());
     }
 }

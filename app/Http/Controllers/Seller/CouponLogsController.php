@@ -9,7 +9,6 @@ use Illuminate\Http\Request;
 
 class CouponLogsController extends Controller
 {
-    protected $modelName = 'CouponLog';
 
     public function index(Request $request, CouponLogsQuery $query)
     {

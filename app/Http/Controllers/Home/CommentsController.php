@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Home;
 
 use App\Http\Controllers\Controller;
 use App\Http\Queries\OrderCommentQuery;
+use App\Http\Resources\OrderCommentCollection;
 use App\Models\Order;
 use App\Models\OrderComment;
 use App\Models\OrderGoods;
@@ -18,7 +19,7 @@ class CommentsController extends Controller
         $data = $query->orderBy('id', 'desc')
             ->where('user_id', $this->getUserId('users'))
             ->paginate(intval($request->input('page_size', 25)));
-        return $this->success($data);
+        return $this->success(new OrderCommentCollection($data));
     }
 
     public function store(Request $request)

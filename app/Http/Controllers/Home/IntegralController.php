@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Home;
 use App\Http\Controllers\Controller;
 use App\Models\IntegralGoods;
 use App\Models\IntegralGoodsClass;
+use App\Models\IntegralOrder;
 use App\Services\IntegralGoodsService;
 use Illuminate\Http\Request;
 
@@ -47,9 +48,9 @@ class IntegralController extends Controller
     // 获取订单列表
     public function integral_orders(Request $request)
     {
-        $data = IntegralGoods::query()->orderBy('id', 'desc')
+        $data = IntegralOrder::query()->orderBy('id', 'desc')
             ->where('user_id', $this->getUserId('users'))
             ->paginate(intval($request->input('page_size', 25)));
-        return $this->handle($data);
+        return $this->success($data);
     }
 }

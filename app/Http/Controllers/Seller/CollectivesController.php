@@ -10,7 +10,6 @@ use Illuminate\Http\Request;
 
 class CollectivesController extends Controller
 {
-    protected $modelName = 'Collective';
 
     public function index(Request $request)
     {

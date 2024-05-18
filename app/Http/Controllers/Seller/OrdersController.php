@@ -24,7 +24,7 @@ class OrdersController extends Controller
             ->orderBy('id', 'desc');
 
         if ($request['order_status']) {
-            $query = $query->where('apply_status', $request['order_status']);
+            $query = $query->where('order_status', $request['order_status']);
         }
         if ($request->input('refund_status')) {
             $query = $query->where('refund_status', $request->input('refund_status'));

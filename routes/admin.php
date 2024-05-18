@@ -37,7 +37,8 @@ Route::prefix('Admin')->middleware('auth:admins')->name('admin.')->namespace('Ad
     $route->resource('orders', 'OrdersController');
     $route->post('/orders/express/find', 'OrdersController@express')->name('order.express');
     $route->post('/orders/find/all', 'OrdersController@all')->name('order.findall');
-    $route->post('/orders/status/edit', 'OrdersController@applyStatus')->name('order.applyStatus');
+    $route->put('/orders/status/edit', 'OrdersController@applyStatus')->name('order.applyStatus');
+    $route->get('/orders/find/all', 'OrdersController@all')->name('admin.order.findall');
 
     $route->resource('order_comments', 'OrderCommentsController');
 
@@ -77,7 +78,6 @@ Route::prefix('Admin')->middleware('auth:admins')->name('admin.')->namespace('Ad
 
     $route->resource('integral_orders', 'IntegralOrdersController')->only(['index','show','update']);
 
-//    Route::post('users/money/handle', [App\Http\Controllers\Admin\UsersController::class,'money']);
     $route->post('users/money/handle', 'UsersController@money');
 
 });

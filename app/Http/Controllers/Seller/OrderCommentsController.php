@@ -4,6 +4,8 @@ namespace App\Http\Controllers\Seller;
 
 use App\Http\Controllers\Controller;
 use App\Http\Queries\OrderCommentQuery;
+use App\Http\Resources\OrderCommentCollection;
+use App\Http\Resources\OrderCommentResource;
 use App\Models\OrderComment;
 use App\Services\StoreService;
 use Illuminate\Http\Request;
@@ -17,7 +19,13 @@ class OrderCommentsController extends Controller
         $query = $query->where('store_id', app(StoreService::class)->getStoreId()['data'])
             ->orderBy('id', 'desc');
         $data = $query->paginate(intval($request->input('page_size', 25)));
-        return $this->success($data);
+        return $this->success(new OrderCommentCollection($data));
+    }
+
+    public function show($id)
+    {
+        $data = OrderComment::query()->find($id);
+        return $this->success(new OrderCommentResource($data));
     }
 
     public function update(Request $request, $id)

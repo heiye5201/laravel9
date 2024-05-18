@@ -23,10 +23,10 @@ return new class extends Migration
             $table->unsignedDecimal('agree', 5, 2)->default(5.00)->comment('描述相符');
             $table->unsignedDecimal('service', 5, 2)->default(5.00)->comment('服务态度');
             $table->unsignedDecimal('speed', 5, 2)->default(5.00)->comment('发货速度');
-            $table->text('reply')->comment('回复内容');
+            $table->text('reply')->nullable()->comment('回复内容');
             $table->timestamp('reply_time')->default(now())->comment('回复时间');
             $table->text('content')->comment('内容');
-            $table->text('image')->comment('图片逗号隔开');
+            $table->text('image')->nullable()->comment('图片逗号隔开');
             $table->timestamps();
             $table->softDeletes();
         });

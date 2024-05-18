@@ -28,8 +28,8 @@ Route::prefix('Seller')->middleware('auth:users')->name('seller.')->namespace('S
     $route->resource('order_settlements', 'OrderSettlementsController')->only(['index','show']);
     $route->resource('order_comments', 'OrderCommentsController');
 
-//    Route::resource('order_comments', App\Http\Controllers\Seller\OrderCommentsController::class);
-
+    $route->get('/orders/find/all', 'OrdersController@all')->name('seller.order.findall');
+    $route->put('/orders/status/edit', 'OrdersController@edit')->name('seller.status.edit');
 
     $route->resource('cashes', 'CashesController')->except(['update']);
     $route->resource('money_logs', 'MoneyLogsController')->only(['index','show']);
