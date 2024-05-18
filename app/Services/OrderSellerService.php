@@ -7,7 +7,7 @@
 namespace App\Services;
 
 use App\Http\Resources\Home\OrderAfterHomeCollection;
-use App\Http\Resources\Home\OrderCollection;
+use App\Http\Resources\OrderCollection;
 use App\Models\Address;
 use App\Models\Cart;
 use App\Models\Collective;

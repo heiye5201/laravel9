@@ -19,4 +19,9 @@ class GoodsSpecs extends Model
     protected $hidden = [
         'deleted_at',
     ];
+
+    public function attrs()
+    {
+        return $this->hasOne('App\Models\GoodsAttr', 'id', 'attr_id');
+    }
 }

@@ -17,7 +17,7 @@ class OrderSeller extends Model
         'deleted_at',
     ];
 
-    protected $table="orders";
+    protected $table = "orders";
 
 
     protected $dates = ['pay_time','delivery_time','receipt_time','comment_time'];

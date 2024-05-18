@@ -32,6 +32,13 @@ class IntegralController extends Controller
         return $this->handle(app(IntegralGoodsService::class)->search());
     }
 
+    public function show($id)
+    {
+        $data = IntegralGoods::query()->find($id);
+        return $this->success($data);
+    }
+
+
     public function pay()
     {
         return $this->handle(app(IntegralGoodsService::class)->createOrder());

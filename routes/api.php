@@ -74,14 +74,14 @@ Route::middleware('auth:users')->namespace('Home')->name('home.')->group(functio
     $route->resource('/user/carts', 'CartsController')->except(['show']);
 
     $route->get('/user/orders', 'OrdersController@orders')->name('orders');
-    $route->put('/user/orders/{id}', 'OrdersController@edit')->name('orders.edit');
-    $route->get('/user/orders/{id}', 'OrdersController@show')->name('orders.show');
-    $route->post('/user/orders/before', 'OrdersController@before')->name('orders.before');
-    $route->post('/user/orders/create', 'OrdersController@create')->name('orders.create');
-    $route->post('/user/orders/after', 'OrdersController@after')->name('orders.after');
-    $route->post('/user/orders/pay', 'OrdersController@pay')->name('orders.pay');
-    $route->post('/user/orders/check', 'OrdersController@check')->name('orders.check');
-    $route->post('/user/orders/express', 'OrdersController@express')->name('orders.express');
+    $route->put('/user/order/{id}', 'OrdersController@edit')->name('orders.edit');
+    $route->get('/user/order/{id}', 'OrdersController@show')->name('orders.show');
+    $route->post('/user/order/before', 'OrdersController@before')->name('orders.before');
+    $route->post('/user/order/create', 'OrdersController@create')->name('orders.create');
+    $route->post('/user/order/after', 'OrdersController@after')->name('orders.after');
+    $route->post('/user/order/pay', 'OrdersController@pay')->name('orders.pay');
+    $route->post('/user/order/check', 'OrdersController@check')->name('orders.check');
+    $route->post('/user/order/express', 'OrdersController@express')->name('orders.express');
 
     $route->resource('/user/order/refund', 'RefundsController')->only(['store','show','update']);
 

@@ -77,4 +77,7 @@ Route::prefix('Admin')->middleware('auth:admins')->name('admin.')->namespace('Ad
 
     $route->resource('integral_orders', 'IntegralOrdersController')->only(['index','show','update']);
 
+//    Route::post('users/money/handle', [App\Http\Controllers\Admin\UsersController::class,'money']);
+    $route->post('users/money/handle', 'UsersController@money');
+
 });

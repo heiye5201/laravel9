@@ -16,13 +16,6 @@ class MoneyLogService extends BaseService
 {
     /**
      * 修改用户金额 增加日志 function
-     *
-     * @param [type] $params money|name|is_type|is_belong|info 金额
-     * @param [type] $name 名称  订单支付|后台操作
-     * @param integer $type 类型 0 金额 1冻结资金 2积分
-     * @return void
-     * @Description
-     * @author hg <www.RainNight.com>
      */
     public function edit($params = [])
     {
@@ -60,7 +53,6 @@ class MoneyLogService extends BaseService
                 }
                 // 店铺的使用店铺ID
                 $ml_model->user_id = $store['id'];
-
                 if ($model = Store::query()->lockForUpdate()->where('id', $store['id'])->first()) {
                     switch ($data['is_type']) {
                         case 0:

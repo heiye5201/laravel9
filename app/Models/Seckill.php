@@ -19,8 +19,6 @@ class Seckill extends Model
         'deleted_at',
     ];
 
-    protected $dates = ['start_time','end_time'];
-
     public function goods()
     {
         return $this->hasOne('App\Models\Goods', 'id', 'goods_id')->withTrashed();

@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Http\Queries\UserQuery;
 use App\Models\User;
+use App\Services\MoneyLogService;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
@@ -74,7 +75,7 @@ class UsersController extends Controller
     public function money(Request $request)
     {
         if (empty($request->id)) return $this->success();
-        return $this->handle($this->getService('MoneyLog')->edit([
+        return $this->handle(app(MoneyLogService::class)->edit([
             'money' => $request->money ?? 1,
             'is_type' => $request->is_type ?? 0,
             'user_id' => $request->id ?? 0,

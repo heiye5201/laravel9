@@ -4,6 +4,8 @@ namespace App\Http\Controllers\Seller;
 
 use App\Http\Controllers\Controller;
 use App\Http\Queries\OrderSellerQuery;
+use App\Http\Resources\OrderCollection;
+use App\Http\Resources\OrderResource;
 use App\Models\Order;
 use App\Models\OrderSeller;
 use App\Services\KuaiBaoService;
@@ -21,11 +23,20 @@ class OrdersController extends Controller
         $query = $query->where('store_id', app(StoreService::class)->getStoreId()['data'])
             ->orderBy('id', 'desc');
 
-        if ($request['order_status']==2) {
-            $query = $query->where('apply_status', 1);
+        if ($request['order_status']) {
+            $query = $query->where('apply_status', $request['order_status']);
+        }
+        if ($request->input('refund_status')) {
+            $query = $query->where('refund_status', $request->input('refund_status'));
         }
         $data = $query->paginate(intval($request->input('page_size', 25)));
-        return $this->success($data);
+        return $this->success(new OrderCollection($data));
+    }
+
+    public function show($id)
+    {
+        $data = Order::query()->with(['order_goods'])->find($id);
+        return $this->success(new OrderResource($data));
     }
 
     // 修改订单信息

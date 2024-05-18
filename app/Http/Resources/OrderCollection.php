@@ -4,7 +4,7 @@
  * createTime : 2024/5/16 22:57
  * description:
  */
-namespace App\Http\Resources\Home;
+namespace App\Http\Resources;
 
 use App\Services\OrderService;
 use Illuminate\Http\Resources\Json\ResourceCollection;
@@ -32,7 +32,6 @@ class OrderCollection extends ResourceCollection
                     'apply_status'          =>  $item->apply_status,
                     'apply_status_cn'       =>  $orderService->getApplyStatus($item),
                     'order_status_cn'       =>  $orderService->getOrderStatusCn($item),
-
                     'pay_time'              =>  $item->pay_time,
                     'delivery_time'         =>  $item->delivery_time,
                     'receipt_time'          =>  $item->receipt_time,

@@ -8,7 +8,9 @@
 namespace App\Services;
 
 use App\Http\Resources\Home\OrderAfterHomeCollection;
-use App\Http\Resources\Home\OrderCollection;
+use App\Http\Resources\OrderCollection;
+use App\Http\Resources\Home\OrderHomeCollection;
+use App\Http\Resources\Home\OrderHomeResource;
 use App\Models\Address;
 use App\Models\Cart;
 use App\Models\Collective;
@@ -175,7 +177,7 @@ class OrderService extends BaseService
             return $this->format($resp_data);
         } catch (\Exception $e) {
             DB::rollBack();
-            return $this->formatError(__('tip.order.error') . ' - last');
+            return $this->formatError(__('tip.order.error') . ' - last'.$e->getMessage());
         }
     }
 
@@ -361,7 +363,6 @@ class OrderService extends BaseService
             foreach ($params['order_list'] as $v) {
                 $order_ids[] = $v['id'];
                 $total_price += $v['total_price'];
-                // $order_balance += $v['order_balance'];
             }
             // 余额支付时判断是否余额足够
             if ($params['payment_name'] == 'balance') {
@@ -379,6 +380,7 @@ class OrderService extends BaseService
                 'device' => $params['device'],
                 'total' => $total_price, // 订单总金额
                 'balance' => $order_balance, // 余额支付金额
+                'pay_time' => now()
             ];
         }
         try {
@@ -392,7 +394,7 @@ class OrderService extends BaseService
             $order_pay_info = OrderPay::query()->create($create_data);
             return $this->format($order_pay_info);
         } catch (\Exception $e) {
-            return $this->formatError(__('tip.order.payErr') . $e->getMessage());
+            return $this->formatError(__('tip.order.payErr').'dd'.$e->getMessage());
         }
     }
 
@@ -667,7 +669,6 @@ class OrderService extends BaseService
     // // 获取订单
     public function getOrders($type = "users")
     {
-        $tableModelName = 'Order';
         $order_model = new Order();
         if ($type == 'users') {
             $userId = $this->getUserId('users');
@@ -722,7 +723,7 @@ class OrderService extends BaseService
         }
         $pageData = $order_model->orderBy('id', 'desc')
             ->paginate(request()->per_page ?? 30);
-        $data = new OrderCollection($pageData);
+        $data = new OrderHomeCollection($pageData);
         return $this->format($data);
     }
 
@@ -739,7 +740,7 @@ class OrderService extends BaseService
             $order_model = $order_model->where('store_id', $store_id);
         }
         $pageData = $order_model->with('order_goods')->where('id', $id)->first();
-        $data = new OrderCollection($pageData);
+        $data = new OrderHomeResource($pageData);
         return $this->format($data);
     }
 

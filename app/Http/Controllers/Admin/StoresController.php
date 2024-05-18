@@ -4,6 +4,8 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Http\Queries\StoreQuery;
+use App\Http\Resources\Admin\StoreAdminCollection;
+use App\Models\Store;
 use App\Services\StoreService;
 use Illuminate\Http\Request;
 
@@ -14,6 +16,13 @@ class StoresController extends Controller
     {
         $data = $query->orderBy('id', 'desc')
             ->paginate(intval($request->input('page_size', 25)));
+        return $this->success(new StoreAdminCollection($data));
+    }
+
+
+    public function show($id)
+    {
+        $data = Store::query()->find($id);
         return $this->success($data);
     }
 
