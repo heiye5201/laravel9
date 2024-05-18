@@ -9,7 +9,6 @@ use Illuminate\Http\Request;
 
 class FullReductionsController extends Controller
 {
-    protected $modelName = 'FullReduction';
 
     public function index(Request $request)
     {

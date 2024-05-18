@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Models\OrderSettlement;
+use App\Services\OrderSettlementService;
 use Illuminate\Http\Request;
 
 class OrderSettlementsController extends Controller
@@ -27,6 +28,6 @@ class OrderSettlementsController extends Controller
     // 手动结算订单
     public function handle_sett()
     {
-        return $this->handle($this->getService('OrderSettlement')->add(false));
+        return $this->handle(app(OrderSettlementService::class)->add(false));
     }
 }

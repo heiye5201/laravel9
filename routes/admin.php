@@ -80,4 +80,10 @@ Route::prefix('Admin')->middleware('auth:admins')->name('admin.')->namespace('Ad
 
     $route->post('users/money/handle', 'UsersController@money');
 
+    $route->get('/dashboard/all', 'DashboardController@all')->name('admin.dashboard.all'); // 仪表盘
+    $route->get('/dashboard/order', 'DashboardController@order')->name('admin.dashboard.order'); // 数据统计
+    $route->get('/dashboard/user', 'DashboardController@user')->name('admin.dashboard.user'); // 数据统计
+    $route->get('/dashboard/pay', 'DashboardController@pay')->name('admin.dashboard.pay'); // 数据统计
+    $route->get('/dashboard/store', 'DashboardController@stores')->name('admin.dashboard.store'); // 数据统计
+
 });

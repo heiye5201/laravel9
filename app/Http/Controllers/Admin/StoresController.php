@@ -14,6 +14,9 @@ class StoresController extends Controller
 
     public function index(Request $request, StoreQuery $query)
     {
+        if ($request->input('store_verify')) {
+            $query = $query->where('store_verify', $request->input('store_verify'));
+        }
         $data = $query->orderBy('id', 'desc')
             ->paginate(intval($request->input('page_size', 25)));
         return $this->success(new StoreAdminCollection($data));

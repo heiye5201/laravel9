@@ -44,4 +44,9 @@ Route::prefix('Seller')->middleware('auth:users')->name('seller.')->namespace('S
     $route->resource('collectives', 'CollectivesController');
     $route->resource('full_reductions', 'FullReductionsController');
 
+
+    $route->get('/dashboard/all', 'DashboardController@all')->name('seller.dashboard.all'); // 仪表盘
+    $route->get('/dashboard/order', 'DashboardController@order')->name('seller.dashboard.order'); // 销售分析
+
+
 });
