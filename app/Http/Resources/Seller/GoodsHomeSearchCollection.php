@@ -21,18 +21,15 @@ class GoodsHomeSearchCollection extends ResourceCollection
                 $goods_price = $item->goods_price;
                 $goods_market_price = $item->goods_market_price;
                 $goods_stock = $item->goods_stock;
-
                 // 判断是否存在sku
                 if (isset($item->goods_skus) && count($item->goods_skus) > 0) {
                     $goods_stock = 0;
                     foreach ($item->goods_skus as $v) {
                         $goods_stock += $v['goods_stock'];
                     }
-
                     $goods_price = $item->goods_skus[0]['goods_price'];
                     $goods_market_price = $item->goods_skus[0]['goods_market_price'];
                 }
-
                 if (!empty($item->collective)) {
                     $goods_price = round($goods_price * (1 - $item->collective->discount / 100), 2);
                 }
