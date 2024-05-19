@@ -9,7 +9,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Http\Queries\Admin\AdminMenuQuery;
-use App\Http\Queries\AdvsQuery;
+use App\Models\AdminMenu;
 use App\Services\AdminMenusService;
 use Illuminate\Http\Request;
 
@@ -37,4 +37,9 @@ class MenusController extends Controller
         return $this->success($data);
     }
 
+    public function show($id)
+    {
+        $data = AdminMenu::query()->find($id);
+        return $this->success($data);
+    }
 }

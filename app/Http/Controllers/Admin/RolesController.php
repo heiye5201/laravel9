@@ -3,7 +3,6 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
-use App\Http\Queries\Admin\AdminQuery;
 use App\Http\Queries\Admin\AdminRoleQuery;
 use App\Models\AdminRole;
 use Illuminate\Http\Request;

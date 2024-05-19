@@ -3,10 +3,8 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
-use App\Http\Queries\Admin\IntegralGoodsClassQuery;
 use App\Http\Queries\Admin\IntegralGoodsQuery;
 use App\Models\IntegralGoods;
-use App\Models\IntegralGoodsClass;
 use Illuminate\Http\Request;
 
 class IntegralGoodsController extends Controller

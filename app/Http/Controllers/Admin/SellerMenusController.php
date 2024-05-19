@@ -3,7 +3,6 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
-use App\Http\Queries\Admin\AdminMenuQuery;
 use App\Http\Queries\UserMenuQuery;
 use App\Models\UserMenu;
 use App\Services\ToolService;
@@ -51,4 +50,10 @@ class SellerMenusController extends Controller
         return $this->success($data);
     }
 
+
+    public function show($id)
+    {
+        $data = UserMenu::query()->find($id);
+        return $this->success($data);
+    }
 }

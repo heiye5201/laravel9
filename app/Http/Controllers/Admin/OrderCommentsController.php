@@ -7,7 +7,6 @@ use App\Http\Queries\OrderCommentQuery;
 use App\Http\Resources\OrderCommentCollection;
 use App\Http\Resources\OrderCommentResource;
 use App\Models\OrderComment;
-use App\Services\StoreService;
 use Illuminate\Http\Request;
 
 class OrderCommentsController extends Controller

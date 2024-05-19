@@ -13,9 +13,7 @@ use Illuminate\Http\Request;
 class SpaController extends Controller
 {
 
-     /**
-     * @var PostRepository
-     */
+
     protected $repository;
 
     public function __construct(ConfigsRepository $repository)

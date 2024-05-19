@@ -3,7 +3,6 @@
 namespace App\Http\Controllers\Seller;
 
 use App\Http\Controllers\Controller;
-use App\Http\Queries\UserQuery;
 use App\Http\Queries\UserRoleQuery;
 use App\Models\UserRole;
 use Illuminate\Http\Request;

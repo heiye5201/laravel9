@@ -14,4 +14,11 @@ class DistributionLogsController extends Controller
         $data = $query->paginate(intval($request->input('page_size', 25)));
         return $this->success($data);
     }
+
+
+    public function show($id)
+    {
+        $data = DistributionLog::query()->find($id);
+        return $this->success($data);
+    }
 }

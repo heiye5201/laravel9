@@ -7,7 +7,6 @@
 namespace App\Http\Queries\Admin;
 
 use App\Models\AdminMenu;
-use App\Models\Admins;
 use Spatie\QueryBuilder\AllowedFilter;
 use Spatie\QueryBuilder\AllowedSort;
 use Spatie\QueryBuilder\QueryBuilder;

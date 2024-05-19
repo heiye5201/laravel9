@@ -4,7 +4,6 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Http\Queries\ArticleQuery;
-use App\Http\Resources\Admin\ArticleResource;
 use App\Models\Article;
 use Illuminate\Http\Request;
 

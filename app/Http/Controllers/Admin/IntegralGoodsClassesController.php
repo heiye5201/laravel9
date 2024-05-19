@@ -4,9 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Http\Queries\Admin\IntegralGoodsClassQuery;
-use App\Http\Queries\NoticesQuery;
 use App\Models\IntegralGoodsClass;
-use App\Models\Notice;
 use Illuminate\Http\Request;
 
 class IntegralGoodsClassesController extends Controller
