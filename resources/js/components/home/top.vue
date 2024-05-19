@@ -115,6 +115,7 @@ export default {
             try{
                 const ipLocal = localStorage.getItem('ip')
                 const city = localStorage.getItem('city')
+                return false
                 if(ip.value == ipLocal && city) return
                 localStorage.setItem('ip',ip.value)
                 // if(!navigator.geolocation) return console.log('geolocation not allow')

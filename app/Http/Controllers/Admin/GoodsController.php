@@ -29,4 +29,11 @@ class GoodsController extends Controller
         $rs = app(GoodsService::class)->editGoods($id,'admins');
         return $this->handle($rs);
     }
+
+
+    public function applyStatus(Request $request)
+    {
+        return $this->handle(app(GoodsService::class)->applyStatus());
+    }
+
 }

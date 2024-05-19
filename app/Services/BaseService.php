@@ -136,4 +136,22 @@ class BaseService
         }
         return $this->format($routeApis);
     }
+
+
+    // base64 代码验证
+    public function base64Check()
+    {
+        $base64 = request()->params ?? '';
+        // 如果为空
+        if (empty($base64)) {
+            return $this->formatError(__('tip.order.error'));
+        }
+        // 判断是否能解析
+        try {
+            $params = json_decode(base64_decode($base64), true);
+        } catch (\Exception $e) {
+            return $this->formatError(__('tip.order.error') . '2');
+        }
+        return $this->format($params);
+    }
 }

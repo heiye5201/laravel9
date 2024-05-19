@@ -33,6 +33,7 @@ Route::prefix('Admin')->middleware('auth:admins')->name('admin.')->namespace('Ad
     $route->post('uploads', 'UploadsController@upload')->name('uploads');
     $route->resource('goods_brands', 'GoodsBrandsController');
     $route->resource('goods', 'GoodsController');
+    $route->put('/goods/status/edit', 'GoodsController@applyStatus')->name('goods.applyStatus');
 
     $route->resource('orders', 'OrdersController');
     $route->post('/orders/express/find', 'OrdersController@express')->name('order.express');

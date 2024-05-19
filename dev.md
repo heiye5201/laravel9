@@ -15,7 +15,6 @@ docker-compose exec workspace php -v
 xdebug.mode=debug
 ```
 
-
 # 创建表
 php artisan make:migration create_configs_table --create="configs"
 php artisan make:migration create_user_menus_table --create="user_menus"
@@ -112,4 +111,7 @@ composer require intervention/image
 composer require yansongda/pay
 
 
-500 (Internal Server Error) Method App\Http\Controllers\Home\ArticlesController::getService does not exist.
+如果图片商城的时候报权限错误
+chmod -R 775 storage
+php artisan storage:link
+

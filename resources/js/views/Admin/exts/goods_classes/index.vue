@@ -26,7 +26,7 @@ export default {
             {label:'上级菜单',value:'pid',type:'cascader',props:{emitPath:false,checkStrictly: true,label:'name',value:'id'}},
             {label:'分类名称',value:'name'},
             {label:'简称',value:'simple_name'},
-            {label:'缩略图',value:'thumb',type:'avatar'},
+            {label:'缩略图',value:'thumb',type:'avatar', 'message':'234px,614px'},
             {label:'排序',value:'is_sort'},
         ]
         const dialogParam = reactive({

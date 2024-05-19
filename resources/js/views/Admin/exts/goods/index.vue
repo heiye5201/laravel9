@@ -4,11 +4,32 @@
             <template #table_handleright_hook="row">
                 <el-button :title="$t('btn.edit')"  type="primary" @click="editGoods(row)" :icon="Edit" />
             </template>
+
+            <template #table_topleft_hook="{dialogParams}">
+              <el-button type="primary" :icon="Promotion" @click="openAddDialog(dialogParams)">商品审核</el-button>
+            </template>
         </table-view>
         <el-dialog v-model="tableVis" :title="$t('btn.edit')">
             <goods-form ref="goods_form"  />
         </el-dialog>
-            
+
+        <el-dialog custom-class="table_dialog_class" v-model="data.vis" title="商品审核">
+          <div class="order_list" >
+            <div class="order_title">
+              <span class="order_no">确定通过审核？</span>
+            </div>
+            <div class="order_goods">
+              <el-row :gutter="20" >
+                <el-col :span="4"></el-col>
+              </el-row>
+            </div>
+          </div>
+          <br />
+          <div class="dialog_btn">
+            <el-button type="primary" :loading="data.loading" @click="postAgreeApplyStatus" :icon="Promotion" >确定</el-button>
+            <el-button type="primary" :loading="data.loading" @click="postCancelApplyStatus" :icon="Promotion" >驳回</el-button>
+          </div>
+        </el-dialog>
     </div>
     
 </template>
@@ -23,6 +44,9 @@ export default {
     setup(props) {
         const {proxy} = getCurrentInstance()
         const tableVis = ref(false)
+        const data = reactive({
+          express:[]
+        })
         const params = {
             isWith:'goods_class,goods_brand'
         }
@@ -66,12 +90,82 @@ export default {
             update:{show:false},
         })
 
+        const openAddDialog = async (dialogParams)=>{
+          const selected = dialogParams.multipleSelection()
+          if(!selected) return proxy.$message.error(proxy.$t('msg.selectErr'))
+          data.selected = selected
+          console.log(data);
+          data.vis = true
+        }
+
+        const postAgreeApplyStatus = async ()=>{
+          data.loading = true
+          let sucNum = 0;
+          let allNum = data.selected.length
+          let base64Code = window.btoa(JSON.stringify({goods_id:data.selected,apply_status:1}))
+          const loading = ElementPlus.ElLoading.service({
+            lock: true,
+            text: proxy.$t('order.sendDelivery')+' - '+sucNum+'/'+allNum,
+            background: 'rgba(0, 0, 0, 0.7)',
+          })
+          proxy.R.put('/Admin/goods/status/edit',{params:base64Code}).then(res=>{
+            if(!res.code){
+              sucNum = res.update_total;
+              loading.setText(proxy.$t('order.sendDelivery')+' - '+sucNum+'/'+allNum)
+              if(sucNum >= allNum){
+                loading.close()
+                data.loading = false
+                data.vis = false
+                location.reload()
+              }
+            } else {
+              loading.setText(res.msg)
+              loading.close()
+              data.loading = false
+              data.vis = false
+            }
+          }).catch(error=>{
+            console.log(error)
+          })
+        }
+
+        const postCancelApplyStatus = async ()=>{
+          data.loading = true
+          let sucNum = 0;
+          let allNum = data.selected.length
+          let base64Code = window.btoa(JSON.stringify({goods_id:data.selected,apply_status:2}))
+          const loading = ElementPlus.ElLoading.service({
+            lock: true,
+            text: proxy.$t('order.sendDelivery')+' - '+sucNum+'/'+allNum,
+            background: 'rgba(0, 0, 0, 0.7)',
+          })
+          proxy.R.put('/Admin/goods/status/edit',{params:base64Code}).then(res=>{
+            if(!res.code){
+              sucNum = res.update_total;
+              loading.setText(proxy.$t('order.sendDelivery')+' - '+sucNum+'/'+allNum)
+              if(sucNum >= allNum){
+                loading.close()
+                data.loading = false
+                data.vis = false
+                location.reload()
+              }
+            } else {
+              loading.setText(res.msg)
+              loading.close()
+              data.loading = false
+              data.vis = false
+            }
+          }).catch(error=>{
+            console.log(error)
+          })
+        }
+
         const editGoods = async (e)=>{
             tableVis.value = true
             const editForm = await proxy.R.get('/Admin/goods/'+e.rows.id)
             proxy.$refs.goods_form.editGoods(editForm)
         }
-        return {options,searchOptions,dialogParam,btnConfigs,params,tableVis,Edit,editGoods}
+        return {options,searchOptions,dialogParam,btnConfigs,params,tableVis,Edit,editGoods,data,openAddDialog, postAgreeApplyStatus,postCancelApplyStatus}
     }
 }
 </script>

@@ -1,6 +1,6 @@
 <template>
     <div class="qwit">
-        <table-view  :params="params" :btnConfig="btnConfigs" :options="options" :dialogParam="dialogParam">
+        <table-view  :params="params" :btnConfig="btnConfigs" :options="options" :searchOption="searchOptions" :dialogParam="dialogParam">
             <template #table_topleft_hook="{dialogParams}">
                 <el-button type="primary" :icon="Promotion" @click="openAddDialog(dialogParams)">订单发货</el-button>
                 <el-button type="primary" :icon="Printer" @click="$message.info('暂无功能')">打印面单</el-button>
@@ -79,6 +79,22 @@ export default {
         const params = {
             
         }
+
+        // 搜索字段
+        const searchOptions = reactive([
+          {label:'订单名称',value:'filter[order_name]',where:''},
+          {label:'订单状态',value:'filter[order_status]',type:'select',data:{
+              'filter[order_status]':[
+                {label:proxy.$t('order.orderCancel'),value:0},
+                {label:proxy.$t('order.waitPay'),value:1},
+                {label:proxy.$t('order.waitSend'),value:2},
+                {label:proxy.$t('order.orderConfirm'),value:3},
+                {label:proxy.$t('order.waitComment'),value:4},
+                {label:proxy.$t('order.orderRefund'),value:5},
+                {label:proxy.$t('order.orderCompletion'),value:6},
+              ]
+            }},
+        ])
 
         const btnConfigs = reactive({
             store:{show:false},
@@ -173,7 +189,7 @@ export default {
 
         return {
             Promotion,Printer,Picture,
-            options,dialogParam,btnConfigs,params,data,
+            options,dialogParam,btnConfigs,params,data,searchOptions,
             openAddDialog,postDelivery
         }
     }

@@ -80,6 +80,10 @@
     >
       <img v-if="formData" style="width:100%;height:100%" :src="formData" :class="params.type == 'avatar'?'avatar':'avatar images'" />
       <el-icon v-else class="avatar-uploader-icon"><plus /></el-icon>
+
+<!--      <template #default="{ item }">-->
+<!--        <div class="value">{{ params.message }}</div>-->
+<!--      </template>-->
     </el-upload>
 
 

@@ -1,5 +1,5 @@
 <template>
-    <table-view :options="options" :dialogParam="dialogParam"></table-view>
+    <table-view :options="options" :searchOption="searchOptions" :dialogParam="dialogParam"></table-view>
 </template>
 
 <script>
@@ -21,6 +21,12 @@ export default {
             {label:'物流名称',value:'name'},
             {label:'物流代码',value:'code'},
         ]
+
+        // 搜索字段
+        const searchOptions = reactive([
+          {label:'物流名称',value:'filter[name]',where:''},
+        ])
+
         const dialogParam = reactive({
             rules:{
                 name:[{required:true,message:proxy.$t('msg.requiredMsg')}],
@@ -30,7 +36,7 @@ export default {
             add:{column:addColumn},
             edit:{column:addColumn},
         })
-        return {options,dialogParam}
+        return {options,searchOptions,dialogParam}
     }
 }
 </script>

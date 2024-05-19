@@ -606,5 +606,22 @@ class GoodsService extends BaseService
         }
         return $this->format(new GoodsHomeSearchCollection($list));
     }
+
+    public function applyStatus()
+    {
+        $check = $this->base64Check();
+        if (!$check['status']) {
+            return $this->formatError($check['msg']);
+        }
+        $params = $check['data'];
+        $canApplyCount = Goods::query()
+            ->whereIn('id', $params['goods_id'])->where('goods_verify', '<>', 1)->count();
+        if (count($params['goods_id']) > $canApplyCount) {
+            return $this->formatError(__('tip.orderCanApplyStatus'));
+        }
+        $count = Goods::query()
+            ->whereIn('id', $params['goods_id'])->update(['goods_verify' => $params['apply_status']]);
+        return $this->format(['update_total' => $count, 'apply_status' => $params['apply_status']]);
+    }
 }
 

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Http\Queries\ExpressQuery;
 use App\Http\Queries\GoodsClassQuery;
 use App\Models\Express;
 use App\Models\GoodsClass;
@@ -11,13 +12,13 @@ use Illuminate\Http\Request;
 class ExpressesController extends Controller
 {
 
-    public function index(Request $request)
+    public function index(Request $request, ExpressQuery $query)
     {
         $isAll = $request->input('isAll', false);
         if ($isAll) {
-            $data = $data = Express::query()->orderBy('id', 'desc')->get();
+            $data = $query->orderBy('id', 'desc')->get();
         } else {
-            $data = Express::query()->orderBy('id', 'desc')
+            $data = $query->orderBy('id', 'desc')
                 ->paginate(intval($request->input('page_size', 25)));
         }
         return $this->success($data);

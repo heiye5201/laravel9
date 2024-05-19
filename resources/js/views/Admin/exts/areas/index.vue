@@ -30,6 +30,12 @@ export default {
             {label:'地区',value:'name'},
             {label:'编码',value:'code'},
         ]
+
+        // 搜索字段
+        const searchOptions = reactive([
+          {label:'名称',value:'filter[name]',where:''},
+        ])
+
         const viewColumn = [
             {label:'地区',value:'name'},
             {label:'编码',value:'code'},
@@ -56,7 +62,7 @@ export default {
                 loading.value=false
             })
         }
-        return {MagicStick,loading,options,dialogParam,clearCache}
+        return {MagicStick,loading,options,dialogParam,clearCache,searchOptions}
     }
 }
 </script>
