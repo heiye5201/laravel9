@@ -78,7 +78,7 @@ class AreasController extends Controller
                 'pid' => $request->input('pid'),
                 'deep'=> $request->input('deep', 0),
             ]);
-            return $this->handle($data);
+            return $this->success($data);
         } catch (\Exception $e) {
             return $this->error($e->getMessage());
         }
@@ -105,7 +105,7 @@ class AreasController extends Controller
         try {
             $ids = explode(", ", $id);
             $data = Area::query()->whereIn('id', $ids)->delete();
-            return $this->handle($data);
+            return $this->success($data);
         } catch (\Exception $e) {
             return $this->error($e->getMessage());
         }

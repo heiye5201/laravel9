@@ -33,7 +33,7 @@ class ArticlesController extends Controller
                 'pid' => $request->input('pid'),
                 'content' => $request->input('content'),
             ]);
-            return $this->handle($data);
+            return $this->success($data);
         } catch (\Exception $e) {
             return $this->error($e->getMessage());
         }
@@ -60,7 +60,7 @@ class ArticlesController extends Controller
         try {
             $ids = explode(", ", $id);
             $data = Article::query()->whereIn('id', $ids)->delete();
-            return $this->handle($data);
+            return $this->success($data);
         } catch (\Exception $e) {
             return $this->error($e->getMessage());
         }

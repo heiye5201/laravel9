@@ -82,7 +82,7 @@ class GoodsAttrsController extends Controller
             $ids = explode(",", $id);
             $rs = GoodsAttr::query()->where('store_id', $storeId)->whereIn('id', $ids)->delete();
             GoodsSpecs::query()->whereIn('attr_id', explode('id', $id))->delete();
-            return $this->handle($rs);
+            return $this->success($rs);
         } catch (\Exception $e) {
             return $this->error($e->getMessage());
         }

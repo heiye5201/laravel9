@@ -31,7 +31,7 @@ class AgreementsController extends Controller
                 'ename' => $request->input('ename'),
                 'content' => $request->input('content'),
             ]);
-            return $this->handle($data);
+            return $this->success($data);
         } catch (\Exception $e) {
             return $this->error($e->getMessage());
         }
@@ -57,7 +57,7 @@ class AgreementsController extends Controller
         try {
             $ids = explode(", ", $id);
             $data = Agreement::query()->whereIn('id', $ids)->delete();
-            return $this->handle($data);
+            return $this->success($data);
         } catch (\Exception $e) {
             return $this->error($e->getMessage());
         }

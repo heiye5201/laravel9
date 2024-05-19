@@ -35,7 +35,7 @@ class IntegralGoodsClassesController extends Controller
             $data = IntegralGoodsClass::query()->create([
                 'name' => $request->input('name'),
             ]);
-            return $this->handle($data);
+            return $this->success($data);
         } catch (\Exception $e) {
             return $this->error($e->getMessage());
         }
@@ -59,7 +59,7 @@ class IntegralGoodsClassesController extends Controller
         try {
             $ids = explode(",", $id);
             $data = IntegralGoodsClass::query()->whereIn('id', $ids)->delete();
-            return $this->handle($data);
+            return $this->success($data);
         } catch (\Exception $e) {
             return $this->error($e->getMessage());
         }

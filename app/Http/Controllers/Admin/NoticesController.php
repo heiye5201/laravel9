@@ -38,7 +38,7 @@ class NoticesController extends Controller
                 'is_send' => 0,
                 'belong_id' => 0,
             ]);
-            return $this->handle($data);
+            return $this->success($data);
         } catch (\Exception $e) {
             return $this->error($e->getMessage());
         }
@@ -64,7 +64,7 @@ class NoticesController extends Controller
         try {
             $ids = explode(",", $id);
             $data = Notice::query()->whereIn('id', $ids)->delete();
-            return $this->handle($data);
+            return $this->success($data);
         } catch (\Exception $e) {
             return $this->error($e->getMessage());
         }

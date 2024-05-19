@@ -57,7 +57,7 @@ class GoodsClassesController  extends Controller
                 'pid' => $request->input('pid'),
                 'is_sort' => $request->input('is_sort'),
             ]);
-            return $this->handle($data);
+            return $this->success($data);
         } catch (\Exception $e) {
             return $this->error($e->getMessage());
         }
@@ -85,7 +85,7 @@ class GoodsClassesController  extends Controller
         try {
             $ids = explode(", ", $id);
             $data = GoodsClass::query()->whereIn('id', $ids)->delete();
-            return $this->handle($data);
+            return $this->success($data);
         } catch (\Exception $e) {
             return $this->error($e->getMessage());
         }

@@ -37,7 +37,7 @@ class ExpressesController extends Controller
                 'name' => $request->input('name'),
                 'code' => $request->input('code'),
             ]);
-            return $this->handle($data);
+            return $this->success($data);
         } catch (\Exception $e) {
             return $this->error($e->getMessage());
         }
@@ -62,7 +62,7 @@ class ExpressesController extends Controller
         try {
             $ids = explode(", ", $id);
             $data = Express::query()->whereIn('id', $ids)->delete();
-            return $this->handle($data);
+            return $this->success($data);
         } catch (\Exception $e) {
             return $this->error($e->getMessage());
         }

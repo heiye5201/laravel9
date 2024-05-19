@@ -32,7 +32,7 @@ class SmsController extends Controller
                 'description' => $request->input('description'),
                 'code' => $request->input('code', ''),
             ]);
-            return $this->handle($data);
+            return $this->success($data);
         } catch (\Exception $e) {
             return $this->error($e->getMessage());
         }
@@ -59,7 +59,7 @@ class SmsController extends Controller
         try {
             $ids = explode(", ", $id);
             $data = Sms::query()->whereIn('id', $ids)->delete();
-            return $this->handle($data);
+            return $this->success($data);
         } catch (\Exception $e) {
             return $this->error($e->getMessage());
         }

@@ -78,7 +78,6 @@ class RolesController extends Controller
             $model->permissions()->detach();
             $model->refresh();
         }
-
         $model->whereIn('id', $idArray)->where('belong_id', $this->getBelongId($this->auth))->delete();
         return $this->success([], __('tip.success'));
     }

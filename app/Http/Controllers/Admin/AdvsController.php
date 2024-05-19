@@ -37,7 +37,7 @@ class AdvsController extends Controller
                 'is_sort'=> $request->input('is_sort'),
                 'image'=> $request->input('image'),
             ]);
-            return $this->handle($data);
+            return $this->success($data);
         } catch (\Exception $e) {
             return $this->error($e->getMessage());
         }
@@ -69,7 +69,7 @@ class AdvsController extends Controller
         try {
             $ids = explode(", ", $id);
             $data = Adv::query()->whereIn('id', $ids)->delete();
-            return $this->handle($data);
+            return $this->success($data);
         } catch (\Exception $e) {
             return $this->error($e->getMessage());
         }

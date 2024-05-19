@@ -37,7 +37,7 @@ class GoodsBrandsController extends Controller
                 'ename' => $request->input('ename'),
                 'content' => $request->input('content'),
             ]);
-            return $this->handle($data);
+            return $this->success($data);
         } catch (\Exception $e) {
             return $this->error($e->getMessage());
         }
@@ -63,7 +63,7 @@ class GoodsBrandsController extends Controller
         try {
             $ids = explode(", ", $id);
             $data = GoodsBrand::query()->whereIn('id', $ids)->delete();
-            return $this->handle($data);
+            return $this->success($data);
         } catch (\Exception $e) {
             return $this->error($e->getMessage());
         }

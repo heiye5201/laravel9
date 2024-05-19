@@ -35,7 +35,7 @@ class PermissionGroupsController extends Controller
                 'content' => $request->input('content'),
                 'name' => $request->input('name'),
             ]);
-            return $this->handle($data);
+            return $this->success($data);
         } catch (\Exception $e) {
             return $this->error($e->getMessage());
         }
@@ -60,7 +60,7 @@ class PermissionGroupsController extends Controller
         try {
             $ids = explode(",", $id);
             $data = AdminPermissionGroup::query()->whereIn('id', $ids)->delete();
-            return $this->handle($data);
+            return $this->success($data);
         } catch (\Exception $e) {
             return $this->error($e->getMessage());
         }

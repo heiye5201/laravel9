@@ -39,7 +39,7 @@ class GoodsBrandsController extends Controller
                 'is_sort' => $request->input('is_sort', 0),
                 'recommend' => $request->input('recommend', 0)
             ]);
-            return $this->handle($data);
+            return $this->success($data);
         } catch (\Exception $e) {
             return $this->error($e->getMessage());
         }
@@ -67,7 +67,7 @@ class GoodsBrandsController extends Controller
         try {
             $ids = explode(", ", $id);
             $data = GoodsBrand::query()->whereIn('id', $ids)->delete();
-            return $this->handle($data);
+            return $this->success($data);
         } catch (\Exception $e) {
             return $this->error($e->getMessage());
         }

@@ -39,7 +39,7 @@ class IntegralGoodsController extends Controller
                 'is_recommend' => $request->input('is_recommend', 0) ?? false,
                 'goods_content' => $request->input('goods_content', ''),
             ]);
-            return $this->handle($data);
+            return $this->success($data);
         } catch (\Exception $e) {
             return $this->error($e->getMessage());
         }
@@ -74,7 +74,7 @@ class IntegralGoodsController extends Controller
         try {
             $ids = explode(",", $id);
             $data = IntegralGoods::query()->whereIn('id', $ids)->delete();
-            return $this->handle($data);
+            return $this->success($data);
         } catch (\Exception $e) {
             return $this->error($e->getMessage());
         }

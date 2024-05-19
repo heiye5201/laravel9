@@ -32,7 +32,7 @@ class AdvSpacesController extends Controller
                 'height' => $request->input('height'),
                 'local_type' => $request->input('local_type', ''),
             ]);
-            return $this->handle($data);
+            return $this->success($data);
         } catch (\Exception $e) {
             return $this->error($e->getMessage());
         }
@@ -59,7 +59,7 @@ class AdvSpacesController extends Controller
         try {
             $ids = explode(", ", $id);
             $data = AdvSpace::query()->whereIn('id', $ids)->delete();
-            return $this->handle($data);
+            return $this->success($data);
         } catch (\Exception $e) {
             return $this->error($e->getMessage());
         }

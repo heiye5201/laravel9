@@ -28,7 +28,7 @@ class SmsLogsController extends Controller
         try {
             $ids = explode(", ", $id);
             $data = SmsLog::query()->whereIn('id', $ids)->delete();
-            return $this->handle($data);
+            return $this->success($data);
         } catch (\Exception $e) {
             return $this->error($e->getMessage());
         }

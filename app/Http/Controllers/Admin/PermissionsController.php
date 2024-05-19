@@ -39,7 +39,7 @@ class PermissionsController extends Controller
                 'apis' => $request->input('apis'),
                 'pid' => $request->input('pid'),
             ]);
-            return $this->handle($data);
+            return $this->success($data);
         } catch (\Exception $e) {
             return $this->error($e->getMessage());
         }
@@ -66,7 +66,7 @@ class PermissionsController extends Controller
         try {
             $ids = explode(",", $id);
             $data = AdminPermission::query()->whereIn('id', $ids)->delete();
-            return $this->handle($data);
+            return $this->success($data);
         } catch (\Exception $e) {
             return $this->error($e->getMessage());
         }
