@@ -29,7 +29,6 @@ Route::namespace('Home')->name('home.')->group(function ($route) {
     $route->get('/stores', 'StoresController@stores')->name('stores.index'); // 店铺列表
     $route->get('/stores/{id}', 'StoresController@show')->name('stores.show'); // 无权限获取店铺信息
 
-
     $route->get('/goods', 'GoodsController@goods')->name('goods.index'); // 商品列表 | 搜索
     $route->get('/goods/{id}', 'GoodsController@show')->name('goods.show'); // 商品详情
     $route->get('/goods_comments/{id}', 'GoodsController@goods_comments')->name('goods.comments'); // 商品评论
@@ -43,6 +42,9 @@ Route::namespace('Home')->name('home.')->group(function ($route) {
     $route->get('/integral/goods/{id}', 'IntegralController@show')->name('integral.show');
 
     $route->get('/seckills', 'SeckillsController@index')->name('seckills.index');
+
+    $route->get('/store/{id}', 'StoresController@show')->name('store.show'); // 无权限获取店铺信息
+
 });
 
 

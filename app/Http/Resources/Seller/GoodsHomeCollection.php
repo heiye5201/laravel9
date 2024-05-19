@@ -41,7 +41,7 @@ class GoodsHomeCollection extends ResourceCollection
                 'goods_name' => $item->goods_name,
                 'goods_subname' => $item->goods_subname,
                 'goods_price' => $goods_price,
-                'goods_market_price' => $goods_market_price,
+                'goods_market_price' => (float) $goods_market_price,
                 'goods_stock' => $goods_stock,
                 'goods_sale' => $item->goods_sale,
                 'goods_master_image' => $tool->thumb($item->goods_master_image),
