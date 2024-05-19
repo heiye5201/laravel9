@@ -113,7 +113,7 @@ export default {
 
         // 搜索字段
         const searchOptions = reactive([
-            {label:proxy.$t('seller.rules.name'),value:'name',where:'likeRight'},
+            {label:proxy.$t('seller.rules.name'),value:'filter[name]',where:''},
         ])
 
         // 视图配置

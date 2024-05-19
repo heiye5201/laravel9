@@ -18,9 +18,7 @@ class OrderCommentQuery extends QueryBuilder
         parent::__construct(OrderComment::query());
         $this->defaultSort('-ID')
             ->allowedFilters([
-                AllowedFilter::scope('name'),
-                AllowedFilter::scope('code'),
-                AllowedFilter::scope('content'),
+                'content',
             ])
             ->allowedSorts([
                 AllowedSort::field('date', 'created_at'),

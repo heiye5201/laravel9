@@ -99,10 +99,10 @@ export default {
 
         // 搜索字段
         const searchOptions = reactive([
-            {label:proxy.$t('seller.refunds.order_no'),value:'order_no',where:'likeRight'},
-            {label:proxy.$t('seller.refunds.order_name'),value:'order_name',where:'likeRight'},
-            {label:proxy.$t('seller.refunds.order_status_cn'),value:'order_status',type:'select',data:{
-                order_status:[
+            {label:proxy.$t('seller.refunds.order_no'),value:'filter[order_no]',where:''},
+            {label:proxy.$t('seller.refunds.order_name'),value:'filter[order_name]',where:''},
+            {label:proxy.$t('seller.refunds.order_status_cn'),value:'filter[order_status]',type:'select',data:{
+                'filter[order_status]':[
                     {label:proxy.$t('order.orderCancel'),value:0},
                     {label:proxy.$t('order.waitPay'),value:1},
                     {label:proxy.$t('order.waitSend'),value:2},

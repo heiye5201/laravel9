@@ -30,10 +30,10 @@ export default {
 
         // 搜索字段
         const searchOptions = reactive([
-            {label:proxy.$t('seller.money_logs.name'),value:'name',where:'likeRight'},
-            {label:proxy.$t('seller.money_logs.money'),value:'money'},
-            {label:proxy.$t('seller.money_logs.is_type'),value:'is_type',type:'select'},
-            {label:proxy.$t('seller.money_logs.is_belong'),value:'is_belong',type:'select'},
+            {label:proxy.$t('seller.money_logs.name'),value:'filter[name]',where:''},
+            {label:proxy.$t('seller.money_logs.money'),value:'filter[money]'},
+            {label:proxy.$t('seller.money_logs.is_type'),value:'filter[is_type]',type:'select'},
+            {label:proxy.$t('seller.money_logs.is_belong'),value:'filter[is_belong]',type:'select'},
         ])
 
         // 表单配置
@@ -54,12 +54,14 @@ export default {
             dictData:{
                 is_type:[{label:proxy.$t('user.frozen_money'),value:'1'},{label:proxy.$t('user.money'),value:'0'},{label:proxy.$t('user.integral'),value:'2'}],
                 is_belong:[{label:proxy.$t('btn.yes'),value:'1'},{label:proxy.$t('btn.no'),value:'0'}],
+                'filter[is_type]':[{label:proxy.$t('user.frozen_money'),value:'1'},{label:proxy.$t('user.money'),value:'0'},{label:proxy.$t('user.integral'),value:'2'}],
+                'filter[is_belong]':[{label:proxy.$t('btn.yes'),value:'1'},{label:proxy.$t('btn.no'),value:'0'}],
             },
             view:{column:addColumn},
         })
 
         const params = reactive({
-            is_belong:'0|gt',
+          'filter[is_belong]':'0|gt',
         })
 
         const data = reactive({

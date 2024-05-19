@@ -21,8 +21,8 @@ export default {
         ]);
         // 搜索字段
         const searchOptions = reactive([
-            {label:proxy.$t('seller.users.nickname'),value:'nickname',where:'likeRight'},
-            {label:proxy.$t('seller.users.username'),value:'username',where:'likeRight'},
+            {label:proxy.$t('seller.users.nickname'),value:'filter[nickname]',where:''},
+            {label:proxy.$t('seller.users.username'),value:'filter[username]',where:''},
         ])
         // 表单配置
         const addColumn = [

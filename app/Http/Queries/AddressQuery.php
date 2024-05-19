@@ -18,9 +18,7 @@ class AddressQuery extends QueryBuilder
         parent::__construct(Address::query());
         $this->defaultSort('-ID')
             ->allowedFilters([
-                AllowedFilter::scope('name'),
-                AllowedFilter::scope('code'),
-                AllowedFilter::scope('content'),
+                'receive_name', 'receive_tel', 'area_info', 'address',
             ])
             ->allowedSorts([
                 AllowedSort::field('date', 'created_at'),

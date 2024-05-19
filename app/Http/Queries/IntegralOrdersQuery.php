@@ -19,7 +19,7 @@ class IntegralOrdersQuery extends QueryBuilder
         parent::__construct(IntegralOrder::query());
         $this->defaultSort('-ID')
             ->allowedFilters([
-                AllowedFilter::scope('name'),
+                'order_no', 'order_name', 'order_status',
             ])
             ->allowedSorts([
                 AllowedSort::field('date', 'created_at'),

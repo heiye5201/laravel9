@@ -1,6 +1,6 @@
 <template>
     <div class="qwit">
-        <table-view :options="options" :handleWidth="'80px'" :params="params" :btnConfig="btnConfigs" :dialogParam="dialogParam" ></table-view>
+        <table-view :options="options" :handleWidth="'80px'" :params="params" :searchOption="searchOptions" :btnConfig="btnConfigs" :dialogParam="dialogParam" ></table-view>
     </div>
 </template>
 
@@ -28,6 +28,13 @@ export default {
             {label:proxy.$t('seller.cashes.money'),value:'money'},
         ]
 
+        // 搜索字段
+        const searchOptions = reactive([
+          {label:proxy.$t('seller.cashes.name'),value:'filter[name]',where:''},
+          {label:proxy.$t('seller.cashes.bank_name'),value:'filter[bank_name]'},
+          {label:proxy.$t('seller.cashes.card_no'),value:'filter[card_no]',},
+        ])
+
         let viewColumn = _.cloneDeep(addColumn)
         viewColumn.push({label:proxy.$t('seller.cashes.commission'),value:'commission'})
 
@@ -50,9 +57,9 @@ export default {
         })
 
         const params = reactive({
-            store_id:'0|gt'
+          'filter[store_id]':'0|gt'
         })
-        return {options,btnConfigs,dialogParam,params}
+        return {options,btnConfigs,dialogParam,params,searchOptions}
     }
 }
 </script>

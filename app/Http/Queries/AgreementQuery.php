@@ -6,7 +6,6 @@
  */
 namespace App\Http\Queries;
 
-use App\Models\AdvSpace;
 use App\Models\Agreement;
 use Spatie\QueryBuilder\AllowedFilter;
 use Spatie\QueryBuilder\AllowedSort;

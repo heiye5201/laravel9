@@ -18,7 +18,7 @@ class GoodsAttrQuery extends QueryBuilder
         parent::__construct(GoodsAttr::query());
         $this->defaultSort('-ID')
             ->allowedFilters([
-                AllowedFilter::scope('name'),
+                'name',
             ])
             ->allowedSorts([
                 AllowedSort::field('date', 'created_at'),

@@ -44,9 +44,9 @@ export default {
 
         // 搜索字段
         const searchOptions = reactive([
-            {label:proxy.$t('seller.goods.name'),value:'goods_name',where:'likeRight'},
-            {label:proxy.$t('seller.goods.status'),value:'goods_status',type:'select',data:{goods_status:[{label:proxy.$t('btn.yes'),value:1},{label:proxy.$t('btn.no'),value:0}]}},
-            {label:proxy.$t('seller.goods.goods_verify'),value:'goods_verify',type:'select',data:{goods_verify:[{label:proxy.$t('btn.waitExamine'),value:2},{label:proxy.$t('btn.passExamine'),value:1},{label:proxy.$t('btn.rejected'),value:0}]}},
+            {label:proxy.$t('seller.goods.name'),value:'filter[goods_name]',where:''},
+            {label:proxy.$t('seller.goods.status'),value:'filter[goods_status]',type:'select',data:{goods_status:[{label:proxy.$t('btn.yes'),value:1},{label:proxy.$t('btn.no'),value:0}]}},
+            {label:proxy.$t('seller.goods.goods_verify'),value:'filter[goods_verify]',type:'select',data:{goods_verify:[{label:proxy.$t('btn.waitExamine'),value:2},{label:proxy.$t('btn.passExamine'),value:1},{label:proxy.$t('btn.rejected'),value:0}]}},
         ])
 
         const dialogParam = reactive({
@@ -57,7 +57,9 @@ export default {
             },
             dictData:{
                 goods_status:[{label:proxy.$t('btn.yes'),value:1},{label:proxy.$t('btn.no'),value:0}],
-                goods_verify:[{label:proxy.$t('btn.waitExamine'),value:2},{label:proxy.$t('btn.passExamine'),value:1},{label:proxy.$t('btn.rejected'),value:0}]
+                goods_verify:[{label:proxy.$t('btn.waitExamine'),value:2},{label:proxy.$t('btn.passExamine'),value:1},{label:proxy.$t('btn.rejected'),value:0}],
+                'filter[goods_status]':[{label:proxy.$t('btn.yes'),value:1},{label:proxy.$t('btn.no'),value:0}],
+                'filter[goods_verify]':[{label:proxy.$t('btn.waitExamine'),value:2},{label:proxy.$t('btn.passExamine'),value:1},{label:proxy.$t('btn.rejected'),value:0}]
             },
             addForm:{},
         })

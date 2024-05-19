@@ -19,8 +19,7 @@ class AdminMenuQuery extends QueryBuilder
         parent::__construct(AdminMenu::query());
         $this->defaultSort('-ID')
             ->allowedFilters([
-                AllowedFilter::scope('ename'),
-                AllowedFilter::scope('name'),
+                'ename', 'name',
             ])
             ->allowedSorts([
                 AllowedSort::field('date', 'created_at'),

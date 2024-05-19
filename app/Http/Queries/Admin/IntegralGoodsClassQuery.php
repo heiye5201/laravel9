@@ -18,8 +18,7 @@ class IntegralGoodsClassQuery extends QueryBuilder
         parent::__construct(IntegralGoodsClass::query());
         $this->defaultSort('-ID')
             ->allowedFilters([
-                AllowedFilter::scope('goods_name'),
-                AllowedFilter::scope('goods_subname'),
+                'name',
             ])
             ->allowedSorts([
                 AllowedSort::field('date', 'created_at'),

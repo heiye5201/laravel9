@@ -1,6 +1,6 @@
 <template>
     <div class="qwit seller_goods_attr">
-        <table-view :params="{isWith:'specs'}" :options="options" :dialogParam="dialogParam">
+        <table-view :params="{isWith:'specs'}" :options="options" :dialogParam="dialogParam" :searchOption="searchOptions">
             <template #table_add_hook="{dialogParams}">
                 <div class="table_add_hook_block">
                     <el-form ref="addForm" label-position="right" :model="dialogParam.addForm" :rules="dialogParam.rules" label-width="120px">
@@ -105,6 +105,11 @@ export default {
              {label:proxy.$t('seller.goods_attrs.specs'),value:'specs',viewType:"tags_array",span:24},
         ]
 
+        // 搜索字段
+        const searchOptions = reactive([
+          {label:proxy.$t('seller.goods_attrs.attrs_name'),value:'filter[name]',where:''},
+        ])
+
         const dialogParam = reactive({
             rules:{
                 name:[{required:true,message:proxy.$t('msg.requiredMsg')}],
@@ -188,7 +193,7 @@ export default {
 
 
         return {
-            options,dialogParam,inputVisible,inputValue,loading,
+            options,dialogParam,inputVisible,inputValue,loading,searchOptions,
             handleClose,handleInputConfirm,showInput,
             formDataChange,storeData,updateData
         }

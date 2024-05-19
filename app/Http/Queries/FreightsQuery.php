@@ -18,7 +18,7 @@ class FreightsQuery extends QueryBuilder
         parent::__construct(Freight::query());
         $this->defaultSort('-ID')
             ->allowedFilters([
-                AllowedFilter::scope('name'),
+                'name',
             ])
             ->allowedSorts([
                 AllowedSort::field('date', 'created_at'),

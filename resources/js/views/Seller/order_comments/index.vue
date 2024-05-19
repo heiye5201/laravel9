@@ -1,6 +1,6 @@
 <template>
     <div class="qwit">
-        <table-view  :options="options" :params="params" :btnConfig="btnConfigs" :dialogParam="dialogParam" ></table-view>
+        <table-view  :options="options" :params="params" :searchOption="searchOptions" :btnConfig="btnConfigs" :dialogParam="dialogParam" ></table-view>
     </div>
 </template>
 
@@ -23,6 +23,12 @@ export default {
         const addColumn = [
             {label:proxy.$t('seller.order_comments.reply'),value:'reply',type:'textarea',span:24},
         ]
+
+        // 搜索字段
+        const searchOptions = reactive([
+          {label:proxy.$t('seller.order_comments.content'),value:'filter[content]',where:''},
+        ])
+
         const viewColumn = [
             {label:proxy.$t('seller.order_comments.avatar'),value:'avatar',type:'avatar'},
             {label:proxy.$t('seller.order_comments.nickname'),value:'nickname'},
@@ -46,7 +52,7 @@ export default {
 
         const params = reactive({
         })
-        return {options,btnConfigs,dialogParam,params}
+        return {options,btnConfigs,dialogParam,params,searchOptions}
     }
 }
 </script>

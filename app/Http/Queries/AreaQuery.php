@@ -18,8 +18,7 @@ class AreaQuery extends QueryBuilder
         parent::__construct(Area::query());
         $this->defaultSort('-ID')
             ->allowedFilters([
-                AllowedFilter::scope('name'),
-                AllowedFilter::scope('pid'),
+                'pid', 'name', 'code',
             ])
             ->allowedSorts([
                 AllowedSort::field('date', 'created_at'),

@@ -19,9 +19,7 @@ class StoreQuery extends QueryBuilder
         parent::__construct(Store::query());
         $this->defaultSort('-ID')
             ->allowedFilters([
-                AllowedFilter::scope('store_name'),
-                AllowedFilter::scope('store_description'),
-                AllowedFilter::scope('store_mobile'),
+                'store_name', 'store_description', 'store_mobile',
             ])
             ->allowedSorts([
                 AllowedSort::field('date', 'created_at'),

@@ -18,7 +18,7 @@ class CouponLogsQuery extends QueryBuilder
         parent::__construct(CouponLog::query());
         $this->defaultSort('-ID')
             ->allowedFilters([
-                AllowedFilter::scope('name'),
+                'name',
             ])
             ->allowedSorts([
                 AllowedSort::field('date', 'created_at'),

@@ -1,6 +1,6 @@
 <template>
     <div class="qwit">
-        <table-view :handleHide="false" :options="options" :params="params" :btnConfig="btnConfigs" :dialogParam="dialogParam" >
+        <table-view :handleHide="false" :options="options" :searchOption="searchOptions" :params="params" :btnConfig="btnConfigs" :dialogParam="dialogParam" >
             <template #lev="{scopeData}">
                 <span class="lev_rate">{{scopeData.lev||0.00}} %</span>
             </template>
@@ -26,6 +26,10 @@ export default {
         ]);
 
 
+        // 搜索字段
+        const searchOptions = reactive([
+          {label:proxy.$t('seller.distributions.log_name'),value:'filter[name]',where:''},
+        ])
 
         const btnConfigs = reactive({
             show:{show:false},
@@ -42,7 +46,7 @@ export default {
         const params = reactive({
             // is_belong:'0|gt',
         })
-        return {options,btnConfigs,dialogParam,params}
+        return {options,btnConfigs,dialogParam,params,searchOptions}
     }
 }
 </script>

@@ -1,6 +1,6 @@
 <template>
     <div class="qwit">
-        <table-view :handleWidth="'80px'" :options="options" :params="params" :btnConfig="btnConfigs" :dialogParam="dialogParam" ></table-view>
+        <table-view :handleWidth="'80px'" :options="options" :params="params" :searchOption="searchOptions" :btnConfig="btnConfigs" :dialogParam="dialogParam" ></table-view>
     </div>
 </template>
 
@@ -32,6 +32,11 @@ export default {
             {label:proxy.$t('seller.coupons.content'),value:'content',type:'textarea',span:24},
         ]
 
+        // 搜索字段
+        const searchOptions = reactive([
+          {label:proxy.$t('seller.coupons.name'),value:'filter[name]',where:''},
+        ])
+
         const btnConfigs = reactive({
             show:{show:false},
         })
@@ -55,7 +60,7 @@ export default {
         const params = reactive({
             // is_belong:'0|gt',
         })
-        return {options,btnConfigs,dialogParam,params}
+        return {options,btnConfigs,dialogParam,params,searchOptions}
     }
 }
 </script>

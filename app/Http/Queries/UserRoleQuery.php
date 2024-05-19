@@ -18,8 +18,7 @@ class UserRoleQuery extends QueryBuilder
         parent::__construct(UserRole::query());
         $this->defaultSort('-ID')
             ->allowedFilters([
-                AllowedFilter::scope('username'),
-                AllowedFilter::scope('email'),
+                'name',
             ])
             ->allowedSorts([
                 AllowedSort::field('date', 'created_at'),

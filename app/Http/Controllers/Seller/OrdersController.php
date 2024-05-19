@@ -22,13 +22,6 @@ class OrdersController extends Controller
     {
         $query = $query->where('store_id', app(StoreService::class)->getStoreId()['data'])
             ->orderBy('id', 'desc');
-
-        if ($request['order_status']) {
-            $query = $query->where('order_status', $request['order_status']);
-        }
-        if ($request->input('refund_status')) {
-            $query = $query->where('refund_status', $request->input('refund_status'));
-        }
         $data = $query->paginate(intval($request->input('page_size', 25)));
         return $this->success(new OrderCollection($data));
     }

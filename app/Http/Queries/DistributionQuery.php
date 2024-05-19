@@ -18,7 +18,7 @@ class DistributionQuery extends QueryBuilder
         parent::__construct(Distribution::query());
         $this->defaultSort('-ID')
             ->allowedFilters([
-                AllowedFilter::scope('name'),
+                'name',
             ])
             ->allowedSorts([
                 AllowedSort::field('date', 'created_at'),

@@ -939,6 +939,9 @@
             "bank_name": "银行名称",
             "card_no": "银行卡号",
             "cash_status": "提现状态"
+        },
+        "rules": {
+            "name": "角色名称"
         }
     },
     "common": {

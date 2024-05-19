@@ -18,9 +18,7 @@ class OrderSellerQuery extends QueryBuilder
         parent::__construct(OrderSeller::query());
         $this->defaultSort('-ID')
             ->allowedFilters([
-                AllowedFilter::scope('name'),
-                AllowedFilter::scope('code'),
-                AllowedFilter::scope('content'),
+                'order_status','order_no', 'order_name', 'refund_status',
             ])
             ->allowedSorts([
                 AllowedSort::field('date', 'created_at'),

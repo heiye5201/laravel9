@@ -18,9 +18,7 @@ class OrderSettlementQuery extends QueryBuilder
         parent::__construct(OrderSettlement::query());
         $this->defaultSort('-ID')
             ->allowedFilters([
-                AllowedFilter::scope('name'),
-                AllowedFilter::scope('code'),
-                AllowedFilter::scope('content'),
+                'status',
             ])
             ->allowedSorts([
                 AllowedSort::field('date', 'created_at'),

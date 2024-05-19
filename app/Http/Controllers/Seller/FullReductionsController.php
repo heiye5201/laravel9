@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Seller;
 
 use App\Http\Controllers\Controller;
+use App\Http\Queries\FullReductionQuery;
 use App\Models\FullReduction;
 use App\Services\StoreService;
 use Illuminate\Http\Request;
@@ -10,10 +11,10 @@ use Illuminate\Http\Request;
 class FullReductionsController extends Controller
 {
 
-    public function index(Request $request)
+    public function index(Request $request, FullReductionQuery $query)
     {
         $storeId = app(StoreService::class)->getStoreId()['data'];
-        $query = FullReduction::query()->where('store_id', $storeId)->orderBy('id', 'desc');
+        $query = $query->where('store_id', $storeId)->orderBy('id', 'desc');
         $data = $query->paginate(intval($request->input('page_size', 25)));
         return $this->success($data);
     }
