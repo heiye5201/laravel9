@@ -18,7 +18,7 @@ class AdminRoleQuery extends QueryBuilder
         parent::__construct(AdminRole::query());
         $this->defaultSort('-ID')
             ->allowedFilters([
-                AllowedFilter::scope('name'),
+                'name',
             ])
             ->allowedSorts([
                 AllowedSort::field('date', 'created_at'),

@@ -20,9 +20,9 @@ export default {
 
         // 搜索字段
         const searchOptions = reactive([
-            {label:'调用名称',value:'name',where:'likeRight'},
-            {label:'签名模板',value:'code',where:'likeRight'},
-            {label:'签名名称',value:'content',where:'likeRight'},
+            {label:'调用名称',value:'filter[name]',where:''},
+            {label:'签名模板',value:'filter[code]',where:''},
+            {label:'签名名称',value:'filter[content]',where:''},
         ])
 
         // 表单配置 

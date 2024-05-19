@@ -25,11 +25,11 @@ export default {
 
         // 搜索字段
         const searchOptions = reactive([
-            {label:'真实姓名',value:'name',where:'likeRight'},
-            {label:'提现银行',value:'bank_name',where:'likeRight'},
-            {label:'银行卡号',value:'card_no',where:'likeRight'},
-            {label:'提现金额',value:'money'},
-            {label:'提现状态',value:'cash_status',type:'select'},
+            {label:'真实姓名',value:'filter[name]',where:''},
+            {label:'提现银行',value:'filter[bank_name]',where:''},
+            {label:'银行卡号',value:'filter[card_no]',where:''},
+            {label:'提现金额',value:'filter[money]'},
+            {label:'提现状态',value:'filter[cash_status]',type:'select'},
         ])
 
         // 表单配置 
@@ -54,6 +54,7 @@ export default {
         const dialogParam = reactive({
             dictData:{
                 cash_status:[{label:proxy.$t('btn.waitExamine'),value:0},{label:proxy.$t('btn.success'),value:1},{label:proxy.$t('btn.rejected'),value:2}],
+                'filter[cash_status]':[{label:proxy.$t('btn.waitExamine'),value:0},{label:proxy.$t('btn.success'),value:1},{label:proxy.$t('btn.rejected'),value:2}],
             },
             view:{column:addColumn},
             edit:{column:editColumn},

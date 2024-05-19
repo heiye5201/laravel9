@@ -18,8 +18,7 @@ class PermissionQuery extends QueryBuilder
         parent::__construct(AdminPermission::query());
         $this->defaultSort('-ID')
             ->allowedFilters([
-                AllowedFilter::scope('name'),
-                AllowedFilter::scope('content'),
+                'name', 'pid', 'apis',
             ])
             ->allowedSorts([
                 AllowedSort::field('date', 'created_at'),

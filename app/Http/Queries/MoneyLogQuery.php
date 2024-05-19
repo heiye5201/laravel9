@@ -18,7 +18,7 @@ class MoneyLogQuery extends QueryBuilder
         parent::__construct(MoneyLog::query());
         $this->defaultSort('-ID')
             ->allowedFilters([
-                AllowedFilter::scope('name'),
+                'name', 'money', 'is_type', 'is_belong',
             ])
             ->allowedSorts([
                 AllowedSort::field('date', 'created_at'),

@@ -24,7 +24,7 @@ export default {
 
         // 搜索字段
         const searchOptions = reactive([
-            {label:'结算状态',value:'status',type:'select'},
+            {label:'结算状态',value:'filter[status]',type:'select'},
         ])
 
         // 表单配置 
@@ -39,6 +39,7 @@ export default {
             view:{column:viewColumn},
             dictData:{
                 status:[{label:proxy.$t('btn.waitExamine'),value:0},{label:proxy.$t('btn.success'),value:1},{label:proxy.$t('btn.rejected'),value:2}],
+                'filter[status]':[{label:proxy.$t('btn.waitExamine'),value:0},{label:proxy.$t('btn.success'),value:1},{label:proxy.$t('btn.rejected'),value:2}],
             },
         })
 

@@ -18,8 +18,7 @@ class UserQuery extends QueryBuilder
         parent::__construct(User::query());
         $this->defaultSort('-ID')
             ->allowedFilters([
-                AllowedFilter::scope('username'),
-                AllowedFilter::scope('email'),
+                'nickname','username','email',
             ])
             ->allowedSorts([
                 AllowedSort::field('date', 'created_at'),

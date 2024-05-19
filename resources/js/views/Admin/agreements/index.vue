@@ -19,8 +19,8 @@ export default {
 
         // 搜索字段
         const searchOptions = reactive([
-            {label:'协议名称',value:'name',where:'likeRight'},
-            {label:'调用名称',value:'ename',where:'likeRight'},
+            {label:'协议名称',value:'filter[name]',where:''},
+            {label:'调用名称',value:'filter[ename]',where:''},
         ])
 
         // 表单配置 

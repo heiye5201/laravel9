@@ -21,15 +21,14 @@ export default {
 
         // 搜索字段
         const searchOptions = reactive([
-            {label:'订单号',value:'order_no',where:'likeRight'},
-            {label:'订单名称',value:'order_name',where:'likeRight'},
+            {label:'订单号',value:'filter[order_no]',where:''},
+            {label:'订单名称',value:'filter[order_name]',where:''},
         ])
 
         const params = {
             isWith:'store,user,refund',
-            order_status:5,
-            refund_status:1,
-
+            'filter[order_status]':5,
+            'filter[refund_status]':1,
         }
 
         const btnConfigs = reactive({

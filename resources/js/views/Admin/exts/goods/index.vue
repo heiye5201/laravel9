@@ -42,20 +42,21 @@ export default {
 
         // 搜索字段
         const searchOptions = reactive([
-            {label:'名称',value:'goods_name',where:'likeRight'},
-            {label:'上架状态',value:'goods_status',type:'select',data:{goods_status:[{label:proxy.$t('btn.yes'),value:1},{label:proxy.$t('btn.no'),value:0}]}},
-            {label:'审核状态',value:'goods_verify',type:'select',data:{goods_verify:[{label:proxy.$t('btn.waitExamine'),value:2},{label:proxy.$t('btn.passExamine'),value:1},{label:proxy.$t('btn.rejected'),value:0}]}},
+            {label:'名称',value:'filter[goods_name]',where:''},
+            {label:'上架状态',value:'filter[goods_status]',type:'select',data:{goods_status:[{label:proxy.$t('btn.yes'),value:1},{label:proxy.$t('btn.no'),value:0}]}},
+            {label:'审核状态',value:'filter[goods_verify]',type:'select',data:{goods_verify:[{label:proxy.$t('btn.waitExamine'),value:2},{label:proxy.$t('btn.passExamine'),value:1},{label:proxy.$t('btn.rejected'),value:0}]}},
         ])
 
         const dialogParam = reactive({
-            // dict:[{name:'pid',url:'/load_goods_classes?deep=2'}],
             rules:{
                 pid:[{required:true,message:'不能为空'}],
                 name:[{required:true,message:'不能为空'}]
             },
             dictData:{
                 goods_status:[{label:proxy.$t('btn.yes'),value:1},{label:proxy.$t('btn.no'),value:0}],
-                goods_verify:[{label:proxy.$t('btn.waitExamine'),value:2},{label:proxy.$t('btn.passExamine'),value:1},{label:proxy.$t('btn.rejected'),value:0}]
+                goods_verify:[{label:proxy.$t('btn.waitExamine'),value:2},{label:proxy.$t('btn.passExamine'),value:1},{label:proxy.$t('btn.rejected'),value:0}],
+                'filter[goods_verify]':[{label:proxy.$t('btn.waitExamine'),value:2},{label:proxy.$t('btn.passExamine'),value:1},{label:proxy.$t('btn.rejected'),value:0}],
+                'filter[goods_status]':[{label:proxy.$t('btn.yes'),value:1},{label:proxy.$t('btn.no'),value:0}],
             },
             addForm:{},
         })

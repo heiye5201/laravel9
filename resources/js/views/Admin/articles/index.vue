@@ -19,8 +19,8 @@ export default {
 
         // 搜索字段
         const searchOptions = reactive([
-            {label:'标题',value:'name',where:'likeRight'},
-            {label:'栏目',value:'pid',type:'cascader',props:{emitPath:false,checkStrictly: true,label:'name',value:'id'}},
+            {label:'标题',value:'filter[name]',where:''},
+            {label:'栏目',value:'filter[pid]',type:'cascader',props:{emitPath:false,checkStrictly: true,label:'name',value:'id'}},
         ])
 
         // 表单配置
@@ -31,7 +31,10 @@ export default {
             {label:'内容',value:'content',type:'editor',span:24,viewType:'html'},
         ]
         const dialogParam = reactive({
-            dict:[{name:'pid',url:'/load_article_menu?deep=2'}],
+            dict:[
+                {name:'filter[pid]',url:'/load_article_menu?deep=2'},
+                {name:'pid',url:'/load_article_menu?deep=2'}
+            ],
             rules:{
                 pid:[{required:true,message:'不能为空'}],
                 type:[{required:true,message:'不能为空'}],

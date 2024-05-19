@@ -113,7 +113,7 @@ export default {
 
         // 搜索字段
         const searchOptions = reactive([
-            {label:'角色名称',value:'name',where:'likeRight'},
+            {label:'角色名称',value:'filter[name]',where:''},
         ])
 
         // 视图配置 

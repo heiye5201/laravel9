@@ -18,9 +18,7 @@ class SmsQuery extends QueryBuilder
         parent::__construct(Sms::query());
         $this->defaultSort('-ID')
             ->allowedFilters([
-                AllowedFilter::scope('name'),
-                AllowedFilter::scope('code'),
-                AllowedFilter::scope('content'),
+                'name', 'code', 'content',
             ])
             ->allowedSorts([
                 AllowedSort::field('date', 'created_at'),

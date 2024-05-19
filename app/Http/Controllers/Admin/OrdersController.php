@@ -16,12 +16,6 @@ class OrdersController extends Controller
 
     public function index(Request $request, OrderQuery $query)
     {
-        if ($request->input('order_status')) {
-            $query = $query->where('order_status', $request->input('order_status'));
-        }
-        if ($request->input('refund_status')) {
-            $query = $query->where('refund_status', $request->input('refund_status'));
-        }
         $query = $query->orderBy('id', 'desc');
         $data = $query->paginate(intval($request->input('page_size', 25)));
         return $this->success(new OrderCollection($data));

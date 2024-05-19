@@ -72,10 +72,10 @@ export default {
 
         // 搜索字段
         const searchOptions = reactive([
-            {label:'订单号',value:'order_no',where:'likeRight'},
-            {label:'订单名称',value:'order_name',where:'likeRight'},
-            {label:'订单状态',value:'order_status',type:'select',data:{
-                order_status:[
+            {label:'订单号',value:'filter[order_no]',where:''},
+            {label:'订单名称',value:'filter[order_name]',where:''},
+            {label:'订单状态',value:'filter[order_status]',type:'select',data:{
+                'filter[order_status]':[
                     {label:proxy.$t('order.orderCancel'),value:0},
                     {label:proxy.$t('order.waitPay'),value:1},
                     {label:proxy.$t('order.waitSend'),value:2},

@@ -18,8 +18,7 @@ class AdminQuery extends QueryBuilder
         parent::__construct(Admins::query());
         $this->defaultSort('-ID')
             ->allowedFilters([
-                AllowedFilter::scope('username'),
-                AllowedFilter::scope('nickname'),
+                'username', 'nickname',
             ])
             ->allowedSorts([
                 AllowedSort::field('date', 'created_at'),

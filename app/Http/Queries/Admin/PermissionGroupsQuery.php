@@ -18,8 +18,7 @@ class PermissionGroupsQuery extends QueryBuilder
         parent::__construct(AdminPermissionGroup::query());
         $this->defaultSort('-ID')
             ->allowedFilters([
-                AllowedFilter::scope('name'),
-                AllowedFilter::scope('content'),
+                'name', 'content',
             ])
             ->allowedSorts([
                 AllowedSort::field('date', 'created_at'),

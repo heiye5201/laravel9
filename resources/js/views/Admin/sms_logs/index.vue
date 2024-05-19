@@ -23,10 +23,10 @@ export default {
 
         // 搜索字段
         const searchOptions = reactive([
-            {label:'调用名称',value:'name',where:'likeRight'},
-            {label:'手机号码',value:'phone',where:'likeRight'},
-            {label:'IP',value:'IP',where:'likeRight'},
-            {label:'状态',value:'status',type:'select'},
+            {label:'调用名称',value:'filter[name]',where:''},
+            {label:'手机号码',value:'filter[phone]',where:''},
+            {label:'IP',value:'filter[IP]',where:''},
+            {label:'状态',value:'filter[status]',type:'select'},
         ])
 
         // 表单配置 
@@ -47,6 +47,7 @@ export default {
         const dialogParam = reactive({
             dictData:{
                 status:[{label:proxy.$t('btn.success'),value:'1'},{label:proxy.$t('btn.error'),value:'0'}],
+                'filter[status]':[{label:proxy.$t('btn.success'),value:'1'},{label:proxy.$t('btn.error'),value:'0'}],
             },
             view:{column:addColumn},
         })

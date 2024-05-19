@@ -27,8 +27,8 @@ export default {
 
         // 搜索字段
         const searchOptions = reactive([
-            {label:'分销名称',value:'name',where:'likeRight'},
-            {label:'结算状态',value:'status',where:'select'}
+            {label:'分销名称',value:'filter[name]',where:''},
+            {label:'结算状态',value:'filter[status]',type:'select'}
         ])
         
         const btnConfigs = reactive({
@@ -39,7 +39,8 @@ export default {
 
         const dialogParam = reactive({
             dictData:{
-                status:[{label:proxy.$t('btn.waitExamine'),value:0},{label:proxy.$t('btn.success'),value:1}]
+                status:[{label:proxy.$t('btn.waitExamine'),value:0},{label:proxy.$t('btn.success'),value:1}],
+                'filter[status]':[{label:proxy.$t('btn.waitExamine'),value:0},{label:proxy.$t('btn.success'),value:1}],
             },
         })
 

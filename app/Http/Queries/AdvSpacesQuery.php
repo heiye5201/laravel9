@@ -18,9 +18,7 @@ class AdvSpacesQuery extends QueryBuilder
         parent::__construct(AdvSpace::query());
         $this->defaultSort('-ID')
             ->allowedFilters([
-                AllowedFilter::scope('name'),
-                AllowedFilter::scope('code'),
-                AllowedFilter::scope('content'),
+                'name',
             ])
             ->allowedSorts([
                 AllowedSort::field('date', 'created_at'),

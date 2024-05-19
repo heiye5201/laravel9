@@ -18,9 +18,7 @@ class AdvsQuery extends QueryBuilder
         parent::__construct(Adv::query());
         $this->defaultSort('-ID')
             ->allowedFilters([
-                AllowedFilter::scope('name'),
-                AllowedFilter::scope('code'),
-                AllowedFilter::scope('content'),
+                'pid', 'name', 'adv_start', 'adv_end',
             ])
             ->allowedSorts([
                 AllowedSort::field('date', 'created_at'),

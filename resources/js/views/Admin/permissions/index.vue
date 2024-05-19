@@ -20,9 +20,9 @@ export default {
 
         // 搜索字段
         const searchOptions = reactive([
-            {label:'权限名称',value:'name',where:'likeRight'},
-            {label:'接口分组',value:'pid',type:'select',labelName:'name',valueName:'id'},
-            {label:'接口路由',value:'apis',where:'likeRight'},
+            {label:'权限名称',value:'filter[name]',where:''},
+            {label:'接口分组',value:'filter[pid]',type:'select',labelName:'name',valueName:'id'},
+            {label:'接口路由',value:'filter[apis]',where:''},
         ])
 
         // 表单配置 
@@ -46,7 +46,9 @@ export default {
         const dialogParam = reactive({
             dict:[
                 {name:'pid',url:'/Admin/permission_groups?isAll=true'},
-                {name:'apis',url:'/Admin/load_permission'}
+                {name:'apis',url:'/Admin/load_permission'},
+                {name:'filter[pid]',url:'/Admin/permission_groups?isAll=true'},
+                {name:'filter[apis]',url:'/Admin/load_permission'},
             ],
             rules:{
                 pid:[{required:true,message:'不能为空'}],

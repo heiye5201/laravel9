@@ -7,7 +7,6 @@
 namespace App\Http\Queries;
 
 use App\Models\Notice;
-use Spatie\QueryBuilder\AllowedFilter;
 use Spatie\QueryBuilder\AllowedSort;
 use Spatie\QueryBuilder\QueryBuilder;
 
@@ -18,10 +17,9 @@ class NoticesQuery extends QueryBuilder
         parent::__construct(Notice::query());
         $this->defaultSort('-ID')
             ->allowedFilters([
-                AllowedFilter::scope('name'),
-                AllowedFilter::scope('content'),
-                AllowedFilter::scope('is_type'),
-                AllowedFilter::scope('is_send'),
+                'name',
+                'content',
+                'tag',
             ])
             ->allowedSorts([
                 AllowedSort::field('date', 'created_at'),

@@ -18,8 +18,8 @@ export default {
 
         // 搜索字段
         const searchOptions = reactive([
-            {label:'分组名称',value:'name',where:'likeRight'},
-            {label:'分组描述',value:'content',where:'likeRight'},
+            {label:'分组名称',value:'filter[name]',where:''},
+            {label:'分组描述',value:'filter[content]',where:''},
         ])
 
         // 表单配置 

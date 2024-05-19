@@ -18,8 +18,7 @@ class SmsLogsQuery extends QueryBuilder
         parent::__construct(SmsLog::query());
         $this->defaultSort('-ID')
             ->allowedFilters([
-                AllowedFilter::scope('name'),
-                AllowedFilter::scope('phone'),
+                'name', 'phone', 'IP', 'status',
             ])
             ->allowedSorts([
                 AllowedSort::field('date', 'created_at'),

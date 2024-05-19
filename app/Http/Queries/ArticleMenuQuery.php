@@ -18,8 +18,8 @@ class ArticleMenuQuery extends QueryBuilder
         parent::__construct(ArticleMenu::query());
         $this->defaultSort('-ID')
             ->allowedFilters([
-                AllowedFilter::scope('name'),
-                AllowedFilter::scope('pid'),
+                'name',
+                'pid',
             ])
             ->allowedSorts([
                 AllowedSort::field('date', 'created_at'),

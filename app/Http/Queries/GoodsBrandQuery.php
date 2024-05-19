@@ -18,7 +18,7 @@ class GoodsBrandQuery extends QueryBuilder
         parent::__construct(GoodsBrand::query());
         $this->defaultSort('-ID')
             ->allowedFilters([
-                AllowedFilter::scope('name'),
+                'name',
             ])
             ->allowedSorts([
                 AllowedSort::field('date', 'created_at'),

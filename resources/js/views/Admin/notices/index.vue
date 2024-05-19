@@ -19,20 +19,18 @@ export default {
 
         // 搜索字段
         const searchOptions = reactive([
-            {label:'标题',value:'name',where:'likeRight'},
-            {label:'标签',value:'tag',where:'likeRight'},
-            {label:'内容',value:'content',where:'like'},
+            {label:'标题',value:'filter[name]',where:''},
+            {label:'标签',value:'filter[tag]',where:''},
+            {label:'内容',value:'filter[content]',where:''},
         ])
 
         // 表单配置 
         const addColumn = [
-            // {label:'上级菜单',value:'pid',type:'cascader',props:{emitPath:false,checkStrictly: true,label:'name',value:'id'}},
             {label:'标题',value:'name',type:'text'},
             {label:'标签',value:'tag', type:'text'},
             {label:'内容',value:'content',type:'editor',span:24,viewType:'html'},
         ]
         const dialogParam = reactive({
-            // dict:[{name:'pid',url:'/Admin/article_menus?pid=0',addSelect:{name:proxy.$t('btn.default'),id:0}}],
             rules:{
                 name:[{required:true, message:'不能为空'}]
             },

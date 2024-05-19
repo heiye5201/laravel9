@@ -19,9 +19,7 @@ class AgreementQuery extends QueryBuilder
         parent::__construct(Agreement::query());
         $this->defaultSort('-ID')
             ->allowedFilters([
-                AllowedFilter::scope('name'),
-                AllowedFilter::scope('ename'),
-                AllowedFilter::scope('content'),
+                'name', 'ename',
             ])
             ->allowedSorts([
                 AllowedSort::field('date', 'created_at'),

@@ -19,7 +19,7 @@ export default {
 
         // 搜索字段
         const searchOptions = reactive([
-            {label:'栏目名称',value:'name',where:'likeRight'},
+            {label:'名称',value:'filter[name]',where:''},
         ])
 
         // 表单配置 

@@ -79,7 +79,6 @@
                     <el-row :gutter="20">
                         <el-col v-for="(v,k) in dialogParams.add.column" :key="k" :span="v.span || dialogParams.span"><div class="table-form-content">
                             <el-form-item :label="v.label" :prop="v.value">
-<!--                              <q-input :params="v" :dictData="dialogParams.dictData || []" v-model="formData.add[v.value]"></q-input>-->
                               <q-input :params="v" :dictData="dialogParams.dictData||[]" v-model:formData="formData.add[v.value]" />
                             </el-form-item>
                         </div></el-col>
@@ -295,9 +294,9 @@ export default {
             last_page:1,
             page:1
         }
-        queryParams = Object.assign(queryParams,props.params)
+        const propsParams = props.params;
+        queryParams = Object.assign(queryParams, propsParams)
         const listParams = reactive(queryParams) // 分页还要搜索参数
-
         // 默认按钮状态
         let btnConfig = {
             show:{show:true,url:'',disabled:false}, // 显示
@@ -334,7 +333,7 @@ export default {
                 closeDialog()
             }, // 关闭所有弹框
             reloadData:()=>{
-                Object.assign(listParams,props.params)
+              Object.assign(listParams,props.params)
                 loadData() // 重加载列表数据
             },
             loadView:async (url = null)=>{ // 获取详情信息
@@ -394,15 +393,9 @@ export default {
         cutomFormData = Object.assign(cutomFormData,props.cutomFormData)
         const formData = reactive(cutomFormData)
 
-        // const editForm = reactive({})
-
         // 如果没有传请求接口则默认取该路由链接为接口
-        // let propRefs = toRefs(props) // 解构props
         let pageUrl = props.pageUrl // 组成链接
         if(proxy.R.isEmpty(props.pageUrl)) pageUrl = route.path
-
-
-
         // 选择数据
         const handleSelectionChange = (e)=>{
             let idArr = []
@@ -455,7 +448,6 @@ export default {
 
         // 值发生改变
         watch(()=>props.tableData,(e)=>{
-            // console.log(e)
             loadData()
         })
 
@@ -668,7 +660,7 @@ export default {
         loadData()
 
         // 把这个对象返回回去
-        emit('tableView',dialogParams)
+        emit('tableView', dialogParams)
 
         return {
             handleSelectionChange,

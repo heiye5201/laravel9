@@ -23,10 +23,10 @@ export default {
 
         // 搜索字段
         const searchOptions = reactive([
-            {label:'广告位',value:'pid',type:'select',labelName:'name',valueName:'id'},
-            {label:'名称',value:'name',where:'likeRight'},
-            {label:'开始时间',value:'adv_start',where:'ngt',type:'datetime'},
-            {label:'结束时间',value:'adv_end',where:'nlt',type:'datetime'},
+            {label:'广告位',value:'filter[pid]',type:'select',labelName:'name',valueName:'id'},
+            {label:'名称',value:'filter[name]',where:''},
+            {label:'开始时间',value:'filter[adv_start]',where:'ngt',type:'datetime'},
+            {label:'结束时间',value:'filter[adv_end]',where:'nlt',type:'datetime'},
         ])
 
         // 表单配置
@@ -45,8 +45,8 @@ export default {
         const dialogParam = reactive({
             isPageDict:true,
             dict:[
-                {name:'pid',url:'/Admin/adv_spaces?per_page=100'}
-
+                {name:'pid',url:'/Admin/adv_spaces?per_page=100'},
+                {name:'filter[pid]',url:'/Admin/adv_spaces?per_page=100'}
             ],
             dictData:{
                 status:[{label:proxy.$t('config.web.open'),value:1},{label:proxy.$t('config.web.close'),value:0}],

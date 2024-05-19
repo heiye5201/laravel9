@@ -18,7 +18,7 @@ class CashQuery extends QueryBuilder
         parent::__construct(Cash::query());
         $this->defaultSort('-ID')
             ->allowedFilters([
-                AllowedFilter::scope('name'),
+                'name', 'bank_name', 'card_no', 'money', 'cash_status',
             ])
             ->allowedSorts([
                 AllowedSort::field('date', 'created_at'),

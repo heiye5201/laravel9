@@ -21,10 +21,10 @@ export default {
 
         // 搜索字段
         const searchOptions = reactive([
-            {label:'名称',value:'name',where:'likeRight'},
-            {label:'资金',value:'money'},
-            {label:'类型',value:'is_type',type:'select'},
-            {label:'是否商家',value:'is_belong',type:'select'},
+            {label:'名称',value:'filter[name]',where:''},
+            {label:'资金',value:'filter[money]'},
+            {label:'类型',value:'filter[is_type]',type:'select'},
+            {label:'是否商家',value:'filter[is_belong]',type:'select'},
         ])
 
         // 表单配置 
@@ -45,6 +45,8 @@ export default {
             dictData:{
                 is_type:[{label:proxy.$t('user.frozen_money'),value:'1'},{label:proxy.$t('user.money'),value:'0'},{label:proxy.$t('user.integral'),value:'2'}],
                 is_belong:[{label:proxy.$t('btn.yes'),value:'1'},{label:proxy.$t('btn.no'),value:'0'}],
+                'filter[is_type]':[{label:proxy.$t('user.frozen_money'),value:'1'},{label:proxy.$t('user.money'),value:'0'},{label:proxy.$t('user.integral'),value:'2'}],
+                'filter[is_belong]':[{label:proxy.$t('btn.yes'),value:'1'},{label:proxy.$t('btn.no'),value:'0'}],
             },
             view:{column:addColumn},
         })

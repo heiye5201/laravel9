@@ -54,7 +54,7 @@ export default {
 
         // 搜索字段
         const searchOptions = reactive([
-            {label:'广告位',value:'name',where:'likeRight'},
+            {label:'广告位',value:'filter[name]',where:''},
         ])
 
         // 表单配置
