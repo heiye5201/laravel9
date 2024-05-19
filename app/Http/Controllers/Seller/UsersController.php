@@ -4,6 +4,8 @@ namespace App\Http\Controllers\Seller;
 
 use App\Http\Controllers\Controller;
 use App\Http\Queries\UserQuery;
+use App\Http\Resources\UserCollection;
+use App\Http\Resources\UserResource;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -16,13 +18,13 @@ class UsersController extends Controller
     public function index(Request $request, UserQuery $query)
     {
         $isAll = $request->input('isAll', false);
-        $query = $query->orderBy('id', 'desc')->where('belong_id', '>', 0);
+        $query = $query->where('belong_id', $this->getBelongId($this->auth))->orderBy('id', 'desc');
         if ($isAll) {
             $data = $query->get();
         } else {
             $data = $query->paginate(intval($request->input('page_size', 25)));
         }
-        return $this->success($data);
+        return $this->success(new UserCollection($data));
     }
 
     // 添加
@@ -34,9 +36,9 @@ class UsersController extends Controller
                 ->create([
                     'username' => $request->username ?? '',
                     'password' => Hash::make($request->password ?? '123456'),
-                    'nickname' => $request->username ?? 'Mysterious',
+                    'nickname' => $request->nickname ?? 'Mysterious',
                     'avatar' => $request->avatar ?? '',
-                    'belong_id' => $this->getBelongId()
+                    'belong_id' => $this->getBelongId($this->auth)
                 ]);
             $model->roles()->sync($request->role_id ?? []);
             DB::commit();
@@ -50,7 +52,7 @@ class UsersController extends Controller
     // 显示
     public function show($id)
     {
-        $rs = User::query()->where('belong_id', $this->getBelongId())->with(['roles'])->find($id);
+        $rs = User::query()->where('belong_id', $this->getBelongId($this->auth))->with(['roles'])->find($id);
         $role_id = [];
         $role_name = [];
         if (!empty($rs['roles'])) {
@@ -62,7 +64,7 @@ class UsersController extends Controller
         $rs['role_id'] = $role_id;
         $rs['role_name'] = $role_name;
         unset($rs['password']);
-        return $this->success($rs, __('tip.success'));
+        return $this->success(($rs), __('tip.success'));
     }
 
     // 修改
@@ -76,7 +78,7 @@ class UsersController extends Controller
             }
             $model->nickname = $request->nickname ?? '';
             $model->avatar = $request->avatar ?? '';
-            $model->belong_id = $this->getBelongId();
+            $model->belong_id = $this->getBelongId($this->auth);
             $model->save();
             $model->roles()->sync($request->role_id ?? []);
             DB::commit();
@@ -98,7 +100,7 @@ class UsersController extends Controller
             $model->roles()->detach();
             $model->refresh();
         }
-        $model->whereIn('id', $idArray)->where('belong_id', $this->getBelongId())->delete();
+        $model->whereIn('id', $idArray)->where('belong_id', $this->getBelongId($this->auth))->delete();
         return $this->success([], __('tip.success'));
     }
 }

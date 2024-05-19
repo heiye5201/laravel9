@@ -6,6 +6,7 @@
  */
 namespace App\Http\Queries;
 
+use App\Filters\CustomFilter;
 use App\Models\MoneyLog;
 use Spatie\QueryBuilder\AllowedFilter;
 use Spatie\QueryBuilder\AllowedSort;
@@ -18,7 +19,8 @@ class MoneyLogQuery extends QueryBuilder
         parent::__construct(MoneyLog::query());
         $this->defaultSort('-ID')
             ->allowedFilters([
-                'name', 'money', 'is_type', 'is_belong',
+                'name', 'money', 'is_type',
+                AllowedFilter::custom('is_belong', new CustomFilter()),
             ])
             ->allowedSorts([
                 AllowedSort::field('date', 'created_at'),

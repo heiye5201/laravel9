@@ -1,10 +1,10 @@
 <?php
 /**
  * autor      : jiweijian
- * createTime : 2024/5/13 23:00
+ * createTime : 2024/5/19 21:18
  * description:
  */
-namespace App\Http\Resources\Seller;
+namespace App\Http\Resources;
 
 use Illuminate\Http\Resources\Json\JsonResource;
 use Illuminate\Support\Facades\DB;
@@ -51,6 +51,8 @@ class StoreResource extends JsonResource
             'store_face_image'              =>  $this->store_face_image,
             'business_license'              =>  $this->business_license,
             'business_license_no'           =>  $this->business_license_no,
+            'legal_person'                  =>  $this->legal_person,
+            'store_phone'                   =>  $this->store_phone,
             'id_card_no'                    =>  $this->id_card_no,
             'id_card_t'                     =>  $this->id_card_t,
             'id_card_b'                     =>  $this->id_card_b,
@@ -58,15 +60,18 @@ class StoreResource extends JsonResource
             'emergency_contact_phone'       =>  $this->emergency_contact_phone,
             'store_money'                   =>  $this->store_money,
             'store_frozen_money'            =>  $this->store_frozen_money,
-            'store_company_name'            =>  $this->store_company_name,
-            'legal_person'                  =>  $this->legal_person,
-            'store_phone'                   =>  $this->store_phone,
-            'after_sale_service'            =>  $this->after_sale_service,
             'store_status'                  =>  $this->store_status,
             'store_verify'                  =>  $this->store_verify,
-            'store_refuse_info'             =>  $this->store_refuse_info ?? '无原因',
-            'created_at'                    =>  $this->created_at,
-            'updated_at'                    =>  $this->updated_at,
+            'store_refuse_info'             =>  $this->store_refuse_info,
+            'store_company_name'            =>  $this->store_company_name,
+//            'legal_person'                  =>  $this->legal_person,
+//            'store_phone'                   =>  $this->store_phone,
+            'after_sale_service'            =>  $this->after_sale_service,
+//            'store_status'                  =>  $this->store_status,
+//            'store_verify'                  =>  $this->store_verify,
+//            'store_refuse_info'             =>  $this->store_refuse_info ?? '无原因',
+            'created_at'                    =>  $this->created_at->format('Y-m-d H:i:s'),
+            'updated_at'                    =>  $this->updated_at->format('Y-m-d H:i:s'),
         ];
     }
 }

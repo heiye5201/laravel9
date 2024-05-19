@@ -8,7 +8,7 @@
 namespace App\Services;
 
 use App\Http\Resources\Home\StoreHomeCollection;
-use App\Http\Resources\Seller\StoreResource;
+use App\Http\Resources\StoreResource;
 use App\Models\Area;
 use App\Models\OrderComment;
 use App\Models\Store;

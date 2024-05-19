@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Http\Queries\StoreQuery;
 use App\Http\Resources\Admin\StoreAdminCollection;
+use App\Http\Resources\StoreResource;
 use App\Models\Store;
 use App\Services\StoreService;
 use Illuminate\Http\Request;
@@ -26,7 +27,7 @@ class StoresController extends Controller
     public function show($id)
     {
         $data = Store::query()->find($id);
-        return $this->success($data);
+        return $this->success(new StoreResource($data));
     }
 
     public function update(Request $request, $id)

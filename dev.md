@@ -40,7 +40,7 @@ php artisan make:repository "AdminMenu"
 php artisan make:bindings AdminMenu
 
 
-php artisan make:controller  Admin/AreasController
+php artisan make:controller  Admin/CashesController
 
 
 导出镜像 命令

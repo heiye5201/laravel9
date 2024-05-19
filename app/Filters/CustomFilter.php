@@ -11,8 +11,18 @@ use Spatie\QueryBuilder\Filters\Filter;
 
 class CustomFilter implements Filter
 {
+
     public function __invoke(Builder $query, $value, string $property)
     {
-        return $query->where('pid', $value);
+        $matchArray = explode('|', $value);
+        $strMatch = $matchArray[1] ?? '';
+        $strValue = $matchArray[0] ?? 0;
+        switch ($strMatch) {
+            case 'gt':
+                return $query->where($property, '>', $strValue);
+            case 'ngt':
+                return $query->where($property, '<', $strValue);
+        }
+        return $query->where($property, $value);
     }
 }

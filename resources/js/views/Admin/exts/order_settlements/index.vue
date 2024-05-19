@@ -48,7 +48,6 @@ export default {
             update:{show:false},
             destroy:{show:false},
         })
-
         const handleSett = (dialogParams)=>{
             proxy.R.get('/Admin/order_settlement_handle').then(res=>{
                 if(!res.code){

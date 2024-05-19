@@ -69,6 +69,9 @@ Route::prefix('Admin')->middleware('auth:admins')->name('admin.')->namespace('Ad
     $route->resource('adv_spaces', 'AdvSpacesController');
     $route->resource('advs', 'AdvsController');
 
+    $route->resource('money_logs', 'MoneyLogsController')->only(['index','show']);
+    $route->resource('cashes', 'CashesController');
+
     $route->resource('seller_menus', 'SellerMenusController');
     $route->get('load_seller_menu', 'SellerMenusController@loadMenu');
     $route->resource('agreements', 'AgreementsController');
