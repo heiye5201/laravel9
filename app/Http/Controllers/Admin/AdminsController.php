@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Http\Queries\Admin\AdminQuery;
+use App\Http\Resources\Admin\AdminCollection;
 use App\Models\Admins;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -17,7 +18,7 @@ class AdminsController extends Controller
     {
         $data = $query->where($this->belongName, '>', 0)->orderBy('id', 'desc')
             ->paginate(intval($request->input('page_size', 25)));
-        return $this->success($data);
+        return $this->success(new AdminCollection($data));
     }
 
 

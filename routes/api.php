@@ -48,7 +48,7 @@ Route::namespace('Home')->name('home.')->group(function ($route) {
 
 Route::middleware('auth:users')->namespace('Home')->name('home.')->group(function ($route) {
     Route::post('/auth/info', [App\Http\Controllers\Auth\AuthController::class,'info'])->name('auth.info');
-    Route::put('/auth/edit', [App\Http\Controllers\Auth\AuthController::class,'edit'])->name('auth.edit');
+    Route::post('/auth/edit', [App\Http\Controllers\Auth\AuthController::class,'edit'])->name('auth.edit');
 
     // 入驻
     $route->post('/store/join', 'StoresController@join')->name('store.join');
