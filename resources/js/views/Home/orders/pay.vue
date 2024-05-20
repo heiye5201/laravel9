@@ -24,6 +24,7 @@
                     <li @click="data.visible=true;"><img :src="require('@/assets/Home/pc_money_pay.png').default" alt="mpay"></li>
                     <li @click="pay('wechat')"><img :src="require('@/assets/Home/pc_wxpay.jpg').default" alt="wechatpay"></li>
                     <li @click="pay('alipay')"><img :src="require('@/assets/Home/pc_alipay.jpg').default" alt="alipay"></li>
+                    <li id="paypal-button-container"></li>
                 </ul>
             </div>
         </div>
@@ -125,6 +126,16 @@ export default {
             timeObj:null,
         })
 
+        // 引入 PayPal 的 JavaScript SDK
+        const loadPaypalSDK = () => {
+          const script = document.createElement('script');
+          script.src = 'https://www.paypal.com/sdk/js?client-id=test&currency=USD&intent=capture&enable-funding=venmo';
+          script.setAttribute('data-source', 'integrationbuilder');
+          script.async = true;
+          script.onload = renderPaypalButton; // 在 SDK 加载完成后调用渲染函数
+          document.body.appendChild(script);
+        };
+
         const loadData = async ()=>{
             createOrderBefore()
             data.userInfo = await store.dispatch('login/getUserSer')
@@ -175,19 +186,82 @@ export default {
             })
         }
 
-
         const qrcodeClose = ()=>{
             if(data.timeObj != null) clearInterval(data.timeObj);
         }
 
+        const renderPaypalButton = () => {
+          if (typeof paypal === 'undefined') {
+            console.error('PayPal SDK 未加载或加载失败');
+            return;
+          }
+          // optional styling for buttons
+          // https://developer.paypal.com/docs/checkout/standard/customize/buttons-style-guide/
+          paypal.Buttons({
+            style: {
+              color: "gold",
+              shape: "rect",
+              layout: "vertical"
+            },
+            createOrder: function(data, actions) {
+              // pass in any options from the v2 orders create call:
+              // https://developer.paypal.com/api/orders/v2/#orders-create-request-body
+              // 创建订单逻辑
+              console.log('创建订单')
+              const createOrderPayload = {
+                purchase_units: [
+                  {
+                    amount: {
+                      value: "1.44"
+                    }
+                  }
+                ]
+              };
+              return actions.order.create(createOrderPayload);
+            },
+            onApprove: function(data, actions) {
+              // 订单批准逻辑
+              console.log('支付')
+              const captureOrderHandler = (details) => {
+                const payerName = details.payer.name.given_name;
+                const params = JSON.parse(window.atob(route.params.params));
+                let order_id = params.order_id.join(',');
+                console.log('Transaction completed');
+                console.log(details)
+                console.log(order_id)
+                let sendData = {order_id:order_id,payment_name:'paypal'};
+                proxy.R.post('/user/order/pay',sendData).then(res=>{
+                  if(res.code){
+                    // location.reload();
+                    return router.push('/order/success')
+                  }
+                })
+              };
+              return actions.order.capture().then(captureOrderHandler);
+            },
+            onError: function(err) {
+              // 处理错误逻辑
+              console.error('An error prevented the buyer from checking out with PayPal');
+            }
+          }).render('#paypal-button-container') // 这里的 #paypal-button-container 是你要渲染 PayPal 按钮的容器元素的 id
+          .catch((err) => {
+              console.error('PayPal Buttons failed to render');
+            });
+        };
+
         onMounted(()=>{
+            loadPaypalSDK();
+            renderPaypalButton(); // 调用 PayPal 按钮渲染函数
             loadData()
         })
 
         onBeforeUnmount(()=>{
             qrcodeClose()
+            const script = document.querySelector('script[data-source="integrationbuilder"]');
+            if (script) {
+              document.body.removeChild(script);
+            }
         })
-
 
         return {
             data,
@@ -197,6 +271,7 @@ export default {
 
 };
 </script>
+
 <style lang="scss" scoped>
 .step_bar{
     margin:40px 0;
