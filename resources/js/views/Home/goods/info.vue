@@ -573,19 +573,6 @@ export default {
             change_buy_num,buy,add_cart,attr_click,
         }
     },
-
-
-
-    // beforeRouteUpdate (to, from, next) {
-    //     console.log(to,from);
-    //     if(from.params.id != to.params.id){
-    //         this.goods_id = to.params.id;
-    //         this.get_goods_info();
-    //     }
-    //     next();
-    //     // react to route changes...
-    //     // don't forget to call next()
-    // }
 }
 </script>
 <style lang="scss" scoped>

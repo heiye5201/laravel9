@@ -43,8 +43,7 @@ export default {
             {label:proxy.$t('seller.distributions.lev_2'),value:'lev_2',type:'number'},
             {label:proxy.$t('seller.distributions.lev_3'),value:'lev_3',type:'number'},
         ]
-
-
+      
         const btnConfigs = reactive({
             show:{show:false},
         })

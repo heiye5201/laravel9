@@ -61,7 +61,6 @@ export default {
                     loading.value = false
                 }
             })
-
         }
         return {loading,form,onSubmit,Edit,Document}
     }

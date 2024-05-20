@@ -31,7 +31,6 @@ export default {
         })
 
         watch(()=>props.value,(e)=>{
-            // console.log(e)
             emit('update:value',e)
         })
 

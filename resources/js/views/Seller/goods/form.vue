@@ -315,13 +315,11 @@ export default {
                 data.freight.unshift({name:proxy.$t('freight.free'),id:0})
             })
         }
-
         const chose = (v,deep,index)=>{
             data.choseId[deep] = v.id
             data.choseItem[deep] = v
             data.index[deep] = index
         }
-
         // 图片处理
         const setMaster = (e)=>{
             data.form.goods_master_image = data.form.goods_images[e]
@@ -335,7 +333,6 @@ export default {
             ){
                 data.form.goods_master_image = data.form.goods_images[0]
             }
-
         }
         // 上传图片
         const handleSuccess = (e)=>{
@@ -343,10 +340,7 @@ export default {
             if(!data.form.goods_master_image) data.form.goods_master_image = e.data
             if(!data.form.goods_images) data.form.goods_images = []
             data.form.goods_images.push(e.data)
-
-            console.log(data.form)
         }
-
         const editGoods = (e)=>{
             data.step = 1
             data.isEdit = true
@@ -387,9 +381,7 @@ export default {
                     data.attrList.map((item,index)=>{
                         if(attrId == item.id) data.goodsAttr.push(data.attrList[index])
                     })
-
                 }
-
             })
         }
 
@@ -437,7 +429,6 @@ export default {
                     i++;
                 }
             })
-            // console.log(skuList,attrList,attrListName)
             if(attrList.length<=0){
                 return data.form.skuList = [];
             }
@@ -503,7 +494,6 @@ export default {
                         }
                     })
                 }
-
             }else{
                 data.form.skuList = skuList
             }
@@ -521,15 +511,11 @@ export default {
                 }).reduce(function(a,b){ return a.concat(b) },[])
             }, [[]])
         }
-
-
         storeClass()
         goodsBrand()
         loadFreght()
-
         const Token = getToken()
         const uploadPath = getUploadPath()
-
         return {
             nextStep,chose,handleSuccess,setMaster,deleteImg,specChange,
             attrChose,openAttrWin,goodsBack,editGoods,data,

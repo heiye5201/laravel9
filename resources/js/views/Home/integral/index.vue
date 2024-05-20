@@ -18,7 +18,6 @@
                     <div class="clear"></div>
                 </div>
 
-
                 <div class="integrral_info" v-show="isLogin">
                     <div class="integral_user_avatar">
                         <img style="width:70px;height:70px;" :src="data.userInfo.avatar||require('@/assets/Home/user_default2.png').default" />

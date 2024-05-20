@@ -163,7 +163,6 @@ export default {
                 editVis.value = false
             })
         }
-
         return {options,dialogParam,params,btnConfigs,searchOptions,tabs,Coin,editVis,loading,selectType,money,tabsClick,updateData,moneyOpen}
     }
 }

@@ -104,34 +104,28 @@ export default {
 
             }, true);
         }
-
         const classClick = (e)=>{
             if(!data.subnav) data.subnavBool2=e
             if(!data.centerTop) data.subnavBool=e
         }
-
         const search = ()=>{
             // 搜索
             let params = {};
             params.keywords = encodeURIComponent(data.keywords);
             router.push('/s/'+window.btoa(JSON.stringify(params)))
         }
-
         onMounted(()=>{
             if(!proxy.R.isEmpty(route.params.params)  && route.path.indexOf('/s/') > -1){
                 data.keywords = decodeURIComponent(JSON.parse(window.atob(route.params.params)).keywords)
                 if(data.keywords == 'undefined') data.keywords = ''
             }
         })
-
         watch(()=>route.params.params,(e)=>{
             if(!proxy.R.isEmpty(e) && route.path.indexOf('/s/') > -1){
                 data.keywords = decodeURIComponent(JSON.parse(window.atob(e)).keywords)
                 if(data.keywords == 'undefined') data.keywords = ''
             }
         })
-
-
         return {
             data,
             classClick,

@@ -195,9 +195,6 @@ export default {
             sortChange,classChange
         }
     },
-
-
-
 };
 </script>
 <style lang="scss" scoped>

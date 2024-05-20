@@ -10,7 +10,6 @@
               <div class="order_list" v-if="data.list.length>0">
                 <div class="order_item" v-for="(v,k) in data.list" :key="k">
                     <div class="order_item_title">
-                        <!-- <span>{{v.created_at}}<font :color="v.order_status==6?'#42b983':'#ca151e'">{{v.order_status_cn||'-'}}</font></span> -->
                         {{$t('user_center.integrals.order_sn')}}：{{v.order_no||'-'}}
                     </div>
                     <div class="order_item_list" >

@@ -95,8 +95,6 @@
             </div>
             <br>
         </div>
-
-
     </div>
 </template>
 
@@ -143,7 +141,6 @@ export default {
             data,
         }
     },
-
     methods:{
         loadData(){
 

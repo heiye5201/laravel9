@@ -134,16 +134,11 @@ export default {
                 formData.image.splice(formData.image.indexOf(file.url),1)
             }
         }
-
-
-
         onMounted( async ()=>{
             // loadData()
         })
-
         const Token = getToken()
         const uploadPath = getUploadPath()
-
         return {data,dialogParams,loading,formData,editData,handleAvatarSuccess,removeImg,Token,uploadPath}
     }
 }

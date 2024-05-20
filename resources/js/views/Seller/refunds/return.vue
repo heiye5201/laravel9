@@ -100,8 +100,6 @@ export default {
             store:{show:false},
             destroy:{show:false},
         })
-
-
         // 表单配置
         const addColumn = [
             {label:proxy.$t('seller.refunds.order_image'),value:'order_image',type:'avatar',span:24},
@@ -117,7 +115,6 @@ export default {
             {label:proxy.$t('seller.refunds.receive_address'),value:'receive_address'},
             {label:proxy.$t('seller.refunds.delivery_no'),value:'delivery_no'},
             {label:proxy.$t('seller.refunds.order_status_cn'),value:'order_status_cn'},
-
         ]
         const editColumn = [
             {label:proxy.$t('seller.refunds.receive_name'),value:'receive_name'},
@@ -133,14 +130,12 @@ export default {
             view:{column:addColumn},
             edit:{column:editColumn},
         })
-
         const loadData = async ()=>{
             delivery() // 加载物流公司
             let base64Code = window.btoa(JSON.stringify({order_id:data.selected}))
             const res = await proxy.R.get('/Seller/orders/find/all',{params:base64Code})
             if(!res.code) data.order = res
         }
-
         const delivery = ()=>{
             if(data.delivery.length != 0) return
             proxy.R.get('/expresses',{isAll:true}).then(res=>{
@@ -193,10 +188,7 @@ export default {
                     }
                 })
             })
-
         }
-
-
         return {
             Promotion,Printer,Picture,Finished,CircleClose,
             options,searchOptions,dialogParam,btnConfigs,params,data,

@@ -218,7 +218,6 @@ export default {
                 console.log(error)
             })
         }
-
         return {options,searchOptions,dialogParam,btnConfigs,params,data,openAddDialog,postAgreeApplyStatus,postCancelApplyStatus,collapseChange}
     }
 }

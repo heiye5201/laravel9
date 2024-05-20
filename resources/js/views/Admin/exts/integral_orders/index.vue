@@ -79,7 +79,6 @@ export default {
         const params = {
             
         }
-
         // 搜索字段
         const searchOptions = reactive([
           {label:'订单名称',value:'filter[order_name]',where:''},
@@ -100,7 +99,6 @@ export default {
             store:{show:false},
             destroy:{show:false},
         })
-
 
         // 表单配置 
         const addColumn = [
@@ -183,10 +181,7 @@ export default {
                     }
                 })
             })
-            
         }
-
-
         return {
             Promotion,Printer,Picture,
             options,dialogParam,btnConfigs,params,data,searchOptions,

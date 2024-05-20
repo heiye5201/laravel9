@@ -73,8 +73,6 @@ export default {
                 })
             }
         }
-   
-
         return {loading,tabsIndex,form,handleClick,onSubmit}
     }
 }

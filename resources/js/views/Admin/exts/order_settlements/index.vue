@@ -56,7 +56,6 @@ export default {
                 }
             })
         }
-
         return {
             options,searchOptions,dialogParam,btnConfigs,
             handleSett,

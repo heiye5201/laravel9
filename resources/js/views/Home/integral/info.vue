@@ -63,15 +63,10 @@
             </div>
             <div class="clear"></div>
         </div>
-
-        <!-- 聊天 -->
-        <!-- <chat v-if="chat" :store_id="store_info.id" /> -->
-
     </div>
 </template>
 
 <script>
-// import Chat from "@/components/chat/index"
 import {reactive,watch,onMounted,getCurrentInstance} from "vue"
 import {useRoute,useRouter} from 'vue-router'
 import {ArrowLeftBold,ArrowRightBold,Star,Timer,UserFilled,SemiSelect,Plus} from '@element-plus/icons'
@@ -105,7 +100,6 @@ export default {
                 proxy.$message.error(res.msg)
                 router.go(-1);
             }
-
         }
 
         // 图片翻页
@@ -127,7 +121,6 @@ export default {
             data.chose_img_pos = e;
         }
 
-
         // 修改购买数量
         const change_buy_num = (type)=>{
             if(type){
@@ -145,7 +138,6 @@ export default {
         // 购买
         const buy = ()=>{
             router.push("/integral/order/"+data.goods_info.id+"/"+data.buy_num)
-
         }
 
         // editor
@@ -179,7 +171,6 @@ export default {
             change_buy_num,buy,
         }
     },
-
 }
 </script>
 <style lang="scss" scoped>

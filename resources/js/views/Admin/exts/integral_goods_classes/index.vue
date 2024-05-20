@@ -13,19 +13,14 @@ export default {
             {label:'分类名称',value:'name'},
             {label:'创建时间',value:'created_at'},
         ]);
-
-
-        // 表单配置 
+        // 表单配置
         const addColumn = [
             {label:'分类名称',value:'name'},
         ]
-
         // 搜索字段
         const searchOptions = reactive([
           {label:'分类名称',value:'filter[name]',where:''}
         ])
-
-
         const dialogParam = reactive({
             rules:{
                 name:[{required:true,message:'不能为空'}]

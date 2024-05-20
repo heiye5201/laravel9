@@ -43,18 +43,14 @@ export default ({
                 form.provider = 'admins'
                 let loginData = await proxy.R.post('/login',form)
                 loginData.routeUriIndex = store.state.load.routeUriIndex
-                // loginData.isTo = true // 是否跳转
                 loginData.path = '/Admin/login'
-                
                 if(!loginData.code){
                     await store.commit('login/loginAfter',loginData)
                     const routeUrl = await store.dispatch('load/loadRoute') 
                     window.location.href=routeUrl
                 }
-                // console.log(proxy.$i18n.locale)
             }
         })
-     
         return {data,Key,User}
     },
 })

@@ -91,32 +91,7 @@ export default {
     methods: {
 
 
-    },
-    // created: function() {
-    //     var _this = this;
-    //     // 判断token是否失效
-
-    //     // 判断是否有微信code则直接请求接口获取token
-    //     if(this.$route.query.code){
-    //         this.$get(this.$api.homeWechatLogin,{code:this.$route.query.code}).then(function(res) {
-    //             // console.log(res);
-    //             if (res.code == 200) {
-    //                 localStorage.setItem("token", res.data.token);
-    //                 _this.$store.dispatch('homeLogin/login',res);
-    //                 _this.$message.success('登录成功！');
-    //                 _this.$router.push({ name: "home_user_default" });
-    //             }
-    //         });
-    //         return
-    //     }
-
-    //     this.$get(this.$api.homeCheckLogin).then(function(res) {
-    //         // console.log(res);
-    //         if (res.code == 200) {
-    //             _this.$router.push({ name: "home_user_default" });
-    //         }
-    //     });
-    // },
+    }
 };
 </script>
 <style lang="scss" scoped>

@@ -23,8 +23,6 @@ export default {
             {label:proxy.$t('user_center.coupon.end_time'),value:'end_time',overFlow:true},
             {label:proxy.$t('user_center.coupon.created_at'),value:'created_at'},
         ]);
-
-
         const btnConfigs = reactive({
             store:{show:false},
             show:{show:false},
@@ -33,7 +31,6 @@ export default {
             destroy:{show:false},
             update:{show:false},
         })
-
         return {options,btnConfigs}
     }
 }

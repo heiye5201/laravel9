@@ -75,18 +75,15 @@ export default {
                 }
             })
         }
-
         const loadData = async ()=>{
             let user = await store.dispatch('load/getUser')
             formData.nickname = user.nickname
             formData.avatar = user.avatar
             formData.sex = user.sex
         }
-
         onMounted( async ()=>{
             loadData()
         })
-
         return {dialogParams,loading,formData,editData}
     }
 }

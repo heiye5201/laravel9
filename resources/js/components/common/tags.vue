@@ -80,10 +80,8 @@ export default {
                 const hashcode = hashStr()
                 data.type = COLORS[hashcode % COLORS.length]||''
             }
-
         }
 
-        // const value = ref(props.value)
         watch(()=>props.value,(e)=>{
             reloadVal()
         })

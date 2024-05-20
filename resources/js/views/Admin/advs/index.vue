@@ -40,7 +40,6 @@ export default {
             {label:'结束时间',value:'adv_end',type:'datetime'},
             {label:'状态',value:'status',type:'select',viewType:'dict_tags'},
             {label:'排序',value:'is_sort',type:'number'},
-            // {label:'内容',value:'content',type:'editor',span:24,viewType:'html'},
         ]
         const dialogParam = reactive({
             isPageDict:true,

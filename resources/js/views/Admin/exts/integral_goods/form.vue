@@ -145,14 +145,10 @@ export default {
             })
             return
         }
-
         // 获取店铺分类
         const storeClass = async ()=>{
             data.classList = await proxy.R.get('/Admin/integral_goods_classes',{isAll:true})
         }
- 
-
-
         // 图片处理
         const setMaster = (e)=>{
             data.form.goods_master_image = data.form.goods_images[e]
@@ -166,7 +162,6 @@ export default {
             ){
                 data.form.goods_master_image = data.form.goods_images[0]
             }
-            
         }
         // 上传图片
         const handleSuccess = (e)=>{
@@ -175,23 +170,17 @@ export default {
             if(!data.form.goods_images) data.form.goods_images = []
             data.form.goods_images.push(e.data) 
         }
-
         const editGoods = (e)=>{
             data.isEdit = true
             data.form = e
         }
-
         // 公共返回列表页面
         const goodsBack = ()=>{
             location.reload();
         }
-
-
         storeClass();
-
         const Token = getToken()
         const uploadPath = getUploadPath()
-
         return {
             nextStep,handleSuccess,setMaster,deleteImg,goodsBack,editGoods,data,
             Picture,Upload,CircleCheck,Token,uploadPath,loading
@@ -201,7 +190,6 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-
 
 .goods_image{
     width: 100%;

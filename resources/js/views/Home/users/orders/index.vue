@@ -158,12 +158,10 @@ export default {
                 console.log(error)
             })
         }
-
         const pay_order = (order_id)=>{
             let str = window.btoa(JSON.stringify({order_id:[order_id]}));
             router.push("/order/pay/"+str);
         }
-
         // 搜索条件
         const typeChange = (e)=>{
             if(e==0) data.params.created_at = [dayjs().day(0).format('YYYY-MM-DD'),dayjs().day(6).format('YYYY-MM-DD')]
@@ -176,7 +174,6 @@ export default {
             loadData()
             // data.params.created_at = [dayjs().format('YYYY-MM-DD'),dayjs().add(1, 'day').format('YYYY-MM-DD')]
         })
-
         return {
             data,
             handleCurrentChange,edit_order_status,pay_order,typeChange,loadData,

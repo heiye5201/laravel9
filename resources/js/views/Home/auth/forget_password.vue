@@ -15,7 +15,6 @@
                     <div class="input_block"><input type="password" v-model="data.re_password" :placeholder="$t('home.auth.confirm_password')" @keyup.enter="register"></div>
                     <div class="input_block">
                         <input class="yzm" type="code" v-model="data.code" :placeholder="$t('btn.code')" @keyup.enter="register">
-<!--                        <span :class="data.math>0?'yzmbtn dis':'yzmbtn'" @click="sendSms">{{code_text}}</span>-->
                         <span :class="data.math>0?'yzmbtn dis':'yzmbtn'" @click="sendSms">{{data.code_text}}</span>
                     </div>
                 </div>
@@ -25,8 +24,6 @@
                 <div class="login_btn_b">
                     <router-link to="/forget_password">{{$t('home.auth.forge_pass')}}？</router-link>
                 </div>
-
-
             </div>
         </div>
     </div>
@@ -65,74 +62,7 @@ export default {
             data,
             register,sendSms
         }
-    },
-    // methods: {
-    //     // 登录
-    //     register: function() {
-    //         // 重新赋值vm使 axios可用vue实例
-    //         var vm = this;
-
-    //         if (this.username == "" || this.password == "") {
-    //             this.$message.error("用户名和密码不能为空！");
-    //             return;
-    //         }
-
-    //         this.$post(this.$api.homeForgetPassword, {
-    //             phone: this.username,
-    //             password: this.password,
-    //             re_password: this.re_password,
-    //             code: this.code
-    //         }).then(function(res) {
-    //             if (res.code == 200) {
-    //                 // console.log(res);
-    //                 // 存储用户的token
-    //                 localStorage.setItem("token", res.data.token);
-    //                 vm.$store.dispatch('homeLogin/login',res);
-    //                 vm.$message.success('找回成功！');
-    //                 vm.$router.push({ name: "home_user_default" });
-    //             }else{
-    //                 vm.$message.error(res.msg);
-    //             }
-    //         });
-    //     },
-    //     // 发送短信
-    //     send_sms(){
-    //         if(this.username == ''){
-    //             return this.$message.error('手机不能为空.');
-    //         }
-    //         if(this.math>0){
-    //             return this.$message.error('不要频繁发送短信.');
-    //         }
-
-    //         // 发送
-    //         this.$get(this.$api.homeSendSms,{phone:this.username,name:'forget_password'}).then(res=>{
-    //             if(res.code == 200){
-    //                 this.math = 60;
-    //                 this.timeObj = setInterval(()=>{
-    //                     this.math--;
-    //                     this.code_text = this.math+'s'
-    //                     if(this.math<=0){
-    //                         this.code_text = '发送验证码'
-    //                         clearInterval(this.timeObj);
-    //                     }
-    //                 },1000);
-    //             }
-    //             return this.$returnInfo(res);
-    //         })
-
-
-    //     }
-    // },
-    // created: function() {
-    //     var _this = this;
-    //     // 判断token是否失效
-    //     this.$get(this.$api.homeCheckLogin).then(function(res) {
-    //         // console.log(res);
-    //         if (res.code == 200) {
-    //             _this.$router.push({ name: "home_user_default" });
-    //         }
-    //     });
-    // },
+    }
 };
 </script>
 <style lang="scss" scoped>

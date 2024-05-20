@@ -25,7 +25,6 @@ export default {
             {label:proxy.$t('common.created_at'),value:'created_at'},
         ]);
 
-
         // 搜索字段
         const searchOptions = reactive([
           {label:proxy.$t('seller.distributions.log_name'),value:'filter[name]',where:''},

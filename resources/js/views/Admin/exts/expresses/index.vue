@@ -15,7 +15,6 @@ export default {
             {label:'创建时间',value:'created_at'},
         ]);
 
-
         // 表单配置 
         const addColumn = [
             {label:'物流名称',value:'name'},

@@ -45,8 +45,6 @@ export default {
                 check:false,
             }
         })
-
-
         const loadData = async ()=>{
             let user = await store.dispatch('login/getUserSer')
             data.userInfo = user

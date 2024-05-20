@@ -43,7 +43,6 @@ export default {
                     data.line.changeData(data.plot)
                 }
             })
-            
         }
 
         const typeChange = (e)=>{

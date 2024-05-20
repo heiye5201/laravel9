@@ -18,9 +18,7 @@
             <div class="admin_table_list" >
                 <table-view :handleWidth="80" :handleHide="false" ref="table_view" @tableView="getTabel" :pageUrl="'/user/distributions'" :options="options" :params="params" :btnConfig="btnConfigs" :dialogParam="dialogParam"></table-view>
             </div>
-
         </div>
-        
     </div>
 </template>
 
@@ -41,9 +39,6 @@ export default {
             {label:'创建时间',value:'created_at'},
         ]);
         // 表单配置 
-
-  
-
         const btnConfigs = reactive({
             store:{show:false},
             show:{show:false},
@@ -58,19 +53,13 @@ export default {
         const params = reactive({
             lev:0,
         })
-       
         const onChangeLev = (e)=>{
             params.lev = e
             tableViews.obj.reloadData()
-            
         }
-
         const getTabel = (e)=>{
             tableViews.obj = e
         }
-
-
-
         return {options,dialogParam,params,btnConfigs,onChangeLev,getTabel}
     }
 }

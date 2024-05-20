@@ -93,7 +93,6 @@ export default {
             destroy:{show:false},
         })
 
-
         // 表单配置
         const addColumn = [
             {label:proxy.$t('seller.refunds.order_image'),value:'order_image',type:'avatar',span:24},

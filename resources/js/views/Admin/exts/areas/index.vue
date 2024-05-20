@@ -23,7 +23,6 @@ export default {
             {label:'创建时间',value:'created_at'},
         ]);
 
-
         // 表单配置 
         const addColumn = [
             {label:'上级地区',value:'pid',type:'cascader',props:{emitPath:false,checkStrictly: true,label:'name',value:'code'}},

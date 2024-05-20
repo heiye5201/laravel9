@@ -89,7 +89,6 @@ export default {
         const addColumn = [
 
         ]
-
         const dialogParams = reactive({
             labelWidth:'180px',
             dictData:{
@@ -119,7 +118,6 @@ export default {
                 }
             })
         }
-
         const editData2 = ()=>{
            proxy.R.put('/user/order/refund/'+data.formData.order_id,{refund_step:3}).then(res=>{
                if(!res.code){
@@ -128,23 +126,17 @@ export default {
                 }
            })
         }
-
-
-
         const loadData = async ()=>{
             data.formData.order_id = route.params.id
             proxy.R.get('/user/order/refund/'+data.formData.order_id).then(res=>{
                 if(!res.code) data.info = res
             })
         }
-
         onMounted( async ()=>{
             await loadData()
         })
-
         return {dialogParams,loading,data,editData,editData2}
     },
-
 };
 </script>
 <style lang="scss" scoped>

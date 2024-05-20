@@ -23,24 +23,6 @@
                                 </div>
                             </div>
                         </el-collapse-item>
-                        <!-- <el-collapse-item name="2">
-                            <template #title><el-icon style="margin-right:10px"><i class="fa fa-share-alt" /></el-icon>{{$t('table.rolePermissions')}}</template>
-                            <div class="table_dialog_hook">
-                                <div class="left_menu">
-                                    <div class="group_per_all"><el-checkbox v-model="roleData.selectAll" @change="selectAllCheck" :indeterminate="roleData.isIndeterminate">{{$t('btn.selectAll')}}</el-checkbox></div>
-                                    <el-checkbox-group v-model="roleData.checkList" @change="permissionCheck">
-                                        <div class="group_perblock" v-for="(v,k) in roleData.permissions || []" :key="k">
-                                            <div class="group_per_title"><span>{{v.name}}</span><span @click="groupCheck(v)">{{$t('table.roleSelectAll')}}</span></div>
-                                            <el-row :gutter="10">
-                                                <el-col  :sm="12" :md="8"  v-for="(vo,key) in v.permissions || []" :key="key">
-                                                    <el-checkbox :label="vo.id" >{{vo.name}}</el-checkbox>
-                                                </el-col>
-                                            </el-row>
-                                        </div>
-                                    </el-checkbox-group>
-                                </div>
-                            </div>
-                        </el-collapse-item> -->
                     </el-collapse>
                     <div class="table_btn">
                         <el-button :loading="loading" type="primary" @click="storeData(dialogParams)">{{$t('btn.determine')}}</el-button>
@@ -70,24 +52,6 @@
                                 </div>
                             </div>
                         </el-collapse-item>
-                        <!-- <el-collapse-item name="2">
-                            <template #title><el-icon style="margin-right:10px"><i class="fa fa-share-alt" /></el-icon>{{$t('table.rolePermissions')}}</template>
-                            <div class="table_dialog_hook">
-                                <div class="left_menu">
-                                    <div class="group_per_all"><el-checkbox v-model="roleData.selectAll" @change="selectAllCheck" :indeterminate="roleData.isIndeterminate">{{$t('btn.selectAll')}}</el-checkbox></div>
-                                    <el-checkbox-group v-model="roleData.checkList" @change="permissionCheck">
-                                        <div class="group_perblock" v-for="(v,k) in roleData.permissions || []" :key="k">
-                                            <div class="group_per_title"><span>{{v.name}}</span><span @click="groupCheck(v)">{{$t('table.roleSelectAll')}}</span></div>
-                                            <el-row :gutter="10">
-                                                <el-col  :sm="12" :md="8"  v-for="(vo,key) in v.permissions || []" :key="key">
-                                                    <el-checkbox :label="vo.id" >{{vo.name}}</el-checkbox>
-                                                </el-col>
-                                            </el-row>
-                                        </div>
-                                    </el-checkbox-group>
-                                </div>
-                            </div>
-                        </el-collapse-item> -->
                     </el-collapse>
                     <div class="table_btn">
                         <el-button :loading="loading" type="primary" @click="updateData(dialogParams)">{{$t('btn.determine')}}</el-button>

@@ -136,75 +136,7 @@ export default {
         return {
             data,timeChange,handleCurrentChange
         }
-    },
-    // props: {},
-    // data() {
-    //   return {
-    //       timeList:[],
-    //       timeFormat:' 00 : 00 : 00 ',
-    //       timeIndex:0,
-    //       list:[],
-    //       params:{
-    //           page:1,
-    //           per_page:30,
-    //           total:0,
-    //           start_time:0,
-    //       },
-    //   };
-    // },
-    // watch: {},
-    // computed: {},
-    // methods: {
-    //     onload(){
-    //         this.timeList = [moment().format('H'),moment().add(1,'hours').format('H'),moment().add(2,'hours').format('H'),moment().add(3,'hours').format('H')]
-    //         this.get_list();
-    //     },
-    //     get_list(){
-    //         this.$get(this.$api.homeSeckill,this.params).then(res=>{
-    //             this.params.total = res.data.total;
-    //             this.list = res.data.data;
-    //         })
-    //     },
-    //     onChange(e){
-    //         this.params.page = e;
-    //         this.onload();
-    //     },
-    //     timeChange(e){
-    //         this.params.start_time = e;
-    //         this.page = 1;
-    //         this.timeIndex = e;
-    //         this.onload();
-    //     },
-    //     // 定时器
-    //     timing(){
-    //         let endTime = moment().add(1,'hours').format('YYYY-MM-DD HH')+':00:00';
-    //         let obj = setInterval(()=>{
-    //             let timeVal = moment(endTime).format('X') - moment().format('X');
-    //             // 时间戳转换
-    //             var d = Math.floor(timeVal / (24 * 3600));
-    //             var h = Math.floor((timeVal - 24 * 3600 * d) / 3600);
-    //             var m = Math.floor((timeVal - 24 * 3600 * d - h * 3600) / 60);
-    //             var s = Math.floor((timeVal - 24 * 3600 * d - h * 3600 - m * 60));
-    //             // console.log(d + '天' + hh + '时' + mm + '分' + ss + '秒'); // 打印出转换后的时间
-    //             //  当时分秒小于10的时候补0
-    //             var hh = h < 10 ? '0' + h : h;
-    //             var mm = m < 10 ? '0' + m : m;
-    //             var ss = s < 10 ? '0' + s : s;
-    //             // this.seckills.format_time =  d + '天' + hh + '时' + mm + '分' + ss + '秒';
-    //             this.timeFormat = ' '+hh+' : '+mm+' : '+ss
-    //             if(moment(endTime).valueOf()<moment().valueOf()){
-    //                 clearInterval(obj);
-    //                 this.$router.go(0);
-    //             }
-    //         },1000)
-
-    //     },
-    // },
-    // created() {
-    //     this.onload();
-    //     this.timing();
-    // },
-    // mounted() {}
+    }
 };
 </script>
 <style lang="scss" scoped>

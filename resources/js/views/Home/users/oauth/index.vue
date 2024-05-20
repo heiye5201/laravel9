@@ -31,17 +31,13 @@ export default {
                 oauthCheck:false,
             }
         })
-
-
         const loadData = async ()=>{
             let user = await store.dispatch('login/getUserSer')
             data.userInfo = user
         }
-
         onMounted( async ()=>{
             loadData()
         })
-
         return {data}
     }
 }

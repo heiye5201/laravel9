@@ -9,8 +9,6 @@
             </div>
         </div>
 
-
-
         <div class="cart_th" v-if="data.params.total>0">
             <el-checkbox :indeterminate="data.indeterminate" :model-value="data.checkAll" @change="onCheckAllChange">{{$t('home.carts.all')}}</el-checkbox>
             <span class="goods">{{$t('home.carts.goods')}}</span>
@@ -61,8 +59,6 @@
         <div style="min-height:600px;padding-top:100px" v-else>
             <el-empty />
         </div>
-
-
 
     </div>
 </template>

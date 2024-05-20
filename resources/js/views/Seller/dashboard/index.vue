@@ -53,27 +53,6 @@
                         </div>
                     </div>
                 </div>
-<!--                <div class="top_div_item">-->
-<!--                    <div class="admin_card" >-->
-<!--                        <div class="title">版本信息</div>-->
-<!--                        <div class="content" style="margin-top:0;">-->
-<!--                            <div class="copyright">-->
-<!--                                <span class="copyright_title">当前版本：</span>-->
-<!--                                <span class="copyright_rs"><el-tag type="info">3.0.0</el-tag></span>-->
-<!--                            </div>-->
-<!--                            <div class="unline"></div>-->
-<!--                            <div class="copyright">-->
-<!--                                <span class="copyright_title">商城框架：</span>-->
-<!--                                <span class="copyright_rs" @click="openWeb">夜听雨商城系统（NightSystem）</span>-->
-<!--                            </div>-->
-<!--                            <div class="unline"></div>-->
-<!--                            <div class="copyright" style="padding-bottom:18px">-->
-<!--                                <span class="copyright_title">开源地址：</span>-->
-<!--                                <span class="copyright_rs"><el-button :icon="Download" type="primary" @click="download">前往下载</el-button></span>-->
-<!--                            </div>-->
-<!--                        </div>-->
-<!--                    </div>-->
-<!--                </div>-->
             </div>
             <div class="admin_card" >
                 <div class="title">

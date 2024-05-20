@@ -16,10 +16,8 @@ export default {
             {label:'图标',value:'icon',type:'icon_tags'},
             {label:'路由',value:'apis',type:'tags'},
             {label:'组件',value:'view',type:'tags'},
-            // {label:'排序',value:'is_sort'},
             {label:'创建时间',value:'created_at'},
         ]);
-
 
         // 表单配置 
         const addColumn = [

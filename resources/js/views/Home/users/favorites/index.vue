@@ -42,8 +42,6 @@ export default {
             {label:proxy.$t('user_center.favorites.store_name'),value:'store_name',overFlow:true},
             {label:proxy.$t('user_center.favorites.created_at'),value:'created_at'},
         ]);
-
-
         const btnConfigs = reactive({
             store:{show:false},
             update:{show:false},
@@ -51,10 +49,8 @@ export default {
             search:{show:false},
             export:{show:false},
             destroy:{show:false},
-            destroy:{show:false},
             deletes:{show:true},
         })
-
         const openAdd = async ()=>{
             data.isGoods = !data.isGoods
         }

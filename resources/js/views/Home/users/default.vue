@@ -19,7 +19,6 @@
             <div class="clear"></div>
         </div>
 
-
         <div class="order_status_block">
             <ul>
                 <li>
@@ -131,7 +130,6 @@ export default {
             user_info:{},
             isLogin:false,
         })
-
         const loadData = ()=>{
             proxy.R.get('/user/default',{per_page:5,isResource:'Home'}).then(res=>{
                 data.order = res.order.data
@@ -156,8 +154,6 @@ export default {
             data,
         }
     },
-
-
 };
 </script>
 <style lang="scss" scoped>

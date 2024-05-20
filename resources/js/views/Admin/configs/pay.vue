@@ -317,10 +317,7 @@ export default {
                     loading.value = false
                 }
             })
-
-           
         }
-       
         const Token = getToken()
         return {loading,tabsIndex,form,handleClick,onSubmit,Token}
     }

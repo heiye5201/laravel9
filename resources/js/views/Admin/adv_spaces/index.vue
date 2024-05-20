@@ -98,15 +98,10 @@ export default {
                 {label:'状态',value:'status',type:'select'},
                 {label:'排序',value:'is_sort',type:'number'},
             ],
-            // dictData:{
-            //     status:[{label:proxy.$t('config.web.open'),value:1},{label:proxy.$t('config.web.close'),value:0}],
-            // },
             rules:{
                 pid:[{required:true,message:proxy.$t('msg.requiredMsg')}],
-                // status:[{required:true,message:proxy.$t('msg.requiredMsg')}],
                 adv_start:[{required:true,message:proxy.$t('msg.requiredMsg')}],
                 adv_end:[{required:true,message:proxy.$t('msg.requiredMsg')}],
-                // status:[{required:true,message:proxy.$t('msg.requiredMsg')}],
                 name:[{required:true,message:proxy.$t('msg.requiredMsg')}],
                 local_type:[{required:true,message:proxy.$t('msg.requiredMsg')}]
             },

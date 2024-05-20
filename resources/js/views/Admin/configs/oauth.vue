@@ -36,9 +36,6 @@
                     </el-form-item>
                 </el-form>
             </el-tab-pane>
-
-
-            
         </el-tabs>
     </div>
 </template>
@@ -91,10 +88,7 @@ export default {
                     loading.value = false
                 }
             })
-
-           
         }
-       
         const Token = getToken()
         return {loading,tabsIndex,form,handleClick,onSubmit,Token}
     }

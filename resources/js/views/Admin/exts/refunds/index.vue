@@ -34,9 +34,7 @@ export default {
         const btnConfigs = reactive({
             store:{show:false},
         })
-
-
-        // 表单配置 
+        // 表单配置
         const viewColumn = [
             {label:'订单图片',value:'order_image',type:'avatar',span:24},
             {label:'订单名称',value:'order_name'},

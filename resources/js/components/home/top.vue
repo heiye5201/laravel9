@@ -54,7 +54,6 @@ export default {
             users:computed( () => store.state.login.userData[routeUriIndex]),
             city:'北京市',
         })
-
         const options = [
             {
                 value:'en',
@@ -69,28 +68,21 @@ export default {
                 label: 'THA'
             },
         ];
-
         const lang = computed( () => localStorage.getItem('language')==null?'zh-cn':localStorage.getItem('language') )
-
-
         const isLogin = computed( () => store.state.login.loginData[routeUriIndex].isLogin )
         const amapKey = computed( () => store.state.init.common.common.amap.key )
         const ip = computed( () => store.state.init.common.ip )
 
         let localCity = localStorage.getItem('city')
         if(!proxy.R.isEmpty(localCity)) data.city = localCity
-
         const logout = ()=>{
             store.commit('login/logout')
         }
-
-
         const toggleLang = (value)=>{
             localStorage.setItem('language', value);
             setLocationData()
             location.reload();
         }
-
         const setLocationData = async ()=>{
             const local = localStorage.getItem('language');
             const resp = await proxy.R.get('/set_lang',{lang:local})
@@ -100,15 +92,12 @@ export default {
                 console.log(resp.data)
             }
         }
-
-
         const toggle = ()=>{
             const curLang = localStorage.getItem('language');
             const setLang = curLang == 'zh-cn' ? curLang : 'zh-cn';
             localStorage.setItem('language', setLang);
             location.reload();
         }
-
         const loadCity = ()=>{
             try{
                 const ipLocal = localStorage.getItem('ip')
@@ -131,7 +120,6 @@ export default {
                 console.error(error)
             }
         }
-
         onMounted(()=>{
             setTimeout(()=>{
                 loadCity()
@@ -147,8 +135,6 @@ export default {
             logout
         }
     },
-
-
 };
 </script>
 <style lang="scss" scoped>

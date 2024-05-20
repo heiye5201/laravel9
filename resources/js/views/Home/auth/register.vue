@@ -13,10 +13,6 @@
                     <div class="input_block"><input type="text" v-model="data.username" :placeholder="$t('home.auth.user_name')" @keyup.enter="register"></div>
                     <div class="input_block"><input type="password" v-model="data.password" :placeholder="$t('home.auth.password')" @keyup.enter="register"></div>
                     <div class="input_block"><input type="password" v-model="data.re_password" :placeholder="$t('home.auth.confirm_password')" @keyup.enter="register"></div>
-<!--                    <div class="input_block">-->
-<!--                        <input class="yzm" type="code" v-model="data.code" :placeholder="$t('btn.code')" @keyup.enter="register">-->
-<!--                        <span :class="data.math>0?'yzmbtn dis':'yzmbtn'" @click="sendSms">{{data.code_text}}</span>-->
-<!--                    </div>-->
                 </div>
 
                 <div class="login_btn" @click="register">{{$t('home.auth.register')}}</div>
@@ -24,8 +20,6 @@
                 <div class="login_btn_b">
                     <router-link to="/forget_password">{{$t('home.auth.forge_pass')}}？</router-link>
                 </div>
-
-
             </div>
         </div>
     </div>

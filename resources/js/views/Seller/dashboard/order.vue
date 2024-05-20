@@ -55,9 +55,7 @@ export default {
                     data.line.changeData(data.plot)
                 }
             })
-
         }
-
         const typeChange = (e)=>{
             params.is_type = e;
             params.created_at = null
@@ -99,11 +97,6 @@ export default {
             data.line.render()
             loadData()
         })
-
-        // onBeforeUnmount(()=>{
-        //     console.log(123)
-        //     data.line.destroy
-        // })
 
         return {
             data,params,

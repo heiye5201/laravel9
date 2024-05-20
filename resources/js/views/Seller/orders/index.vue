@@ -113,17 +113,13 @@ export default {
                 ]
             }},
         ])
-
         const params = {
             isWith:'store,user,refund'
         }
-
         const btnConfigs = reactive({
             store:{show:false},
             destroy:{show:false},
         })
-
-
         // 表单配置
         const addColumn = [
             {label:proxy.$t('seller.refunds.order_image'),value:'order_image',type:'avatar',span:24},
@@ -203,7 +199,6 @@ export default {
                     }
                 })
             })
-
         }
 
         // 物流查询
@@ -215,8 +210,6 @@ export default {
                 if(!res.code) data.express = res
             })
         }
-
-
         return {
             Promotion,Printer,Picture,
             options,searchOptions,dialogParam,btnConfigs,params,data,

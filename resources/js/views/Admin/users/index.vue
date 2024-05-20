@@ -60,7 +60,6 @@ export default {
             {label:'冻结资金',value:'frozen_money',type:'tags'},
             {label:'积分',value:'integral',type:'tags'},
             {label:'登陆时间',value:'last_login_time'},
-            // {label:'创建时间',value:'created_at'},
         ]);
 
         // 搜索字段
@@ -104,7 +103,6 @@ export default {
                 editVis.value = false
             })
         }
-
         return {options,searchOptions,dialogParam,Coin,editVis,selectType,money,loading,moneyOpen,updateData}
     }
 }

@@ -263,8 +263,6 @@ export default {
             storeFav,sortChange,handleCurrentChange
         }
     },
-
-
 };
 </script>
 <style lang="scss" scoped>

@@ -111,18 +111,14 @@ export default {
             user_info:{},
             isLogin:false,
         })
-
         onMounted( async ()=>{
             const token = localStorage.getItem('token')
             if(!proxy.R.isEmpty(token)) data.isLogin = true
             let user = await store.dispatch('load/getUser')
             Object.assign(data.user_info,user)
         })
-
-
         return {data}
     },
-
 };
 </script>
 <style lang="scss" scoped>

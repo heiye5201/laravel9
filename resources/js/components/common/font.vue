@@ -29,7 +29,6 @@ export default {
         watch(()=>props.value,(e)=>{
             emit('update:value',e)
         })
-
         const handleSelect = (e)=>{
             emit('update:value',e)
         }

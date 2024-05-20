@@ -35,7 +35,6 @@ export default {
             store:{show:false},
         })
 
-
         // 表单配置 
         const viewColumn = [
             {label:'订单图片',value:'order_image',type:'avatar',span:24},

@@ -25,11 +25,6 @@
                             </div>
                         </div>
                     </div>
-                    <!-- <div class="sec" v-for="(v,k) in data.common.classes" :key="k">
-                        <ul v-if="(!R.isEmpty(base64Decode.pid) && base64Decode.pid==v.id)">
-                            <li  v-for="(vo,key) in v.children" :key="key">{{vo.name}}</li>
-                        </ul>
-                    </div> -->
                 </div>
             </div>
             <div class="item">
@@ -170,7 +165,6 @@ export default {
                 }
 
                 data.base64Decode.sort_type= e
-                // console.log(this.base64Decode.sort_type)
             }
             _push('/s/'+window.btoa(JSON.stringify(data.base64Decode)))
         }

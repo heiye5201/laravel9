@@ -43,14 +43,11 @@ export default {
         const data = reactive({
             userInfo:{}
         })
-       
-
         const loadData = async ()=>{
             let user = await store.dispatch('login/getUserSer')
             data.userInfo = user
             data.userInfo.link = url+'/register?inviter_id='+user.id
         }
-
         const copy = ()=>{
             var clipboard = new Clipboard('.inviter_link');
             clipboard.on('success', () => {  
@@ -63,14 +60,11 @@ export default {
                 // 不支持复制  
                 // 释放内存  
                 clipboard.destroy()  
-            }); 
-            
+            });
         }
-
         onMounted( async ()=>{
             loadData()
         })
-
         return {data,copy}
     }
 }

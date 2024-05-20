@@ -78,33 +78,25 @@ export default {
             list:[{id:0,name:proxy.$t('seller.freights.custom_freight_template'),f_weight:0.00,f_price:0.00,o_weight:0,o_price:0.00,area_id:[],area_show:false}],
             areas:[],
         })
-
-
         const loadData = async ()=>{
             loadArea()
             const resp = await proxy.R.get('/Seller/freights',{isAll:true})
             if(!resp.code && resp.length>0) data.list = resp
         }
-
         const loadArea = async ()=>{
             data.areas = await proxy.R.get('/load_areas?deep=1')
         }
-
         const del = async (id,k)=>{
             data.list.splice(k,1)
             if(id > 0) await proxy.R.deletes('/Seller/freights/'+id)
             loadData()
-
         }
-
         const showArea = (k)=>{
             data.list[k].area_show = !data.list[k].area_show
         }
-
         const onChange = (e)=>{
             console.log(e)
         }
-
         const onSubmit = async ()=>{
             loading.value = true
             proxy.R.put('/Seller/freights/0',{info:data.list}).then(res=>{

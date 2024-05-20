@@ -123,9 +123,6 @@
                             </el-upload>
                         </el-form-item>
                     </el-col>
-
-
-                    <!-- <el-col :span="12"><div class="table-form-content"></div></el-col> -->
                 </el-row>
 
                 <!-- 按钮处理 -->

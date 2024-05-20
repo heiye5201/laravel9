@@ -24,8 +24,6 @@ export default {
             {label:'结算状态',value:'status',type:'dict_tags'},
             {label:'创建时间',value:'created_at'},
         ]);
-
-
         const btnConfigs = reactive({
             store:{show:false},
             show:{show:false},
@@ -40,7 +38,6 @@ export default {
                 status:[{label:proxy.$t('btn.waitExamine'),value:0},{label:proxy.$t('btn.success'),value:1}]
             },
         })
-
         return {options,dialogParam,btnConfigs}
     }
 }
