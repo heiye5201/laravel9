@@ -201,7 +201,8 @@ export default {
             style: {
               color: "gold",
               shape: "rect",
-              layout: "vertical"
+              label: "paypal",
+              layout: "vertical" // horizontal vertical
             },
             createOrder: function(data, actions) {
               // pass in any options from the v2 orders create call:

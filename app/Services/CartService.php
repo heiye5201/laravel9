@@ -22,7 +22,7 @@ class CartService extends BaseService
     {
         // 获取当前用户user_id
         $userId = $this->getUserId('users');
-        $cartList = Cart::query()->where(['user_id' => $userId])
+        $cartList = Cart::query()->where('user_id', $userId)
             // 获取店铺信息
             ->with(['store' => function ($q) {
                 return $q->select('id', 'store_name', 'store_logo');
@@ -32,7 +32,7 @@ class CartService extends BaseService
                 }, 'goods_sku' => function ($query) {
                     $query->select('id', 'sku_name', 'goods_image', 'goods_price');
                 }]);
-            }])
+            }])->select(['store_id'])
             ->groupBy('store_id')
             ->paginate(request()->per_page ?? 30);
         return $this->format(new CartHomeCollection($cartList));

@@ -24,7 +24,7 @@ class CartHomeCollection extends ResourceCollection
             'data' => $this->collection->map(function ($item) {
                 return [
                     'store_id' => $item->store->id,
-                    'user_id' => $item->user_id,
+                    'user_id' => collect($item->carts)->first()->user_id ?? 0,
                     'store_name' => $item->store->store_name ?? '',
                     'store_logo' => $item->store->store_logo ? getUrlByPath($item->store->store_logo) : '',
                     'checked' => false,

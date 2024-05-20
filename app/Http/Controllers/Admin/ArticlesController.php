@@ -65,5 +65,4 @@ class ArticlesController extends Controller
             return $this->error($e->getMessage());
         }
     }
-
 }

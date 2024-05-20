@@ -4,12 +4,10 @@
             <div class="top_shop_left">
                 <ul>
                     <li><router-link to="/">{{$t('home.store_index.home')}}</router-link></li>
-                    <li>|</li>
-                    <li><router-link to="/">{{$t('home.store_index.contact_address')}}</router-link></li>
-                    <li>|</li>
-                    <li><router-link to="/">{{$t('home.store_index.about')}}</router-link></li>
 <!--                    <li>|</li>-->
-<!--                    <li><router-link style="color:#ca151e;display:flex;align-items: center;" to="/"><img width="16" style="margin-top:4px;margin-right:4px;" :src="require('@/assets/order/address_pos3.png').default" >{{' '+data.city+' '||' - '}}</router-link></li>-->
+<!--                    <li><router-link to="/">{{$t('home.store_index.contact_address')}}</router-link></li>-->
+                    <li>|</li>
+                    <li><router-link to="/user/article/about">{{$t('home.store_index.about')}}</router-link></li>
                 </ul>
             </div>
             <div class="top_shop_right">

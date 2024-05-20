@@ -42,4 +42,15 @@ class CashesController extends Controller
             return $this->error($e->getMessage());
         }
     }
+
+    public function destroy($id)
+    {
+        try {
+            $ids = explode(", ", $id);
+            $data = Cash::query()->whereIn('id', $ids)->delete();
+            return $this->success($data);
+        } catch (\Exception $e) {
+            return $this->error($e->getMessage());
+        }
+    }
 }

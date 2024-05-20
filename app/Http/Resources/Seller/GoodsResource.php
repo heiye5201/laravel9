@@ -24,23 +24,8 @@ class GoodsResource extends JsonResource
             'goods_master_image' => $this->goods_master_image,
             'created_at' => $this->created_at,
             'updated_at' => $this->updated_at,
-            'class_name' => $this->goods_class->name,
-            'brand_name' => $this->goods_brand->name,
+            'class_name' => $this->goods_class->name ?? '',
+            'brand_name' => $this->goods_brand->name ?? '',
         ];
     }
-
-//    public function withResponse($request, $response)
-//    {
-//        // 获取Paginator实例
-//        $paginator = $this->resource->paginator;
-//        // 添加分页信息到响应中
-//        $response->setData(array_merge($response->getData(true), [
-//            'pagination' => [
-//                'total' => $paginator->total(),
-//                'per_page' => $paginator->perPage(),
-//                'current_page' => $paginator->currentPage(),
-//                // 可以根据需要添加其他分页信息
-//            ],
-//        ]));
-//    }
 }

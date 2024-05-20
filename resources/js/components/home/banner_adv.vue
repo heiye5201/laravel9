@@ -30,7 +30,6 @@
         </div>
         <div class="shop_right_on">
             <ul>
-<!--                -->
                 <li v-for="(v,k) in index_adv" :key="k"><router-link :to="v.url||'#'"><el-image lazy :src="v.image" style="width:312px;height:160px" :alt="v.name" fit="cover" /></router-link></li>
             </ul>
         </div>

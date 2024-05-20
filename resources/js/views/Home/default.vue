@@ -1,12 +1,9 @@
 <template>
     <div class="default_main">
-<!-- [{image:require('@/assets/Home/default_banner.jpg').default}]-->
         <banner-view :banner="data.adv" />
-<!-- [{image:require('@/assets/Home/banner_b1.jpg').default},{image:require('@/assets/Home/banner_b2.jpg').default},{image:require('@/assets/Home/banner_b3.jpg').default}]      -->
         <banner-adv :index_adv="data.brand" />
         <div class="index_bg">
             <div class="goods_class_list w1200" v-for="(v,k) in data.goods" :key="k">
-                <!--   require('@/assets/Home/adv.jpg').default             -->
                 <adv-view v-if="v.goods && v.goods.length>0" :adv="{image:(data.classAdv && data.classAdv[k])?data.classAdv[k].image:require('@/assets/Home/adv.jpg').default}" />
                 <div v-if="v.goods && v.goods.length>0">
                     <div class="title">{{v.name||$t('home.loading')}}<span><router-link to="/s/eyJrZXl3b3JkcyI6IiJ9">{{$t('home.view_more')}}</router-link></span></div>

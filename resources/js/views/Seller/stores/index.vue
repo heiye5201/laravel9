@@ -56,24 +56,24 @@
                     </el-form-item>
                 </el-form>
             </el-tab-pane>
-            <el-tab-pane :label="$t('config.configStore.mapConfig')" name="mapForm">
-                <el-form style="width:60%;margin-top:8px;" :model="form.mapForm" ref="mapForm" label-position="right" label-width="140px">
-                    <el-form-item :label="$t('config.configStore.storeArea')" prop="area">
-                        <q-input :params="{value:'area',type:'cascader_lazy',placeholder:form.mapForm.area_info,lazyUrl:'/load_areas?isLazy=true'}" :dictData="{area:[]}||[]"  v-model:formData="form.mapForm.area" />
-                    </el-form-item>
-                    <el-form-item :label="$t('config.configStore.storePoint')" prop="latlng">
-                        <!-- <el-input v-model="form.mapForm.latlng"  /> -->
-                        <div id="container" style="height:300px;width:100%"></div>
-                    </el-form-item>
-                    <el-form-item :label="$t('config.configStore.storeAddress')" prop="store_address">
-                        <el-input v-model="form.mapForm.store_address"  />
-                    </el-form-item>
-                    <el-form-item >
-                        <el-button type="primary" @click="onSubmit('mapForm')">{{$t('btn.determine')}}</el-button>
-                        <el-button @click="$refs['mapForm'].resetFields()">{{$t('btn.reset')}}</el-button>
-                    </el-form-item>
-                </el-form>
-            </el-tab-pane>
+<!--            <el-tab-pane :label="$t('config.configStore.mapConfig')" name="mapForm">-->
+<!--                <el-form style="width:60%;margin-top:8px;" :model="form.mapForm" ref="mapForm" label-position="right" label-width="140px">-->
+<!--                    <el-form-item :label="$t('config.configStore.storeArea')" prop="area">-->
+<!--                        <q-input :params="{value:'area',type:'cascader_lazy',placeholder:form.mapForm.area_info,lazyUrl:'/load_areas?isLazy=true'}" :dictData="{area:[]}||[]"  v-model:formData="form.mapForm.area" />-->
+<!--                    </el-form-item>-->
+<!--                    <el-form-item :label="$t('config.configStore.storePoint')" prop="latlng">-->
+<!--                        &lt;!&ndash; <el-input v-model="form.mapForm.latlng"  /> &ndash;&gt;-->
+<!--                        <div id="container" style="height:300px;width:100%"></div>-->
+<!--                    </el-form-item>-->
+<!--                    <el-form-item :label="$t('config.configStore.storeAddress')" prop="store_address">-->
+<!--                        <el-input v-model="form.mapForm.store_address"  />-->
+<!--                    </el-form-item>-->
+<!--                    <el-form-item >-->
+<!--                        <el-button type="primary" @click="onSubmit('mapForm')">{{$t('btn.determine')}}</el-button>-->
+<!--                        <el-button @click="$refs['mapForm'].resetFields()">{{$t('btn.reset')}}</el-button>-->
+<!--                    </el-form-item>-->
+<!--                </el-form>-->
+<!--            </el-tab-pane>-->
 
             <el-tab-pane :label="$t('config.configStore.pcSlideConfig')" name="pcSlideForm">
                 <el-form style="width:60%;margin-top:8px;" :model="form.pcSlideForm" ref="pcSlideForm" label-position="right" label-width="140px">
@@ -286,7 +286,7 @@ export default {
             await store.dispatch('init/loadCommon') // 加载网站数据
             let jsapi = store.state.init.common.common.amap.jsapi
             AMapLoader.load({
-                "key": jsapi||'',              // 申请好的Web端开发者Key，首次调用 load 时必填
+                "key": jsapi||'',   // 申请好的Web端开发者Key，首次调用 load 时必填
                 "version": "2.0",   // 指定要加载的 JSAPI 的版本，缺省时默认为 1.4.15
                 "plugins": ['AMap.ToolBar','AMap.Scale','AMap.Marker','AMap.Pixel'],           // 需要使用的的插件列表，如比例尺'AMap.Scale'等
             }).then((AMap)=>{
@@ -303,7 +303,6 @@ export default {
                 });
                 const toolBar = new AMap.ToolBar()
                 const scale = new AMap.Scale()
-
                 map.add(defaultMarker) // 默认点
                 map.addControl(toolBar)
                 map.addControl(scale)
@@ -319,15 +318,10 @@ export default {
                     })
                     map.add(marker)
                 });
-
             }).catch(e => {
                 console.log(e);
             })
-
-            
         }
-        
-
         const Token = getToken()
         return {loading,tabsIndex,form,handleClick,handleAvatarSuccess,onSubmit,Token}
     }

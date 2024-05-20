@@ -34,12 +34,12 @@
                         <li>
                             <router-link to="/stores">{{$t('home.store_index.shop_street')}}</router-link>
                         </li>
-<!--                        <li>-->
-<!--                            <router-link to="/seckills">秒杀</router-link>-->
-<!--                        </li>-->
-<!--                        <li>-->
-<!--                            <router-link to="/collectives/eyJrZXl3b3JkcyI6IiJ9">拼团</router-link>-->
-<!--                        </li>-->
+                        <li>
+                            <router-link to="/seckills">秒杀</router-link>
+                        </li>
+                        <li>
+                            <router-link to="/collectives/eyJrZXl3b3JkcyI6IiJ9">拼团</router-link>
+                        </li>
                         <li>
                             <router-link to="/integral">{{$t('home.store_index.point_store')}}</router-link>
                         </li>

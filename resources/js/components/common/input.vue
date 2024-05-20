@@ -168,7 +168,6 @@ export default {
       E:null,
     })
     const splitStr = editSplitStr
-    console.info('jwj:'+props.formData);
     watch(()=>props.formData,(e)=>{
       emit('update:formData',e)
       if(props.params.type == 'editor'){
