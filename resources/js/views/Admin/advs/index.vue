@@ -36,6 +36,7 @@ export default {
             {label:'链接',value:'url'},
             {label:'类型',value:'is_type'},
             {label:'图片',value:'image',span:24,type:'image',perView:true,name:'adv'},
+            // {label:'商品分类',value:'goods_class_id',type:'select',labelName:'name',valueName:'id',viewType:'dict_tags'},
             {label:'开始时间',value:'adv_start',type:'datetime'},
             {label:'结束时间',value:'adv_end',type:'datetime'},
             {label:'状态',value:'status',type:'select',viewType:'dict_tags'},
@@ -45,7 +46,8 @@ export default {
             isPageDict:true,
             dict:[
                 {name:'pid',url:'/Admin/adv_spaces?per_page=100'},
-                {name:'filter[pid]',url:'/Admin/adv_spaces?per_page=100'}
+                {name:'filter[pid]',url:'/Admin/adv_spaces?per_page=100'},
+                {name:'goods_class_id',url:'/Admin/goods_classes?per_page=100&pid=0&isAll=0'},
             ],
             dictData:{
                 status:[{label:proxy.$t('config.web.open'),value:1},{label:proxy.$t('config.web.close'),value:0}],
@@ -55,7 +57,6 @@ export default {
                 status:[{required:true,message:proxy.$t('msg.requiredMsg')}],
                 adv_start:[{required:true,message:proxy.$t('msg.requiredMsg')}],
                 adv_end:[{required:true,message:proxy.$t('msg.requiredMsg')}],
-                // status:[{required:true,message:proxy.$t('msg.requiredMsg')}],
                 name:[{required:true,message:proxy.$t('msg.requiredMsg')}]
             },
             view:{column:addColumn},

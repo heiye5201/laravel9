@@ -18,7 +18,7 @@ class GoodsClassQuery extends QueryBuilder
         parent::__construct(GoodsClass::query());
         $this->defaultSort('-ID')
             ->allowedFilters([
-                'name'
+                'name', 'pid'
             ])
             ->allowedSorts([
                 AllowedSort::field('date', 'created_at'),

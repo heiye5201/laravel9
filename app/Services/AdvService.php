@@ -33,7 +33,7 @@ class AdvService extends BaseService
         $space = AdvSpace::query()->where('local_type', $local_type)->first();
         $data = [];
         if ($space) {
-            $list = Adv::query()->where('pid', $space['id'])
+            $list = Adv::query()->where('pid', $space['id'])->where('status', 1)
                 ->where('adv_start', '<', date('Y-m-d H:i:s'))->where('adv_end', '>', date('Y-m-d H:i:s'))->get();
             foreach ($list as $val) {
                 $data[] = ['image' => $val['image']];

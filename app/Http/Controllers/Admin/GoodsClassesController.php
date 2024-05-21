@@ -32,11 +32,20 @@ class GoodsClassesController  extends Controller
     public function index(Request $request, GoodsClassQuery $query)
     {
         $isChildren = boolval(request('isChildren') ?? false);
-        if ($isChildren) {
-            $belong_id = request('pid') ?? 0;
-            $query = $query->where('pid', $belong_id)->with('hasChildren');
+        $belong_id = request('pid') ?? -1;
+        if ($belong_id >= 0) {
+            $query = $query->where('pid', $belong_id);
         }
-        $data = $query->orderBy('id', 'desc')->get();
+        if ($isChildren) {
+            $query = $query->with('hasChildren');
+        }
+        $isAll = $request->input('isAll', true);
+        $query = $query->orderBy('id', 'desc');
+        if ($isAll) {
+            $data = $query->get();
+        } else {
+            $data = $query->paginate(intval($request->input('page_size', 25)));
+        }
         return $this->success($data);
     }
 
