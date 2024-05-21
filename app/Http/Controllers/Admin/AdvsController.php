@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Http\Queries\AdvsQuery;
+use App\Http\Requests\Admin\AdvsRequest;
 use App\Models\Adv;
 use Illuminate\Http\Request;
 
@@ -23,7 +24,7 @@ class AdvsController extends Controller
     }
 
 
-    public function store(Request $request)
+    public function store(AdvsRequest $request)
     {
         try {
             $data = Adv::query()->create([
@@ -43,7 +44,7 @@ class AdvsController extends Controller
         }
     }
 
-    public function update(Request $request, $id)
+    public function update(AdvsRequest $request, $id)
     {
         try {
             $data = Adv::query()->where('id', $id)->update([

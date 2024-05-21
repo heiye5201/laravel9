@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Http\Queries\Admin\AdminQuery;
+use App\Http\Requests\Admin\AdminsRequest;
 use App\Http\Resources\Admin\AdminCollection;
 use App\Models\Admins;
 use Illuminate\Http\Request;
@@ -21,9 +22,8 @@ class AdminsController extends Controller
         return $this->success(new AdminCollection($data));
     }
 
-
     // 添加
-    public function store(Request $request)
+    public function store(AdminsRequest $request)
     {
         try {
             DB::beginTransaction();
@@ -48,14 +48,8 @@ class AdminsController extends Controller
     public function show($id)
     {
         $rs = Admins::query()->where($this->belongName, $this->getBelongId())->with(['roles'])->find($id);
-        $role_id = [];
-        $role_name = [];
-        if (!empty($rs['roles'])) {
-            foreach ($rs['roles'] as $v) {
-                $role_id[] = $v['id'];
-                $role_name[] = $v['name'];
-            }
-        }
+        $role_id = collect($rs['roles'] ?? [])->pluck('id');
+        $role_name = collect($rs['roles'] ?? [])->pluck('name');
         $rs['role_id'] = $role_id;
         $rs['role_name'] = $role_name;
         unset($rs['password']);
@@ -63,7 +57,7 @@ class AdminsController extends Controller
     }
 
     // 修改
-    public function update(Request $request, $id)
+    public function update(AdminsRequest $request, $id)
     {
         try {
             $belongName = $this->belongName;

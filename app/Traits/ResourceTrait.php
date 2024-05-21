@@ -4,7 +4,7 @@ namespace App\Traits;
 
 trait ResourceTrait
 {
-   
+
     // service 返回格式化
     protected function format($data=[], $msg='ok')
     {

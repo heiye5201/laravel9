@@ -131,7 +131,6 @@ export default {
             let list = await proxy.R.get('/Admin/adv_spaces?per_page=100')
             advForm.pid = e
             advParams.dictData['pid'] = list.data
-
         }
         const updateData = ()=>{
             proxy.$refs.advForms.validate((valid)=>{
