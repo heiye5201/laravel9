@@ -28,7 +28,7 @@ class FreightsController extends Controller
 
     public function update(Request $request, $id)
     {
-        return $this->handle(app(FreightService::class)->edit());
+        return $this->handle(app(FreightService::class)->edit($request->all()));
     }
 
     public function destroy($id)

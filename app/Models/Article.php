@@ -2,14 +2,8 @@
 
 namespace App\Models;
 
-use App\Traits\TimeTrait;
-use Illuminate\Database\Eloquent\Factories\HasFactory;
-use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\SoftDeletes;
-
-class Article extends Model
+class Article extends BaseModel
 {
-    use HasFactory, SoftDeletes, TimeTrait;
 
     protected $fillable = [
         'belong_id',
@@ -22,10 +16,6 @@ class Article extends Model
 
     public $appends = [
         'class_name'
-    ];
-
-    protected $hidden = [
-        'deleted_at',
     ];
 
     public function class()

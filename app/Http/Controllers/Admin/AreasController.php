@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Http\Queries\AreaQuery;
+use App\Http\Requests\Admin\AreasRequest;
 use App\Http\Resources\Admin\AreaBaseCollection;
 use App\Models\Area;
 use App\Services\ToolService;
@@ -15,7 +16,7 @@ class AreasController extends Controller
 
     public function index(Request $request, AreaQuery $query)
     {
-        $isChildren = boolval(request('isChildren') ?? false);
+        $isChildren = boolval($request->isChildren ?? false);
         if ($isChildren) {
             $belong_id = request('pid') ?? 0;
             $query = $query->where('pid', $belong_id)->with('hasChildren');
@@ -69,7 +70,7 @@ class AreasController extends Controller
     }
 
 
-    public function store(Request $request)
+    public function store(AreasRequest $request)
     {
         try {
             $data = Area::query()->create([
@@ -84,7 +85,7 @@ class AreasController extends Controller
         }
     }
 
-    public function update(Request $request, $id)
+    public function update(AreasRequest $request, $id)
     {
         try {
             $data = Area::query()->where('id', $id)->update([

@@ -55,7 +55,7 @@ class AuthService extends BaseService
             $authModel->last_login_time = !empty($authModel->login_time) ? $authModel->login_time : now();
             $authModel->login_time = now();
             $authModel->save();
-            if (request('form')) {
+            if (isset($loginData['form']) && $loginData['form']) {
                 $data = $resp->json();
                 $data['userId'] = $authModel->id;
                 $data['token'] = $data['access_token'];
@@ -93,8 +93,8 @@ class AuthService extends BaseService
             'belong_id' =>  0,
         ];
         $type == 'phone' ? $regData['email'] = $regData['phone'].'@139.com':'';
-        if (!empty(request('inviter_id'))) {
-            $regData['inviter_id'] = request('inviter_id');
+        if (isset($data['inviter_id']) && $data['inviter_id']) {
+            $regData['inviter_id'] = $data['inviter_id'];
         }
         if (!$model->create($regData)) {
             return []; // 账号建立失败

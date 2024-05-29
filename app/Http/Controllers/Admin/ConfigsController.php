@@ -22,7 +22,12 @@ class ConfigsController extends Controller
     public function edit(Request $request)
     {
         $isCustom = $request->is_custom ?? null;
-        return $this->handle(app(ConfigsService::class)->editConfig($isCustom, $request->many_name ?? null, $request->many ?? false));
+        if (empty($isCustom)) {
+            $resp = request()->all();
+        } else {
+            $resp = request()->only($isCustom);
+        }
+        return $this->handle(app(ConfigsService::class)->editConfig($resp));
     }
 
 }

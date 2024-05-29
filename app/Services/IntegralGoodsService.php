@@ -14,10 +14,10 @@ use Illuminate\Support\Facades\DB;
 class IntegralGoodsService extends BaseService
 {
 
-    public function search()
+    public function search($reqData)
     {
         $ig_model = new IntegralGoods();
-        $params = request()->params??'';
+        $params = $reqData['params']??'';
         try {
             if (!empty($params)) {
                 $params_array = json_decode(base64_decode($params), true);
@@ -33,7 +33,7 @@ class IntegralGoodsService extends BaseService
                 }
             }
             $list = $ig_model->where('goods_status', 1)
-                ->paginate(request()->per_page??30);
+                ->paginate($reqData['per_page'] ?? 30);
         } catch (\Exception $e) {
             return $this->formatError(__('tip.error'));
         }
@@ -41,9 +41,8 @@ class IntegralGoodsService extends BaseService
     }
 
     // 积分订单建立并支付
-    public function createOrder()
+    public function createOrder($params)
     {
-        $params = request()->all();
         // 地址验证
         $address_resp = app(OrderService::class)->checkAddress();
         if (!$address_resp['status']) {
@@ -71,7 +70,7 @@ class IntegralGoodsService extends BaseService
                 'total_price'               =>  $total_price, //
                 'order_price'               =>  $total_price, //
                 'order_status'              =>  2, //
-                'remark'                    =>  request()->remark??'', // 备注
+                'remark'                    =>  $params['remark'] ?? '', // 备注
             ];
             $order_info = IntegralOrder::query()->create($order_data); // 订单数据插入数据库
             $order_goods_data = [

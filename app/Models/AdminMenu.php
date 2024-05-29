@@ -2,9 +2,6 @@
 
 namespace App\Models;
 
-use App\Traits\TimeTrait;
-use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\SoftDeletes;
 use Prettus\Repository\Contracts\Transformable;
 use Prettus\Repository\Traits\TransformableTrait;
 
@@ -13,9 +10,9 @@ use Prettus\Repository\Traits\TransformableTrait;
  *
  * @package namespace App\Models;
  */
-class AdminMenu extends Model implements Transformable
+class AdminMenu extends BaseModel implements Transformable
 {
-    use TransformableTrait, TimeTrait, SoftDeletes;
+    use TransformableTrait;
 
     /**
      * The attributes that are mass assignable.
@@ -32,11 +29,6 @@ class AdminMenu extends Model implements Transformable
         'is_open',
         'content',
         'is_sort',
-    ];
-
-
-    protected $hidden = [
-        'deleted_at',
     ];
 
     public function hasChildren()

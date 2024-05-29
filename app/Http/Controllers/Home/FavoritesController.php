@@ -10,16 +10,16 @@ class FavoritesController extends Controller
 {
     public function index(Request $request)
     {
-        return $this->handle(app(FavoriteService::class)->fav());
+        return $this->handle(app(FavoriteService::class)->fav($request->all()));
     }
 
     public function store(Request $request)
     {
-        return $this->handle(app(FavoriteService::class)->add());
+        return $this->handle(app(FavoriteService::class)->add($request->all()));
     }
 
-    public function is_fav()
+    public function is_fav(Request $request)
     {
-        return $this->handle(app(FavoriteService::class)->isFav());
+        return $this->handle(app(FavoriteService::class)->isFav($request->all()));
     }
 }

@@ -30,7 +30,7 @@ class IntegralController extends Controller
 
     public function index(Request $request)
     {
-        return $this->handle(app(IntegralGoodsService::class)->search());
+        return $this->handle(app(IntegralGoodsService::class)->search($request->all()));
     }
 
     public function show($id)
@@ -40,9 +40,9 @@ class IntegralController extends Controller
     }
 
 
-    public function pay()
+    public function pay(Request $request)
     {
-        return $this->handle(app(IntegralGoodsService::class)->createOrder());
+        return $this->handle(app(IntegralGoodsService::class)->createOrder($request->all()));
     }
 
     // 获取订单列表

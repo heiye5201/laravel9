@@ -18,7 +18,7 @@ class CartService extends BaseService
 {
 
     // 获取购物车列表
-    public function getCart()
+    public function getCart($requestData)
     {
         // 获取当前用户user_id
         $userId = $this->getUserId('users');
@@ -34,7 +34,7 @@ class CartService extends BaseService
                 }]);
             }])->select(['store_id'])
             ->groupBy('store_id')
-            ->paginate(request()->per_page ?? 30);
+            ->paginate($requestData['per_page'] ?? 30);
         return $this->format(new CartHomeCollection($cartList));
     }
 
@@ -56,7 +56,7 @@ class CartService extends BaseService
                 }]);
             }])
             ->groupBy('store_id')
-            ->paginate(request()->per_page ?? 30);
+            ->paginate(30);
         return $this->format(new CartAppCollection($cartList));
     }
 
@@ -76,11 +76,11 @@ class CartService extends BaseService
     }
 
     // 加入购物车
-    public function addCart()
+    public function addCart($cartData)
     {
-        $goods_id = abs(intval(request()->goods_id));
-        $sku_id = intval(request()->sku_id ?? 0);
-        $buy_num = abs(intval(request()->buy_num ?? 1));
+        $goods_id = abs(intval($cartData['goods_id']));
+        $sku_id = intval($cartData['sku_id'] ?? 0);
+        $buy_num = abs(intval($cartData['buy_num'] ?? 1));
         // 判断是否非法上传
         if (empty($goods_id) || empty($buy_num)) {
             return $this->formatError(__('tip.error'));
@@ -130,10 +130,10 @@ class CartService extends BaseService
     }
 
     // 修改购物车状态
-    public function editCart($id)
+    public function editCart($id, $cartData)
     {
-        $is_type = intval(request()->is_type ?? 0);
-        $buy_num = abs(intval(request()->buy_num ?? 0));
+        $is_type = intval($cartData['is_type'] ?? 0);
+        $buy_num = abs(intval($cartData['buy_num'] ?? 0));
         // 获取当前用户user_id
         $userId = $this->getUserId('users');
         // 判断购物车有没有同款商品

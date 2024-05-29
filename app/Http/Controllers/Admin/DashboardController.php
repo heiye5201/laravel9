@@ -17,11 +17,11 @@ class DashboardController extends Controller
 {
 
     // 首页
-    public function all()
+    public function all(Request $request)
     {
         // 时间条件
-        $created_at = request()->created_at;
-        $is_type = request()->is_type;
+        $created_at = $request->input('created_at');
+        $is_type = $request->input('is_type');
         $data['total_price'] = Order::query()->where('order_status', '>', 1)->sum('total_price');// 总销售额
         $data['today_price'] = Order::query()->where('order_status', '>', 1)->where('pay_time', '>=', now()->startOfDay()->toDateTimeString())->sum('total_price'); // 今日销售额
         $data['yesterday_price'] = Order::query()->where('order_status', '>', 1)->where('pay_time', '<', now()->startOfDay()->toDateTimeString())->where('pay_time', '>=', Carbon::yesterday()->startOfDay()->toDateTimeString())->sum('total_price'); // 昨日销售额
@@ -89,11 +89,12 @@ class DashboardController extends Controller
     }
 
     // 用户数据分析
-    public function user()
+    public function user(Request $request)
     {
         // 时间条件
-        $created_at = request()->created_at;
-        $is_type = request()->is_type;
+        $created_at = $request->input('created_at');
+        $is_type = $request->input('is_type');
+        $per_page = $request->input('per_page');
         // 如果有传时间有 以时间为准，如果未传时间则取当前一周
         $first_time = Carbon::now()->startOfWeek()->format('Y-m-d');
         $end_time = Carbon::now()->endOfWeek()->format('Y-m-d');
@@ -122,16 +123,17 @@ class DashboardController extends Controller
         $sql = "select tpl.time,ifNull(U.num,0) as num from (select @s :=@s + 1 AS _index,DATE_FORMAT(DATE_SUB('".$end_time."', INTERVAL @s ".$format[2]."),'".$format[1]."') AS time FROM information_schema.CHARACTER_SETS,(SELECT @s := 0) temp where @s<".$diffDay." ORDER BY time) as tpl";
         $sql .= " left join (select count(*) as num,DATE_FORMAT(created_at,'".$format[1]."') as time from users where created_at between ? and ? group by time) as U on U.time=tpl.time";
         $data['plot'] = DB::select($sql, [$first_time,$end_time]);
-        $data['list'] = new UserCollection(User::query()->whereBetween('created_at', [$first_time,$end_time])->orderBy('id', 'desc')->paginate(request()->per_page??30));
+        $data['list'] = new UserCollection(User::query()->whereBetween('created_at', [$first_time,$end_time])->orderBy('id', 'desc')->paginate($per_page ?? 30));
         return $this->success($data);
     }
 
     // 店铺数据分析
-    public function stores()
+    public function stores(Request $request)
     {
         // 时间条件
-        $created_at = request()->created_at;
-        $is_type = request()->is_type;
+        $created_at = $request->input('created_at');
+        $is_type = $request->input('is_type');
+        $per_page = $request->input('per_page');
         // 如果有传时间有 以时间为准，如果未传时间则取当前一周
         $first_time = Carbon::now()->startOfWeek()->format('Y-m-d');
         $end_time = Carbon::now()->endOfWeek()->format('Y-m-d');
@@ -160,16 +162,16 @@ class DashboardController extends Controller
         $sql = "select tpl.time,ifNull(U.num,0) as num from (select @s :=@s + 1 AS _index,DATE_FORMAT(DATE_SUB('".$end_time."', INTERVAL @s ".$format[2]."),'".$format[1]."') AS time FROM information_schema.CHARACTER_SETS,(SELECT @s := 0) temp where @s<".$diffDay." ORDER BY time) as tpl";
         $sql .= " left join (select count(*) as num,DATE_FORMAT(created_at,'".$format[1]."') as time from stores where created_at between ? and ? group by time) as U on U.time=tpl.time";
         $data['plot'] = DB::select($sql, [$first_time,$end_time]);
-        $data['list'] = Store::query()->whereBetween('created_at', [$first_time,$end_time])->orderBy('id', 'desc')->paginate(request()->per_page??30);
+        $data['list'] = Store::query()->whereBetween('created_at', [$first_time,$end_time])->orderBy('id', 'desc')->paginate($per_page ?? 30);
         return $this->success($data);
     }
 
     // 订单数据分析
-    public function order()
+    public function order(Request $request)
     {
         // 时间条件
-        $created_at = request()->created_at;
-        $is_type = request()->is_type;
+        $created_at = $request->input('created_at');
+        $is_type = $request->input('is_type');
         // 如果有传时间有 以时间为准，如果未传时间则取当前一周
         $first_time = Carbon::now()->startOfWeek()->format('Y-m-d');
         $end_time = Carbon::now()->endOfWeek()->format('Y-m-d');
@@ -211,11 +213,12 @@ class DashboardController extends Controller
     }
 
     // 支付数据分析
-    public function pay()
+    public function pay(Request $request)
     {
         // 时间条件
-        $created_at = request()->created_at;
-        $is_type = request()->is_type;
+        $created_at = $request->input('created_at');
+        $is_type = $request->input('is_type');
+        $per_page = $request->input('per_page');
         // 如果有传时间有 以时间为准，如果未传时间则取当前一周
         $first_time = Carbon::now()->startOfWeek()->format('Y-m-d');
         $end_time = Carbon::now()->endOfWeek()->format('Y-m-d');
@@ -244,7 +247,7 @@ class DashboardController extends Controller
         $sql = "select tpl.time,ifNull(U.num,0) as num from (select @s :=@s + 1 AS _index,DATE_FORMAT(DATE_SUB('".$end_time."', INTERVAL @s ".$format[2]."),'".$format[1]."') AS time FROM information_schema.CHARACTER_SETS,(SELECT @s := 0) temp where @s<".$diffDay." ORDER BY time) as tpl";
         $sql .= " left join (select sum(total) as num,DATE_FORMAT(created_at,'".$format[1]."') as time from order_pays where created_at between ? and ?  group by time) as U on U.time=tpl.time";
         $data['plot'] = DB::select($sql, [$first_time,$end_time]);
-        $data['list'] = OrderPay::query()->whereBetween('created_at', [$first_time,$end_time])->orderBy('id', 'desc')->paginate(request()->per_page??30);
+        $data['list'] = OrderPay::query()->whereBetween('created_at', [$first_time,$end_time])->orderBy('id', 'desc')->paginate($per_page ?? 30);
         return $this->success($data);
     }
 }

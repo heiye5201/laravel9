@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Http\Queries\AdvSpacesQuery;
+use App\Http\Requests\Admin\AdvSpacesRequest;
 use App\Models\AdvSpace;
 use Illuminate\Http\Request;
 
@@ -23,7 +24,7 @@ class AdvSpacesController extends Controller
     }
 
 
-    public function store(Request $request)
+    public function store(AdvSpacesRequest $request)
     {
         try {
             $data = AdvSpace::query()->create([
@@ -38,7 +39,7 @@ class AdvSpacesController extends Controller
         }
     }
 
-    public function update(Request $request, $id)
+    public function update(AdvSpacesRequest $request, $id)
     {
         try {
             $data = AdvSpace::query()->where('id', $id)->update([

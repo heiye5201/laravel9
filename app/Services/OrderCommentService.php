@@ -35,19 +35,19 @@ class OrderCommentService extends BaseService
     }
 
     // 获取评论列表
-    public function commentList($id, $whereName = "goods_id")
+    public function commentList($id, $reqData, $whereName = "goods_id")
     {
         $model = OrderComment::query()->select(DB::raw("*,(score+agree+speed+service) as sum_rate"))->with('user')->where($whereName, $id)->orderBy('created_at', 'desc');
-        if (request('is_type') == 1) {
+        if ($reqData['is_type'] == 1) {
             $model = $model->having('sum_rate', '>=', 15);
         }
-        if (request('is_type') == 2) {
+        if ($reqData['is_type'] == 2) {
             $model = $model->having('sum_rate', '<', 15)->having('sum_rate', '>', 10);
         }
-        if (request('is_type') == 3) {
+        if ($reqData['is_type'] == 3) {
             $model = $model->having('sum_rate', '<=', 10);
         }
-        $list = $model->paginate(request()->per_page ?? 30);
+        $list = $model->paginate($reqData['per_page'] ?? 30);
         return $this->format(new OrderCommentHomeCollection($list));
     }
 

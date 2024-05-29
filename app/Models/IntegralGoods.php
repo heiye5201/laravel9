@@ -2,14 +2,8 @@
 
 namespace App\Models;
 
-use App\Traits\TimeTrait;
-use Illuminate\Database\Eloquent\Factories\HasFactory;
-use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\SoftDeletes;
-
-class IntegralGoods extends Model
+class IntegralGoods extends BaseModel
 {
-    use HasFactory, SoftDeletes;
 
     protected $casts = [
         'goods_status' => 'boolean',
@@ -33,9 +27,6 @@ class IntegralGoods extends Model
         'goods_content_mobile',
     ];
 
-    protected $hidden = [
-        'deleted_at',
-    ];
 
     public $appends = [
         'class_name'
@@ -51,7 +42,6 @@ class IntegralGoods extends Model
         $this->attributes['is_recommend'] = $value ? 1 : 0;
     }
 
-
     public function getGoodsImagesAttribute($value)
     {
         return explode(',', $value);
@@ -61,7 +51,6 @@ class IntegralGoods extends Model
     {
         $this->attributes['goods_images'] = implode(',', $value);
     }
-
 
     public function class()
     {

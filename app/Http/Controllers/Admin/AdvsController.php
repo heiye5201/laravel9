@@ -12,6 +12,9 @@ class AdvsController extends Controller
 {
     public function index(Request $request, AdvsQuery $query)
     {
+        if ($request->input('pid')) {
+            $query->where('pid', $request->input('pid'));
+        }
         $data = $query->orderBy('id', 'desc')
             ->paginate(intval($request->input('page_size', 25)));
         return $this->success($data);

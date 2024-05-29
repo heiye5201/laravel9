@@ -2,16 +2,8 @@
 
 namespace App\Models;
 
-use App\Traits\TimeTrait;
-use Illuminate\Database\Eloquent\Factories\HasFactory;
-use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\SoftDeletes;
-
-class Store extends Model
+class Store extends BaseModel
 {
-    use HasFactory, SoftDeletes, TimeTrait;
-
-    protected $guarded = [];
 
 //    protected $fillable = [
 //        'store_name',
@@ -19,10 +11,6 @@ class Store extends Model
 //        'store_face_image',
 //        'store_slide'
 //    ];
-
-    protected $hidden = [
-        'deleted_at',
-    ];
 
     public function storeClasses()
     {

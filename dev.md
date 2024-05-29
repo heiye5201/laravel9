@@ -115,5 +115,5 @@ composer require yansongda/pay
 chmod -R 775 storage
 php artisan storage:link
 
-php artisan make:request Admin/UsersRequest
+php artisan make:request Admin/AgreementsRequest
 

@@ -22,12 +22,12 @@ class AddressesController extends Controller
 
     public function store(Request $request)
     {
-        return $this->handle(app(AddressService::class)->add());
+        return $this->handle(app(AddressService::class)->add($request->all()));
     }
 
     public function update(Request $request, $id)
     {
-        return $this->handle(app(AddressService::class)->edit($id));
+        return $this->handle(app(AddressService::class)->edit($id, $request->all()));
     }
 
     public function set_default($id)

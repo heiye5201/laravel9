@@ -51,14 +51,10 @@ class ConfigsService
         return $data;
     }
 
-    public function editConfig($name = null, $manyName = null, $many = false)
+    public function editConfig($resp)
     {
-        if (empty($name)) {
-            $resp = request()->all();
-        } else {
-            $resp = request()->only($name);
-        }
-
+        $manyName = $resp['many_name'] ?? null;
+        $many = $resp['many'] ?? false;
         if ($many && !empty($many)) {
             unset($resp['many_name']);
             unset($resp['many']);

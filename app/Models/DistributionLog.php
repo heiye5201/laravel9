@@ -2,21 +2,8 @@
 
 namespace App\Models;
 
-use App\Traits\TimeTrait;
-use Illuminate\Database\Eloquent\Factories\HasFactory;
-use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\SoftDeletes;
-
-class DistributionLog extends Model
+class DistributionLog extends BaseModel
 {
-    use HasFactory, SoftDeletes, TimeTrait;
-
-    protected $guarded = [];
-
-    protected $hidden = [
-        'deleted_at',
-    ];
-
     public function order_goods()
     {
         return $this->hasOne('App\Models\OrderGoods', 'id', 'order_goods_id')->withTrashed();

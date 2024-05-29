@@ -18,7 +18,7 @@ use Illuminate\Http\Request;
 class IndexController extends Controller
 {
     // 首页公共数据
-    public function common()
+    public function common(Request $request)
     {
         $data['classes'] = app(ToolService::class)->getChildren(GoodsClass::query()->orderBy('is_sort', 'asc')->get()); // 商品分类
         $data['brands'] = GoodsBrand::query()->orderBy('is_sort', 'asc')->get(); // 商品品牌
@@ -26,14 +26,14 @@ class IndexController extends Controller
         $data['common'] = app(ConfigsService::class)->getFormatConfig([
             'web_name','logo','index_name','keyword','description','mobile','email','icp','close_status','amap','close_reason'
         ]);
-        $data['ip'] = request()->getClientIp();
+        $data['ip'] = $request->getClientIp();
         // 购物车数据
         $data['cart'] = app(CartService::class)->getCount()['data'];
         return $this->success($data);
     }
 
     // 首页信息
-    public function home()
+    public function home(Request $request)
     {
         $data['goods'] = app(GoodsService::class)->master(8)['data'];
         //首页广告
@@ -57,7 +57,7 @@ class IndexController extends Controller
     }
 
     // 用户首页信息
-    public function default()
+    public function default(Request $request)
     {
         $userId = $this->getUserId('users');
         $data = [];
@@ -68,7 +68,7 @@ class IndexController extends Controller
         $data['count'][] = Order::query()->where(['user_id'=>$userId,'order_status'=>4])->count();
         $data['count'][] = Order::query()->where(['user_id'=>$userId,'order_status'=>5])->count();
         $data['order'] = app(OrderService::class)->getOrders()['data'];
-        $data['fav'] = app(FavoriteService::class)->fav()['data'];
+        $data['fav'] = app(FavoriteService::class)->fav($request->all())['data'];
         return $this->success($data);
     }
 }

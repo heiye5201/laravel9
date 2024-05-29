@@ -39,7 +39,7 @@ class OrderSellerService extends BaseService
     }
 
     // 创建订单
-    public function createOrder()
+    public function createOrder($reqData)
     {
         $check = $this->base64Check();
         if (!$check['status']) {
@@ -51,10 +51,10 @@ class OrderSellerService extends BaseService
             return $this->formatError($rs['msg']);
         }
         // 优惠券的处理
-        if (!isset(request()->coupon_id)) {
+        if (!isset($reqData['coupon_id'])) {
             return $this->formatError('coupon_id empty');
         }
-        $coupon_id = explode(',', request()->coupon_id);
+        $coupon_id = explode(',', $reqData['coupon_id']);
 
         // 地址验证
         $address_resp = $this->checkAddress();
@@ -88,7 +88,7 @@ class OrderSellerService extends BaseService
                     'receive_area'              =>  $address_info['area_info'], // 收件人地区
                     'receive_address'           =>  $address_info['address'], // 详细地址
                     'coupon_id'                 =>  isset($coupon_id[$k]) ? intval(abs($coupon_id[$k])) : 0, // 优惠券ID
-                    'remark'                    =>  request()->remark ?? '', // 备注
+                    'remark'                    =>  $reqData['remark'] ?? '', // 备注
                 ];
                 $order_info = $order_model->create($order_data); // 订单数据插入数据库
                 // 初始化其他费用
@@ -267,11 +267,11 @@ class OrderSellerService extends BaseService
     /**
      * 支付订单 function
      */
-    public function payOrder()
+    public function payOrder($reqData)
     {
-        $order_id = request()->order_id;
-        $payment_name = request()->payment_name ?? '';
-        $device = request()->device ?? 'web';
+        $order_id = $reqData['order_id'];
+        $payment_name = $reqData['payment_name'] ?? '';
+        $device = $reqData['device'] ?? 'web';
 
         // 获取用户信息
         $userInfo = $this->getUser('users');
@@ -288,7 +288,7 @@ class OrderSellerService extends BaseService
         // 如果是余额支付
         $balance = 0;
         if ($payment_name == 'balance') {
-            if (!Hash::check(request()->pay_password ?? '', $userInfo['data']['pay_password'])) {
+            if (!Hash::check($reqData['pay_password'] ?? '', $userInfo['data']['pay_password'])) {
                 return $this->formatError(__('tip.pwdErr'));
             }
             $balance = $userInfo['data']['money'];

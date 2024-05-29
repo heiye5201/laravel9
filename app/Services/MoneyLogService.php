@@ -94,9 +94,9 @@ class MoneyLogService extends BaseService
     }
 
     // 获取日志列表
-    public function getMoneyLog()
+    public function getMoneyLog($reqData)
     {
-        $auth = request()->auth ?? 'users';
+        $auth = $reqData['auth'] ?? 'users';
         $money_log_model = new MoneyLog();
         if ($auth == 'users') {
             $money_log_model = $money_log_model->where('user_id', $this->getUserId($auth))->where('is_belong', 0);
@@ -105,21 +105,21 @@ class MoneyLogService extends BaseService
             $store = app(StoreService::class)->getStoreInfo();
             $money_log_model = $money_log_model->where('user_id', $store['user_id'])->where('is_belong', 1);
         }
-        if (isset(request()->is_type)) {
-            $money_log_model = $money_log_model->where('is_type', request()->is_type ?? 0);
+        if (isset($reqData['is_type'])) {
+            $money_log_model = $money_log_model->where('is_type', $reqData['is_type'] ?? 0);
         }
-        if (isset(request()->type) && request()->type == 'recharge') {
+        if (isset($reqData['type']) && $reqData['type'] == 'recharge') {
             $money_log_model = $money_log_model->where('money', '>', 0);
         }
-        $list = $money_log_model->orderBy('id', 'desc')->paginate(request()->per_page ?? 30);
+        $list = $money_log_model->orderBy('id', 'desc')->paginate($reqData['per_page'] ?? 30);
         return $this->format($list);
     }
 
 
     // 获取日志列表
-    public function getRecharge()
+    public function getRecharge($reqData)
     {
-        $auth = request()->auth ?? 'users';
+        $auth = $reqData['auth'] ?? 'users';
         $money_log_model = new MoneyLog();
         if ($auth == 'users') {
             $money_log_model = $money_log_model->where('user_id', $this->getUserId($auth))->where('is_belong', 0);
@@ -128,11 +128,11 @@ class MoneyLogService extends BaseService
             $store = app(StoreService::class)->getStoreInfo();
             $money_log_model = $money_log_model->where('user_id', $store['user_id'])->where('is_belong', 1);
         }
-        if (isset(request()->is_type)) {
-            $money_log_model = $money_log_model->where('is_type', request()->is_type ?? 0);
+        if (isset($reqData['is_type'])) {
+            $money_log_model = $money_log_model->where('is_type', $reqData['is_type'] ?? 0);
         }
         $money_log_model = $money_log_model->where('money', '>', 0);
-        $list = $money_log_model->orderBy('id', 'desc')->paginate(request()->per_page ?? 30);
+        $list = $money_log_model->orderBy('id', 'desc')->paginate($reqData['per_page'] ?? 30);
         return $this->format($list);
     }
 

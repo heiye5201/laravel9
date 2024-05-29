@@ -19,6 +19,6 @@ class CashesController extends Controller
 
     public function store(Request $request)
     {
-        return $this->handle(app(CashService::class)->add());
+        return $this->handle(app(CashService::class)->add($request->all()));
     }
 }

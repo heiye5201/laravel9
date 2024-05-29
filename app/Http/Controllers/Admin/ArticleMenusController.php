@@ -9,6 +9,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Http\Queries\ArticleMenuQuery;
+use App\Http\Requests\Admin\ArticleMenusRequest;
 use App\Models\ArticleMenu;
 use App\Services\ArticleMenusService;
 use Illuminate\Http\Request;
@@ -40,7 +41,7 @@ class ArticleMenusController extends Controller
     }
 
 
-    public function store(Request $request)
+    public function store(ArticleMenusRequest $request)
     {
         try {
             $data = ArticleMenu::query()->create([
@@ -54,7 +55,7 @@ class ArticleMenusController extends Controller
         }
     }
 
-    public function update(Request $request, $id)
+    public function update(ArticleMenusRequest $request, $id)
     {
         try {
             $data = ArticleMenu::query()->where('id', $id)->update([

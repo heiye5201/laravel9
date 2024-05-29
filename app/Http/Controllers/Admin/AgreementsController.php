@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Http\Queries\AgreementQuery;
+use App\Http\Requests\Admin\AgreementsRequest;
 use App\Models\Agreement;
 use Illuminate\Http\Request;
 
@@ -23,7 +24,7 @@ class AgreementsController extends Controller
     }
 
 
-    public function store(Request $request)
+    public function store(AgreementsRequest $request)
     {
         try {
             $data = Agreement::query()->create([
@@ -37,7 +38,7 @@ class AgreementsController extends Controller
         }
     }
 
-    public function update(Request $request, $id)
+    public function update(AgreementsRequest $request, $id)
     {
         try {
             $data = Agreement::query()->where('id', $id)->update([

@@ -3,8 +3,9 @@
 namespace App\Http\Requests\Admin;
 
 use App\Http\Requests\BaseRequest;
+use Illuminate\Validation\Rule;
 
-class UsersRequest extends BaseRequest
+class AdvSpacesRequest extends BaseRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -24,7 +25,10 @@ class UsersRequest extends BaseRequest
     public function rules()
     {
         return [
-            'email' => 'email|unique:users',
+            'name' => ['required', 'min:3', 'max:255'],
+            'width' => ['required', 'numeric'],
+            'height' => ['required', 'numeric'],
+            'local_type' => ['required', 'string', Rule::in(['home_banner', 'class_banner', 'wap_banner'])],
         ];
     }
 }

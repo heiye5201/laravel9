@@ -18,8 +18,9 @@ use Illuminate\Support\Facades\DB;
 
 class DistributionService extends BaseService
 {
+
     // 获取商家分销列表
-    public function getList()
+    public function getList($resqData)
     {
         $dis_model = new Distribution();
         $store_id = app(StoreService::class)->getStoreId()['data'];
@@ -29,12 +30,12 @@ class DistributionService extends BaseService
             $q->select(DB::raw('SUM(money) as total_money'));
         }])->withCount(['distribution_logs as total_commission' => function ($q) {
             $q->select(DB::raw('SUM(commission) as total_commission'));
-        }])->orderBy('id', 'desc')->paginate(request()->per_page ?? 30);
+        }])->orderBy('id', 'desc')->paginate($resqData['per_page'] ?? 30);
 //        return $this->format(new DistributionCollection($list));
     }
 
     // 获取分销日志
-    public function getLogList($auth = "user")
+    public function getLogList($auth = "user", $reqData)
     {
         $dislog_model = new DistributionLog();
         if ($auth == 'user') {
@@ -45,21 +46,21 @@ class DistributionService extends BaseService
             $store_id = app(StoreService::class)->getStoreId()['data'];
             $dislog_model = $dislog_model->where('store_id', $store_id);
         }
-        $list = $dislog_model->with(['user:id,nickname', 'store:id,store_name', 'order:id,order_no'])->orderBy('id', 'desc')->paginate(request()->per_page ?? 30);
+        $list = $dislog_model->with(['user:id,nickname', 'store:id,store_name', 'order:id,order_no'])->orderBy('id', 'desc')->paginate($reqData['per_page'] ?? 30);
         return $this->format(new DistributionLogCollection($list));
     }
 
     // 获取分销商品列表
-    public function getDistributionGoods()
+    public function getDistributionGoods($reqData)
     {
         $goods_model = new Goods();
         $store_id = app(StoreService::class)->getStoreId()['data'];
-        if (isset(request()->goods_name) && !empty(request()->goods_name)) {
-            $goods_model = $goods_model->where('goods_name', 'like', '%' . request()->goods_name . '%');
+        if (isset($reqData['goods_name']) && !empty($reqData['goods_name'])) {
+            $goods_model = $goods_model->where('goods_name', 'like', '%' . $reqData['goods_name'] . '%');
         }
         $list = $goods_model->with(['distribution' => function ($q) {
             $q->select('goods_id');
-        }])->where('store_id', $store_id)->paginate(request()->per_page ?? 30);
+        }])->where('store_id', $store_id)->paginate($reqData['per_page'] ?? 30);
         // return $this->format(new DistributionGoodsCollection($list));
     }
 
@@ -149,14 +150,14 @@ class DistributionService extends BaseService
     }
 
     //获取该用户的分销会员
-    public function getHomeUser()
+    public function getHomeUser($reqData)
     {
         $userId = $this->getUserId('users');
         $user_model = new User();
-        if (request()->lev == 0) {
+        if ($reqData['lev'] == 0) {
             $user_model = $user_model->where('inviter_id', $userId);
         }
-        if (request()->lev == 1) {
+        if ($reqData['lev'] == 1) {
             $f = User::query()->select('id', 'inviter_id')->where('inviter_id', $userId)->get();
             if ($f->isEmpty()) {
                 $user_model = $user_model->where('id', 0);
@@ -168,7 +169,7 @@ class DistributionService extends BaseService
                 $user_model = $user_model->whereIn('inviter_id', $ids);
             }
         }
-        if (request()->lev == 2) {
+        if ($reqData['lev'] == 2) {
             $f = User::query()->select('id')->where('inviter_id', $userId)->get();
             if ($f->isEmpty()) {
                 $user_model = $user_model->where('id', 0);
@@ -189,7 +190,7 @@ class DistributionService extends BaseService
                 }
             }
         }
-        $list = $user_model->paginate(request()->per_page ?? 30);
+        $list = $user_model->paginate($reqData['per_page'] ?? 30);
         return $this->format($list);
     }
 

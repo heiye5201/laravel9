@@ -40,9 +40,9 @@ class GoodsController extends Controller
         return $this->handle($goods_info);
     }
 
-    public function goods_comments($id)
+    public function goods_comments(Request $request, $id)
     {
         $id = intval($id);
-        return $this->handle(app(OrderCommentService::class)->commentList($id));
+        return $this->handle(app(OrderCommentService::class)->commentList($id, $request->all()));
     }
 }

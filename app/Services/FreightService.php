@@ -9,9 +9,9 @@ use App\Models\Freight;
 
 class FreightService extends BaseService
 {
-    public function edit()
+    public function edit($reqData)
     {
-        $list = request()->info;
+        $list = $reqData['info'];
         if (empty($list)) {
             return $this->formatError(__('tip.error'));
         }

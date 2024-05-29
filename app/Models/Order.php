@@ -2,23 +2,8 @@
 
 namespace App\Models;
 
-use App\Traits\TimeTrait;
-use Illuminate\Database\Eloquent\Factories\HasFactory;
-use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\SoftDeletes;
-
-class Order extends Model
+class Order extends BaseModel
 {
-    use HasFactory;
-
-    use SoftDeletes, TimeTrait;
-
-    protected $guarded = [];
-
-    protected $hidden = [
-        'deleted_at',
-    ];
-
 
     protected $dates = ['pay_time','delivery_time','receipt_time','comment_time'];
 

@@ -13,7 +13,7 @@ use Illuminate\Support\Facades\DB;
 
 class OrderSettlementService extends BaseService
 {
-    public function add($auto=true)
+    public function add($auto = true)
     {
         $order_model = new Order();
         $dateString = Carbon::parse('30 days ago')->toDateString(); // 30天前的数据 最多可结算
@@ -103,5 +103,4 @@ class OrderSettlementService extends BaseService
             return $this->formatError($e->getMessage());
         }
     }
-
 }

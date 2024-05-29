@@ -13,17 +13,17 @@ class CartsController extends Controller
 
     public function index(Request $request)
     {
-        return $this->handle(app(CartService::class)->getCart());
+        return $this->handle(app(CartService::class)->getCart($request->all()));
     }
 
     public function store(Request $request)
     {
-        return $this->handle(app(CartService::class)->addCart());
+        return $this->handle(app(CartService::class)->addCart($request->all()));
     }
 
     public function update(Request $request, $id)
     {
-        return $this->handle(app(CartService::class)->editCart($id));
+        return $this->handle(app(CartService::class)->editCart($id, $request->all()));
     }
 
     public function count()

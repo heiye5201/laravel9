@@ -2,15 +2,8 @@
 
 namespace App\Models;
 
-use App\Traits\TimeTrait;
-use Illuminate\Database\Eloquent\Factories\HasFactory;
-use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\SoftDeletes;
-
-class Area extends Model
+class Area extends BaseModel
 {
-    use HasFactory, SoftDeletes, TimeTrait;
-
 
     protected $fillable = [
         'pid',
@@ -18,12 +11,6 @@ class Area extends Model
         'code',
         'deep',
     ];
-
-
-    protected $hidden = [
-        'deleted_at',
-    ];
-
 
     public function hasChildren()
     {

@@ -12,10 +12,10 @@ use Illuminate\Support\Facades\DB;
 
 class CashService extends BaseService
 {
-    public function add($whereName = 'user_id')
+    public function add($cashData, $whereName = 'user_id')
     {
         $data = [];
-        $money = floatval(abs(request('money')));
+        $money = floatval(abs($cashData['money']));
         if ($whereName == 'user_id') {
             $info = $this->getUser('users')['data'];
             $id = $info['id'];
@@ -45,7 +45,7 @@ class CashService extends BaseService
         $data['bank_name'] = $userCheck->bank_name;
         $data['commission'] = round($money * $cashRate, 2);
         $data['money'] = $money - $data['commission'];
-        $data['remark'] = request()->remark ?? '';
+        $data['remark'] = $cashData['remark'] ?? '';
         $data['refuse_info'] = '';
         try {
             DB::beginTransaction();
@@ -61,12 +61,12 @@ class CashService extends BaseService
     }
 
     // 编辑提现状态
-    public function edit($id)
+    public function edit($id, $cashData)
     {
         $model = Cash::query()->where('id', $id)->first();
-        if (!empty(request()->cash_status ?? 0)) $model->cash_status = abs(intval(request()->cash_status));
-        $model->refuse_info = request()->refuse_info ?? '';
-        $model->remark = request()->remark ?? '';
+        if (!empty($cashData['cash_status'] ?? 0)) $model->cash_status = abs(intval($cashData['cash_status']));
+        $model->refuse_info = $cashData['refuse_info'] ?? '';
+        $model->remark = $cashData['remark'] ?? '';
         $model->save();
         switch ($model->cash_status) {
             case 1:

@@ -14,10 +14,9 @@ use Illuminate\Support\Facades\DB;
 class CouponService extends BaseService
 {
     // 用户领取优惠券 POST [id]
-    public function receive()
+    public function receive($coupon_id)
     {
         $userId = $this->getUserId('users');
-        $coupon_id = request()->id; // 获取优惠券ID
         if (empty($coupon_id)) {
             return $this->formatError(__('tip.discount.couponExists') . ' - 1');
         }

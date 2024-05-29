@@ -4,7 +4,7 @@ namespace App\Http\Requests\Admin;
 
 use App\Http\Requests\BaseRequest;
 
-class UsersRequest extends BaseRequest
+class AgreementsRequest extends BaseRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -24,7 +24,8 @@ class UsersRequest extends BaseRequest
     public function rules()
     {
         return [
-            'email' => 'email|unique:users',
+            'name' => ['required', 'string', 'min:3', 'max:255'],
+            'ename' => ['required', 'string'],
         ];
     }
 }

@@ -10,6 +10,6 @@ class MoneyLogsController extends Controller
 {
     public function index(Request $request)
     {
-        return $this->handle(app(MoneyLogService::class)->getMoneyLog());
+        return $this->handle(app(MoneyLogService::class)->getMoneyLog($request->all()));
     }
 }

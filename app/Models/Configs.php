@@ -2,9 +2,6 @@
 
 namespace App\Models;
 
-use App\Traits\TimeTrait;
-use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\SoftDeletes;
 use Prettus\Repository\Contracts\Transformable;
 use Prettus\Repository\Traits\TransformableTrait;
 
@@ -13,7 +10,7 @@ use Prettus\Repository\Traits\TransformableTrait;
  *
  * @package namespace App\Models;
  */
-class Configs extends Model implements Transformable
+class Configs extends BaseModel implements Transformable
 {
     use TransformableTrait;
 
@@ -25,9 +22,4 @@ class Configs extends Model implements Transformable
     protected $fillable = [
         'name', 'content', 'description', 'is_type'
     ];
-
-    use SoftDeletes;
-
-    protected $dates = ['deleted_at'];
-
 }

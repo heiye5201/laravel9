@@ -15,9 +15,9 @@ class AddressService extends BaseService
 
     public $belongName = 'user_id';
 
-    public function add()
+    public function add($addressData)
     {
-        $area = Area::query()->select('name')->whereIn('id', request('area'))->get();
+        $area = Area::query()->select('name')->whereIn('id', $addressData['area'])->get();
         $areaInfo = '';
         if (!empty($area)) {
             foreach ($area as $v) {
@@ -28,14 +28,14 @@ class AddressService extends BaseService
         $userId = $this->getUserId('users');
         $data = [
             'user_id'  =>  $userId,
-            'receive_name'  =>  request()->receive_name??'',
-            'receive_tel'  =>  request()->receive_tel??'',
-            'province_id'  =>  request()->area[0]??0,
-            'city_id'  =>  request()->area[1]??0,
-            'region_id'  =>  request()->area[2]??0,
-            'address'  =>  request()->address??'',
+            'receive_name'  => $addressData['receive_name'] ?? '',
+            'receive_tel'  =>  $addressData['receive_tel'] ?? '',
+            'province_id'  =>  $addressData['area'][0] ?? 0,
+            'city_id'  =>  $addressData['area'][1] ?? 0,
+            'region_id'  => $addressData['area'][2] ?? 0,
+            'address'  => $addressData['address'] ?? '',
             'area_info' =>  $areaInfo,
-            'is_default'  =>  request()->is_default?1:0,
+            'is_default'  => $addressData['is_default'] ?1:0,
         ];
         try {
             if ($data['is_default']) {
@@ -48,9 +48,9 @@ class AddressService extends BaseService
         }
     }
 
-    public function edit($id)
+    public function edit($id, $addressData)
     {
-        $area = Area::query()->select('name')->whereIn('id', request()->area)->get();
+        $area = Area::query()->select('name')->whereIn('id', $addressData['area'])->get();
         $areaInfo = '';
         if (!empty($area)) {
             foreach ($area as $v) {
@@ -60,14 +60,14 @@ class AddressService extends BaseService
         $areaInfo = rtrim($areaInfo, ' ');
         $userId = $this->getUserId('users');
         $data = [
-            'receive_name'  =>  request()->receive_name??'',
-            'receive_tel'  =>  request()->receive_tel??'',
-            'province_id'  =>  request()->area[0]??0,
-            'city_id'  =>  request()->area[1]??0,
-            'region_id'  =>  request()->area[2]??0,
-            'address'  =>  request()->address??'',
+            'receive_name'  => $addressData['receive_name'] ?? '',
+            'receive_tel'  =>  $addressData['receive_tel'] ?? '',
+            'province_id'  =>  $addressData['area'][0] ?? 0,
+            'city_id'  =>  $addressData['area'][1] ?? 0,
+            'region_id'  => $addressData['area'][2] ?? 0,
+            'address'  => $addressData['address'] ?? '',
             'area_info' =>  $areaInfo,
-            'is_default'  =>  request()->is_default?1:0,
+            'is_default'  => $addressData['is_default'] ?1:0,
         ];
         try {
             if ($data['is_default']) {

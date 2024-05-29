@@ -10,9 +10,9 @@ use Illuminate\Http\Request;
 class CouponsController extends Controller
 {
 
-    public function receive()
+    public function receive(Request $request)
     {
-        return $this->handle(app(CouponService::class)->receive());
+        return $this->handle(app(CouponService::class)->receive($request->input('id')));
     }
 
     public function index(Request $request, CouponsQuery $query)

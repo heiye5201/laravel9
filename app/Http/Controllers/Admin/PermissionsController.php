@@ -71,5 +71,4 @@ class PermissionsController extends Controller
             return $this->error($e->getMessage());
         }
     }
-
 }

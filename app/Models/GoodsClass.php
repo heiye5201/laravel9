@@ -2,14 +2,8 @@
 
 namespace App\Models;
 
-use App\Traits\TimeTrait;
-use Illuminate\Database\Eloquent\Factories\HasFactory;
-use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\SoftDeletes;
-
-class GoodsClass extends Model
+class GoodsClass extends BaseModel
 {
-    use HasFactory, SoftDeletes, TimeTrait;
 
     protected $fillable = [
         'pid',
@@ -19,16 +13,10 @@ class GoodsClass extends Model
         'is_sort'
     ];
 
-    protected $hidden = [
-        'deleted_at',
-    ];
-
-
     public function hasChildren()
     {
         return $this->hasOne('App\Models\GoodsClass', 'pid', 'id');
     }
-
 
     public function children()
     {

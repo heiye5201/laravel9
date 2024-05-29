@@ -2,24 +2,14 @@
 
 namespace App\Models;
 
-use App\Traits\TimeTrait;
-use Illuminate\Database\Eloquent\Factories\HasFactory;
-use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\SoftDeletes;
-
-class AdminRole extends Model
+class AdminRole extends BaseModel
 {
-    use HasFactory, TimeTrait, SoftDeletes;
 
     protected $fillable = [
         'name',
         'belong_id'
     ];
 
-
-    protected $hidden = [
-        'deleted_at',
-    ];
     public function permissions()
     {
         return $this->belongsToMany('App\Models\AdminPermission', 'admin_to_permissions', 'role_id', 'permission_id');
