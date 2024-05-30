@@ -14,9 +14,9 @@ class StoresController extends Controller
         return $this->handle(app(StoreService::class)->createStore());
     }
 
-    public function edit()
+    public function edit(Request $request)
     {
-        return $this->handle(app(StoreService::class)->editStore(true));
+        return $this->handle(app(StoreService::class)->editStore($request->all(),true));
     }
 
     // 获取详情
@@ -31,9 +31,9 @@ class StoresController extends Controller
     }
 
     // 获取列表
-    public function stores()
+    public function stores(Request $request)
     {
-        return $this->handle(app(StoreService::class)->stores());
+        return $this->handle(app(StoreService::class)->stores($request->all()));
     }
 
     // 无权限获取商品信息

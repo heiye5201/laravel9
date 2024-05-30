@@ -18,15 +18,15 @@ class GoodsController extends Controller
         return $this->success(new GoodsCollection($data));
     }
 
-    public function show($id)
+    public function show(Request $request, $id)
     {
-        $rs = app(GoodsService::class)->getGoodsInfo($id);
+        $rs = app(GoodsService::class)->getGoodsInfo($id, $request->all());
         return $this->handle($rs);
     }
 
     public function update(Request $request, $id)
     {
-        $rs = app(GoodsService::class)->editGoods($id,'admins');
+        $rs = app(GoodsService::class)->editGoods($id, $request->all(), 'admins');
         return $this->handle($rs);
     }
 

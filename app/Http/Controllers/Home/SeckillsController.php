@@ -11,6 +11,6 @@ class SeckillsController extends Controller
 
     public function index(Request $request)
     {
-        return $this->handle(app(GoodsService::class)->getHomeSeckillGoods());
+        return $this->handle(app(GoodsService::class)->getHomeSeckillGoods($request->all()));
     }
 }

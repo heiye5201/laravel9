@@ -43,7 +43,7 @@ class OrderService extends BaseService
     }
 
     // 创建订单
-    public function createOrder()
+    public function createOrder($reqData)
     {
         $check = $this->base64Check();
         if (!$check['status']) {
@@ -55,12 +55,12 @@ class OrderService extends BaseService
             return $this->formatError($rs['msg']);
         }
         // 优惠券的处理
-        if (!isset(request()->coupon_id)) {
+        if (!isset($reqData['coupon_id'])) {
             return $this->formatError('coupon_id empty');
         }
-        $coupon_id = explode(',', request()->coupon_id);
+        $coupon_id = explode(',', $reqData['coupon_id']);
         // 地址验证
-        $address_resp = $this->checkAddress();
+        $address_resp = $this->checkAddress($reqData);
         if (!$address_resp['status']) {
             return $this->formatError($address_resp['msg']);
         }
@@ -89,7 +89,7 @@ class OrderService extends BaseService
                     'receive_area' => $address_info['area_info'], // 收件人地区
                     'receive_address' => $address_info['address'], // 详细地址
                     'coupon_id' => isset($coupon_id[$k]) ? intval(abs($coupon_id[$k])) : 0, // 优惠券ID
-                    'remark' => request()->remark ?? '', // 备注
+                    'remark' => $reqData['remark'] ?? '', // 备注
                 ];
                 $order_info = $order_model->create($order_data); // 订单数据插入数据库
                 // 初始化其他费用
@@ -262,11 +262,11 @@ class OrderService extends BaseService
      * @return array
      * @throws \Exception
      */
-    public function payOrder()
+    public function payOrder($reqData)
     {
-        $order_id = request()->order_id;
-        $payment_name = request()->payment_name ?? '';
-        $device = request()->device ?? 'web';
+        $order_id = $reqData['order_id'];
+        $payment_name = $reqData['payment_name'] ?? '';
+        $device = $reqData['device'] ?? 'web';
 
         // 获取用户信息
         $userInfo = $this->getUser('users');
@@ -281,7 +281,7 @@ class OrderService extends BaseService
         // 如果是余额支付
         $balance = 0;
         if ($payment_name == 'balance') {
-            if (!Hash::check(request()->pay_password ?? '', $userInfo['data']['pay_password'])) {
+            if (!Hash::check($reqData['pay_password'] ?? '', $userInfo['data']['pay_password'])) {
                 return $this->formatError(__('tip.pwdErr'));
             }
             $balance = $userInfo['data']['money'];
@@ -311,6 +311,7 @@ class OrderService extends BaseService
             'order_list' => $order_list,
             'device' => $device,
             'balance' => $balance,
+            'total' => $reqData['total'] ?? 0,
         ]);
 
         // 创建支付订单失败
@@ -354,7 +355,7 @@ class OrderService extends BaseService
                 'payment_name' => $params['payment_name'],
                 'is_recharge' => 1,
                 'device' => $params['device'],
-                'total' => abs(request()->total ?? 1), // 充值金额
+                'total' => abs($opt['total'] ?? 1), // 充值金额
             ];
         } else {
             $order_ids = [];
@@ -405,7 +406,7 @@ class OrderService extends BaseService
      * @param $auth
      * @return array
      */
-    public function editOrderStatus($order_id, $order_status, $auth = "users")
+    public function editOrderStatus($order_id, $order_status, $auth = "users", $reqData = [])
     {
         try {
             DB::beginTransaction();
@@ -474,8 +475,8 @@ class OrderService extends BaseService
                     if ($order_model->order_status != 2) {
                         throw new \Exception(__('tip.error'));
                     }
-                    $delivery_code = request()->delivery_code ?? '';
-                    $delivery_no = request()->delivery_no ?? '';
+                    $delivery_code = $reqData['delivery_code'] ?? '';
+                    $delivery_no = $reqData['delivery_no'] ?? '';
                     $order_model->delivery_code = $delivery_code;
                     $order_model->delivery_no = $delivery_no;
                     if (empty($delivery_code) || empty($delivery_no)) {
@@ -506,9 +507,9 @@ class OrderService extends BaseService
     }
 
     // 地址验证
-    public function checkAddress()
+    public function checkAddress($reqData)
     {
-        $id = request()->address_id ?? 0;
+        $id = $reqData['address_id'] ?? 0;
         if (empty($id)) {
             return $this->formatError(__('tip.order.addrErr'));
         }
@@ -667,7 +668,7 @@ class OrderService extends BaseService
     }
 
     // // 获取订单
-    public function getOrders($type = "users")
+    public function getOrders($reqData, $type = "users")
     {
         $order_model = new Order();
         if ($type == 'users') {
@@ -685,44 +686,44 @@ class OrderService extends BaseService
         }, 'order_goods']);
 
         // 订单号
-        $order_no = request()->order_no;
+        $order_no = $reqData['order_no'];
         if (!empty($order_no)) {
             $order_model = $order_model->where('order_no', 'like', '%' . $order_no . '%');
         }
         // 拼团订单ID查询
-        $collective_id = request()->collective_id;
+        $collective_id = $reqData['collective_id'];
         if (!empty($collective_id)) {
             $order_model = $order_model->where('collective_id', $collective_id);
         }
         // 用户ID
-        $user_id = request()->user_id;
+        $user_id = $reqData['user_id'];
         if (!empty($user_id)) {
             $order_model = $order_model->where('user_id', $user_id);
         }
         // 店铺ID
-        $store_id = request()->store_id;
+        $store_id = $reqData['store_id'];
         if (!empty($store_id)) {
             $order_model = $order_model->where('store_id', $store_id);
         }
         // 下单时间
-        $created_at = request()->created_at;
+        $created_at = $reqData['created_at'];
         if (!empty($created_at)) {
             $order_model = $order_model->whereBetween('created_at', [$created_at[0], $created_at[1]]);
         }
         // 订单状态
-        if (isset(request()->order_status) && request()->order_status != -1) {
-            $order_model = $order_model->where('order_status', request()->order_status);
+        if (isset($reqData['order_status']) && $reqData['order_status'] != -1) {
+            $order_model = $order_model->where('order_status', $reqData['order_status']);
         }
         // 获取退款订单
-        if (isset(request()->is_refund)) {
+        if (isset($reqData['is_refund'])) {
             $order_model = $order_model->where('order_status', 5)->where('refund_status', 0);
         }
         // 获取退货订单
-        if (isset(request()->is_return)) {
+        if (isset($reqData['is_return'])) {
             $order_model = $order_model->where('order_status', 5)->where('refund_status', 1);
         }
         $pageData = $order_model->orderBy('id', 'desc')
-            ->paginate(request()->per_page ?? 30);
+            ->paginate($reqData['per_page'] ?? 30);
         $data = new OrderHomeCollection($pageData);
         return $this->format($data);
     }

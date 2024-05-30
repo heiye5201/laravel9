@@ -57,7 +57,7 @@ class OrdersController extends Controller
     {
         $id = $request->id ?? 0;
         $status = $request->status ?? 3;
-        return $this->handle(app(OrderService::class)->editOrderStatus($id, $status, 'seller'));
+        return $this->handle(app(OrderService::class)->editOrderStatus($id, $status, 'seller', $request->all()));
     }
 
 

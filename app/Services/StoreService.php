@@ -87,7 +87,7 @@ class StoreService extends BaseService
 
 
     // 编辑店铺数据
-    public function editStore($storeId = null, $whereName = 'user_id', $auth = 'users')
+    public function editStore($reqData, $storeId = null, $whereName = 'user_id', $auth = 'users')
     {
         if (empty($storeId)) {
             return $this->formatError(__('tip.store.notMall'));
@@ -115,51 +115,51 @@ class StoreService extends BaseService
             }
         }
         // 店铺名
-        if (isset(request()->store_name)) {
-            $store_model->store_name = request()->store_name;
+        if (isset($reqData['store_name'])) {
+            $store_model->store_name = $reqData['store_name'];
         }
         // 店铺LOGO
-        if (isset(request()->store_logo)) {
-            $store_model->store_logo = request()->store_logo;
+        if (isset($reqData['store_logo'])) {
+            $store_model->store_logo = $reqData['store_logo'];
         }
         // 店铺门面
-        if (isset(request()->store_face_image)) {
-            $store_model->store_face_image = request()->store_face_image;
+        if (isset($reqData['store_face_image'])) {
+            $store_model->store_face_image = $reqData['store_face_image'];
         }
         // 店铺幻灯片
-        if (isset(request()->store_slide)) {
-            $store_model->store_slide = request()->store_slide;
+        if (isset($reqData['store_slide'])) {
+            $store_model->store_slide = $reqData['store_slide'];
         }
         // 店铺手机幻灯片
-        if (isset(request()->store_mobile_slide)) {
-            $store_model->store_slide = request()->store_mobile_slide;
+        if (isset($reqData['store_mobile_slide'])) {
+            $store_model->store_slide = $reqData['store_mobile_slide'];
         }
         // 店铺电话
-        if (isset(request()->store_mobile)) {
-            $store_model->store_mobile = request()->store_mobile;
+        if (isset($reqData['store_mobile'])) {
+            $store_model->store_mobile = $reqData['store_mobile'];
         }
         // 店铺描述
-        if (isset(request()->store_description)) {
-            $store_model->store_description = request()->store_description;
+        if (isset($reqData['store_description'])) {
+            $store_model->store_description = $reqData['store_description'];
         }
         // 公司名称
-        if (isset(request()->store_company_name)) {
-            $store_model->store_company_name = request()->store_company_name;
+        if (isset($reqData['store_company_name'])) {
+            $store_model->store_company_name = $reqData['store_company_name'];
         }
         // 省ID
-        if (isset(request()->province_id)) {
-            $store_model->province_id = request()->province_id;
+        if (isset($reqData['province_id'])) {
+            $store_model->province_id = $reqData['province_id'];
         }
         // 市ID
-        if (isset(request()->city_id)) {
-            $store_model->city_id = request()->city_id;
+        if (isset($reqData['city_id'])) {
+            $store_model->city_id = $reqData['city_id'];
         }
         // 区ID
-        if (isset(request()->region_id)) {
-            $store_model->region_id = request()->region_id;
+        if (isset($reqData['region_id'])) {
+            $store_model->region_id = $reqData['region_id'];
         }
-        if (isset(request()->area)) {
-            $areaList = Area::query()->whereIn('id', request()->area)->get();
+        if (isset($reqData['area'])) {
+            $areaList = Area::query()->whereIn('id', $reqData['area'])->get();
             if ($areaList) {
                 $areaInfo = '';
                 foreach ($areaList as $v) {
@@ -169,56 +169,56 @@ class StoreService extends BaseService
             }
         }
         // 纬度
-        if (isset(request()->store_lat)) {
-            $store_model->store_lat = request()->store_lat;
+        if (isset($reqData['store_lat'])) {
+            $store_model->store_lat = $reqData['store_lat'];
         }
         // 经度
-        if (isset(request()->store_lng)) {
-            $store_model->store_lng = request()->store_lng;
+        if (isset($reqData['store_lng'])) {
+            $store_model->store_lng = $reqData['store_lng'];
         }
         // 详细地址
-        if (isset(request()->store_address)) {
-            $store_model->store_address = request()->store_address;
+        if (isset($reqData['store_address'])) {
+            $store_model->store_address = $reqData['store_address'];
         }
         // 营业执照
-        if (isset(request()->business_license)) {
-            $store_model->business_license = request()->business_license;
+        if (isset($reqData['business_license'])) {
+            $store_model->business_license = $reqData['business_license'];
         }
         // 营业执照号码
-        if (isset(request()->business_license_no)) {
-            $store_model->business_license_no = request()->business_license_no;
+        if (isset($reqData['business_license_no'])) {
+            $store_model->business_license_no = $reqData['business_license_no'];
         }
         // 法人
-        if (isset(request()->legal_person)) {
-            $store_model->legal_person = request()->legal_person;
+        if (isset($reqData['legal_person'])) {
+            $store_model->legal_person = $reqData['legal_person'];
         }
         // 法人电话
-        if (isset(request()->store_phone)) {
-            $store_model->store_phone = request()->store_phone;
+        if (isset($reqData['store_phone'])) {
+            $store_model->store_phone = $reqData['store_phone'];
         }
         // 身份证号码
-        if (isset(request()->id_card_no)) {
-            $store_model->id_card_no = request()->id_card_no;
+        if (isset($reqData['id_card_no'])) {
+            $store_model->id_card_no = $reqData['id_card_no'];
         }
         // 身份证上
-        if (isset(request()->id_card_t)) {
-            $store_model->id_card_t = request()->id_card_t;
+        if (isset($reqData['id_card_t'])) {
+            $store_model->id_card_t = $reqData['id_card_t'];
         }
         // 身份证下
-        if (isset(request()->id_card_b)) {
-            $store_model->id_card_b = request()->id_card_b;
+        if (isset($reqData['id_card_b'])) {
+            $store_model->id_card_b = $reqData['id_card_b'];
         }
         // 紧急联系人
-        if (isset(request()->emergency_contact)) {
-            $store_model->emergency_contact = request()->emergency_contact;
+        if (isset($reqData['emergency_contact'])) {
+            $store_model->emergency_contact = $reqData['emergency_contact'];
         }
         // 紧急联系人电话
-        if (isset(request()->emergency_contact_phone)) {
-            $store_model->emergency_contact_phone = request()->emergency_contact_phone;
+        if (isset($reqData['emergency_contact_phone'])) {
+            $store_model->emergency_contact_phone = $reqData['emergency_contact_phone'];
         }
         // 售后服务
-        if (isset(request()->after_sale_service)) {
-            $store_model->after_sale_service = request()->after_sale_service;
+        if (isset($reqData['after_sale_service'])) {
+            $store_model->after_sale_service = $reqData['after_sale_service'];
         }
 
         if ($auth != 'admins') {
@@ -232,29 +232,29 @@ class StoreService extends BaseService
             $store_model->store_verify = $store_verify;
         } else {
             // 状态
-            if (isset(request()->store_status)) {
-                $store_model->store_status = request()->store_status;
+            if (isset($reqData['store_status'])) {
+                $store_model->store_status = $reqData['store_status'];
             }
             // 审核状态
-            if (isset(request()->store_verify)) {
-                $store_model->store_verify = request()->store_verify;
+            if (isset($reqData['store_verify'])) {
+                $store_model->store_verify = $reqData['store_verify'];
             }
         }
         try {
             $store_model->save();
             // 商家商品栏目
-            if (isset(request()->class_id) && !empty(request()->class_id)) {
+            if (isset($reqData['class_id']) && !empty($reqData['class_id'])) {
                 $store_classes_model = new StoreClass();
                 $store_classes_info = $store_classes_model->where('store_id', $store_model->id)->first();
                 $class_id = [];
-                foreach (request()->class_id as $k => $v) {
+                foreach ($reqData['class_id'] as $k => $v) {
                     if (count($v) > 3) {
                         $class_id[] = $v;
                     }
                 }
                 $data = [
                     'store_id' => $store_model->id,
-                    'class_id' => json_encode(request('class_id', [])),
+                    'class_id' => json_encode($reqData['class_id'] ?? []),
                     'class_name' => '',
                 ];
                 if (empty($store_classes_info)) {
@@ -291,11 +291,11 @@ class StoreService extends BaseService
     public $storeStatus = ['store_status' => 1, 'store_verify' => 4]; // 正常店铺
 
     // 无权限获取店铺
-    public function stores()
+    public function stores($reqData)
     {
-        $params = request()->params ?? '';
-        $lat = request()->lat ?? '39.56';
-        $lng = request()->lng ?? '116.20'; // 默认北京的经纬度
+        $params = $reqData['params'] ?? '';
+        $lat = $reqData['lat'] ?? '39.56';
+        $lng = $reqData['lng'] ?? '116.20'; // 默认北京的经纬度
         $distance = "ROUND(6378.138 * 2 * ASIN(SQRT(POW(SIN(('$lat' * PI() / 180 - store_lat * PI() / 180) / 2),2) + COS(40.0497810000 * PI() / 180) * COS(store_lat * PI() / 180) * POW(SIN(('$lng' * PI() / 180 - store_lng * PI() / 180) / 2),2))) * 1000 )  AS distance ";
         $storeModel = Store::query()->select(DB::raw('*,' . $distance))->withCount(['comments', 'comments as good_comment' => function ($q) {
             $q->whereRaw('(score+agree+speed+service)>=15');
@@ -315,7 +315,7 @@ class StoreService extends BaseService
                     $storeModel = $storeModel->where('store_name', 'like', '%' . $params_array['keywords'] . '%');
                 }
             }
-            $list = $storeModel->paginate(request()->per_page ?? 30);
+            $list = $storeModel->paginate($reqData['per_page'] ?? 30);
             return $this->format(new StoreHomeCollection($list));
         } catch (\Exception $e) {
             return $this->formatError($e->getMessage());

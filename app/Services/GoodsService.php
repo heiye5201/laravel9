@@ -21,7 +21,7 @@ class GoodsService extends BaseService
 
     protected $status = ['goods_status' => 1, 'goods_verify' => 1];
 
-    public function addGoods($auth = 'users')
+    public function addGoods($reqData, $auth = 'users')
     {
         $goodsModel = new Goods();
         $storeId = 0;
@@ -30,21 +30,21 @@ class GoodsService extends BaseService
         }
         $data = [
             'store_id' => $storeId ?? 0,
-            'goods_name' => request()->goods_name,                         // 商品名
-            'goods_subname' => request()->goods_subname ?? '',                  // 副标题
-            'goods_no' => request()->goods_no ?? '',                       // 商品编号
-            'brand_id' => request()->brand_id ?? 0,                           // 商品品牌
-            'class_id' => request()->class_id ?? 0,                        // 商品分类
-            'goods_master_image' => request()->goods_master_image,                 // 商品主图
-            'goods_price' => abs(request()->goods_price ?? 0),                // 商品价格
-            'goods_market_price' => abs(request()->goods_market_price ?? 0),         // 商品市场价
-            'goods_weight' => abs(request()->goods_weight ?? 0),               // 商品重量
-            'goods_stock' => abs(request()->goods_stock ?? 0),                // 商品库存
-            'goods_content' => request()->goods_content ?? '',                  // 商品内容详情
-            'goods_content_mobile' => request()->goods_content_mobile ?? '',           // 商品内容详情（手机）
-            'goods_status' => abs(request()->goods_status) ?? 0,               // 商品上架状态
-            'freight_id' => abs(request()->freight_id) ?? 0,                 // 运费模版ID
-            'goods_images' => implode(',', request()->goods_images ?? []),
+            'goods_name' => $reqData['goods_name'],                         // 商品名
+            'goods_subname' => $reqData['goods_subname'] ?? '',                  // 副标题
+            'goods_no' => $reqData['goods_no'] ?? '',                       // 商品编号
+            'brand_id' => $reqData['brand_id'] ?? 0,                           // 商品品牌
+            'class_id' => $reqData['class_id'] ?? 0,                        // 商品分类
+            'goods_master_image' => $reqData['goods_master_image'],                 // 商品主图
+            'goods_price' => abs($reqData['goods_price'] ?? 0),                // 商品价格
+            'goods_market_price' => abs($reqData['goods_market_price'] ?? 0),         // 商品市场价
+            'goods_weight' => abs($reqData['goods_weight'] ?? 0),               // 商品重量
+            'goods_stock' => abs($reqData['goods_stock'] ?? 0),                // 商品库存
+            'goods_content' => $reqData['goods_content'] ?? '',                  // 商品内容详情
+            'goods_content_mobile' => $reqData['goods_content_mobile'] ?? '',           // 商品内容详情（手机）
+            'goods_status' => abs($reqData['goods_status']) ?? 0,               // 商品上架状态
+            'freight_id' => abs($reqData['freight_id']) ?? 0,                 // 运费模版ID
+            'goods_images' => implode(',', $reqData['goods_images'] ?? []),
         ];
         // 判断是否开启添加商品审核
         $storeConfig = app(ConfigsService::class)->getFormatConfig('store');
@@ -57,9 +57,9 @@ class GoodsService extends BaseService
             DB::beginTransaction();
             $goodsModel = $goodsModel->create($data);
             // 规格处理
-            if (isset(request()->skuList) && !empty(request()->skuList)) {
+            if (isset($reqData['skuList']) && !empty($reqData['skuList'])) {
                 $skuData = [];
-                foreach (request()->skuList as $k => $v) {
+                foreach ($reqData['skuList'] as $k => $v) {
                     $skuData[$k]['goods_image'] = $v['goods_image'] ?? ''; // sku图片
                     $skuData[$k]['spec_id'] = implode(',', $v['spec_id']); // sku 属性
                     $skuData[$k]['sku_name'] = implode(',', $v['sku_name']); // sku名称
@@ -80,7 +80,7 @@ class GoodsService extends BaseService
 
 
     // 修改商品
-    public function editGoods($goodsId, $auth = 'users')
+    public function editGoods($goodsId, $reqData, $auth = 'users')
     {
         $storeId = 0;
         if ($auth == 'users') {
@@ -93,68 +93,68 @@ class GoodsService extends BaseService
             return $this->formatError(__('tip.error'));
         }
         // 商品名
-        if (isset(request()->goods_name) && !empty(request()->goods_name)) {
-            $goodsModel->goods_name = request()->goods_name;
+        if (isset($reqData['goods_name']) && !empty($reqData['goods_name'])) {
+            $goodsModel->goods_name = $reqData['goods_name'];
         }
         // 副标题
-        if (isset(request()->goods_subname) && !empty(request()->goods_subname)) {
-            $goodsModel->goods_subname = request()->goods_subname;
+        if (isset($reqData['goods_subname']) && !empty($reqData['goods_subname'])) {
+            $goodsModel->goods_subname = $reqData['goods_subname'];
         }
         // 商品编号
-        if (isset(request()->goods_no) && !empty(request()->goods_no)) {
-            $goodsModel->goods_no = request()->goods_no;
+        if (isset($reqData['goods_no']) && !empty($reqData['goods_no'])) {
+            $goodsModel->goods_no = $reqData['goods_no'];
         }
         // 商品品牌
-        if (isset(request()->brand_id) && !empty(request()->brand_id)) {
-            $goodsModel->brand_id = request()->brand_id;
+        if (isset($reqData['brand_id']) && !empty($reqData['brand_id'])) {
+            $goodsModel->brand_id = $reqData['brand_id'];
         }
         // 商品分类
-        if (isset(request()->class_id) && !empty(request()->class_id)) {
-            $goodsModel->class_id = request()->class_id;
+        if (isset($reqData['class_id']) && !empty($reqData['class_id'])) {
+            $goodsModel->class_id = $reqData['class_id'];
         }
         // 商品主图
-        if (isset(request()->goods_master_image) && !empty(request()->goods_master_image)) {
-            $goodsModel->goods_master_image = request()->goods_master_image;
+        if (isset($reqData['goods_master_image']) && !empty($reqData['goods_master_image'])) {
+            $goodsModel->goods_master_image = $reqData['goods_master_image'];
         }
         // 商品价格
-        if (isset(request()->goods_price) && !empty(request()->goods_price)) {
-            $goodsModel->goods_price = abs(request()->goods_price ?? 0);
+        if (isset($reqData['goods_price']) && !empty($reqData['goods_price'])) {
+            $goodsModel->goods_price = abs($reqData['goods_price'] ?? 0);
         }
         // 商品市场价
-        if (isset(request()->goods_market_price) && !empty(request()->goods_market_price)) {
-            $goodsModel->goods_market_price = abs(request()->goods_market_price ?? 0);
+        if (isset($reqData['goods_market_price']) && !empty($reqData['goods_market_price'])) {
+            $goodsModel->goods_market_price = abs($reqData['goods_market_price'] ?? 0);
         }
         // 商品重量
-        if (isset(request()->goods_weight) && !empty(request()->goods_weight)) {
-            $goodsModel->goods_weight = abs(request()->goods_weight ?? 0);
+        if (isset($reqData['goods_weight']) && !empty($reqData['goods_weight'])) {
+            $goodsModel->goods_weight = abs($reqData['goods_weight'] ?? 0);
         }
         // 商品库存
-        if (isset(request()->goods_stock) && !empty(request()->goods_stock)) {
-            $goodsModel->goods_stock = abs(request()->goods_stock ?? 0);
+        if (isset($reqData['goods_stock']) && !empty($reqData['goods_stock'])) {
+            $goodsModel->goods_stock = abs($reqData['goods_stock'] ?? 0);
         }
         // 商品内容详情
-        if (isset(request()->goods_content) && !empty(request()->goods_content)) {
-            $goodsModel->goods_content = request()->goods_content;
+        if (isset($reqData['goods_content']) && !empty($reqData['goods_content'])) {
+            $goodsModel->goods_content = $reqData['goods_content'];
         }
         // 商品内容详情（手机）
-        if (isset(request()->goods_content_mobile) && !empty(request()->goods_content_mobile)) {
-            $goodsModel->goods_content_mobile = request()->goods_content_mobile;
+        if (isset($reqData['goods_content_mobile']) && !empty($reqData['goods_content_mobile'])) {
+            $goodsModel->goods_content_mobile = $reqData['goods_content_mobile'];
         }
         // 商品上架状态
-        if (isset(request()->goods_status)) {
-            $goodsModel->goods_status = abs(request()->goods_status ?? 0);
+        if (isset($reqData['goods_status'])) {
+            $goodsModel->goods_status = abs($reqData['goods_status'] ?? 0);
         }
         // 商品推荐状态
-        if (isset(request()->is_master)) {
-            $goodsModel->is_master = abs(request()->is_master ?? 0);
+        if (isset($reqData['is_master'])) {
+            $goodsModel->is_master = abs($reqData['is_master'] ?? 0);
         }
         // 商品快递情况状态
-        if (isset(request()->freight_id)) {
-            $goodsModel->freight_id = abs(request()->freight_id ?? 0);
+        if (isset($reqData['freight_id'])) {
+            $goodsModel->freight_id = abs($reqData['freight_id'] ?? 0);
         }
         // 商品图片
-        if (isset(request()->goods_images) && !empty(request()->goods_images)) {
-            $goodsModel->goods_images = implode(',', request()->goods_images ?? []);
+        if (isset($reqData['goods_images']) && !empty($reqData['goods_images'])) {
+            $goodsModel->goods_images = implode(',', $reqData['goods_images'] ?? []);
         }
         // 判断是否开启添加商品审核
         $configs = app(ConfigsService::class)->getFormatConfig('store');
@@ -166,10 +166,10 @@ class GoodsService extends BaseService
             DB::beginTransaction();
             $goodsModel = $goodsModel->save();
             // 规格处理
-            if (isset(request()->skuList) && !empty(request()->skuList)) {
+            if (isset($reqData['skuList']) && !empty($reqData['skuList'])) {
                 $skuData = [];
                 $skuId = []; // 修改的skuID 不存在则准备删除
-                foreach (request()->skuList as $k => $v) {
+                foreach ($reqData['skuList'] as $k => $v) {
                     if (isset($v['id']) && !empty($v['id'])) {
                         // 如果ID不为空则代表存在此sku 进行修改
                         $skuId[] = $v['id'];
@@ -229,7 +229,7 @@ class GoodsService extends BaseService
     }
 
     // 获取商品详情
-    public function getGoodsInfo($goodsId)
+    public function getGoodsInfo($goodsId, $reqData = [])
     {
         $goodsInfo = Goods::query()->find($goodsId);
         if (!$goodsInfo) {
@@ -277,7 +277,7 @@ class GoodsService extends BaseService
                     if (in_array($vo['id'], $spec_id)) {
                         $goods_attr[$k]['specs'][$key]['check'] = true;
                     } else {
-                        if (request()->saveCheck) {
+                        if ($reqData['saveCheck']) {
                             unset($goods_attr[$k]['specs'][$key]);
                         }
                     }
@@ -583,7 +583,7 @@ class GoodsService extends BaseService
     }
 
     // 获取首页秒杀商品
-    public function getHomeSeckillGoods()
+    public function getHomeSeckillGoods($reqData)
     {
         try {
             $list = Goods::query()->where($this->status)
@@ -594,13 +594,13 @@ class GoodsService extends BaseService
                     return $q->orderBy('goods_price', 'asc');
                 }])
                 ->whereHas('seckill', function ($q) {
-                    if (empty(request()->start_time)) {
+                    if (empty($reqData['start_time'])) {
                         return $q->where('start_time', '<', now()->format('Y-m-d H') . ':00:00')->where('end_time', '>', now()->addHours(1)->format('Y-m-d H') . ':00:00');
                     }
-                    return $q->where('start_time', '>', now()->addHours(request()->start_time)->format('Y-m-d H') . ':00:00')->where('end_time', '<', now()->addHours(request()->start_time + 1)->format('Y-m-d H') . ':00:00');
+                    return $q->where('start_time', '>', now()->addHours($reqData['start_time'])->format('Y-m-d H') . ':00:00')->where('end_time', '<', now()->addHours($reqData['start_time'] + 1)->format('Y-m-d H') . ':00:00');
                 })
                 ->orderBy('goods_sale', 'desc')
-                ->paginate(request()->per_page ?? 30);
+                ->paginate($reqData['per_page'] ?? 30);
         } catch (\Exception $e) {
             return $this->formatError($e->getMessage());
         }

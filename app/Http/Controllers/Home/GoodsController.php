@@ -18,9 +18,9 @@ class GoodsController extends Controller
         return $this->handle(app(GoodsService::class)->all());
     }
 
-    public function show($id)
+    public function show(Request $request, $id)
     {
-        $goods_info = app(GoodsService::class)->getGoodsInfo($id);
+        $goods_info = app(GoodsService::class)->getGoodsInfo($id, $request->all());
         if ($goods_info['status']) {
             $goods_info['data']['store_info'] = app(StoreService::class)->getStoreInfoAndRate($goods_info['data']['store_id'])['data'];
             $goods_info['data']['rate'] = $goods_info['data']['store_info']['rate'];

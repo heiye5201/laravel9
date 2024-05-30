@@ -17,9 +17,8 @@ class UserCheckService extends BaseService
         return $this->format($info);
     }
 
-    public function edit()
+    public function edit($data)
     {
-        $data = request()->only(['name','card_no','card_t','card_b','bank_no','bank_name']);
         $userId = $this->getUserId('users');
         $model = new UserCheck();
         $info = $model->where('user_id', $userId)->exists();

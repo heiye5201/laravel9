@@ -36,19 +36,19 @@ class GoodsController extends Controller
 
     public function store(Request $request)
     {
-        $rs = app(GoodsService::class)->addGoods();
+        $rs = app(GoodsService::class)->addGoods($request->all());
         return $this->handle($rs);
     }
 
     public function update(Request $request, $id)
     {
-        $rs = app(GoodsService::class)->editGoods($id);
+        $rs = app(GoodsService::class)->editGoods($id, $request->all());
         return $this->handle($rs);
     }
 
-    public function show($id)
+    public function show(Request $request, $id)
     {
-        $rs = app(GoodsService::class)->getGoodsInfo($id);
+        $rs = app(GoodsService::class)->getGoodsInfo($id, $request->all());
         return $this->handle($rs);
     }
 

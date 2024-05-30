@@ -44,7 +44,7 @@ class IntegralGoodsService extends BaseService
     public function createOrder($params)
     {
         // 地址验证
-        $address_resp = app(OrderService::class)->checkAddress();
+        $address_resp = app(OrderService::class)->checkAddress($params);
         if (!$address_resp['status']) {
             return $this->formatError($address_resp['msg']);
         }

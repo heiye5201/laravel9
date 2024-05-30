@@ -33,7 +33,7 @@ class StoresController extends Controller
     public function update(Request $request, $id)
     {
         try {
-            $rs = app(StoreService::class)->editStore($id, 'id', 'admins');
+            $rs = app(StoreService::class)->editStore($request->all(), $id, 'id', 'admins');
             return $this->handle($rs);
         } catch (\Exception $e) {
             return $this->error($e->getMessage());

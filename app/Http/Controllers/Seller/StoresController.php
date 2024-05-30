@@ -45,7 +45,7 @@ class StoresController extends Controller
     public function update(Request $request, $id)
     {
         $storeId = app(StoreService::class)->getStoreId()['data'];
-        $rs = app(StoreService::class)->editStore($storeId);
+        $rs = app(StoreService::class)->editStore($request->all(), $storeId);
         return $this->handle($rs);
     }
 }

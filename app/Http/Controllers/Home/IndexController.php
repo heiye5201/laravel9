@@ -67,7 +67,7 @@ class IndexController extends Controller
         $data['count'][] = Order::query()->where(['user_id'=>$userId,'order_status'=>3])->count();
         $data['count'][] = Order::query()->where(['user_id'=>$userId,'order_status'=>4])->count();
         $data['count'][] = Order::query()->where(['user_id'=>$userId,'order_status'=>5])->count();
-        $data['order'] = app(OrderService::class)->getOrders()['data'];
+        $data['order'] = app(OrderService::class)->getOrders($request->all())['data'];
         $data['fav'] = app(FavoriteService::class)->fav($request->all())['data'];
         return $this->success($data);
     }

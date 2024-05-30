@@ -12,31 +12,31 @@ use Illuminate\Http\Request;
 class OrdersController extends Controller
 {
     // 下单前的数据处理
-    public function before()
+    public function before(Request $request)
     {
         return $this->handle(app(OrderService::class)->createOrderBefore());
     }
 
     // 创建订单
-    public function create()
+    public function create(Request $request)
     {
-        return $this->handle(app(OrderService::class)->createOrder());
+        return $this->handle(app(OrderService::class)->createOrder($request->all()));
     }
 
     // 下单后数据处理
-    public function after()
+    public function after(Request $request)
     {
         return $this->handle(app(OrderService::class)->createOrderAfter());
     }
 
     // 支付订单
-    public function pay()
+    public function pay(Request $request)
     {
-        return $this->handle(app(OrderService::class)->payOrder());
+        return $this->handle(app(OrderService::class)->payOrder($request->all()));
     }
 
     // 验证支付状态
-    public function check()
+    public function check(Request $request)
     {
         $check = app(PaymentService::class)->check(request('order_id'));
         if ($check['status']) {
@@ -46,9 +46,9 @@ class OrdersController extends Controller
     }
 
     // 订单列表
-    public function orders()
+    public function orders(Request $request)
     {
-        return $this->handle(app(OrderService::class)->getOrders());
+        return $this->handle(app(OrderService::class)->getOrders($request->all()));
     }
 
     // 获取订单详情
@@ -58,9 +58,9 @@ class OrdersController extends Controller
     }
 
     // 修改状态
-    public function edit($id)
+    public function edit(Request $request, $id)
     {
-        return $this->handle(app(OrderService::class)->editOrderStatus($id, request()->order_status??1));
+        return $this->handle(app(OrderService::class)->editOrderStatus($id, $request['order_status'] ?? 1, 'users', $request->all()));
     }
 
     // 物流查询
