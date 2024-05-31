@@ -22,4 +22,10 @@ class FavoritesController extends Controller
     {
         return $this->handle(app(FavoriteService::class)->isFav($request->all()));
     }
+
+
+    public function destroy($id)
+    {
+        return $this->handle(app(FavoriteService::class)->destroy($id));
+    }
 }

@@ -25,6 +25,7 @@ php artisan make:migration add_sales_to_discount_codes_table --table=discount_co
 
 php artisan make:controller PhotoController --resource
 
+php artisan make:migration add_free_amount_to_order_discount_record_table --table=order_discount_record
 
 # 学习存储仓
 源码地址：
@@ -116,4 +117,7 @@ chmod -R 775 storage
 php artisan storage:link
 
 php artisan make:request Admin/AgreementsRequest
+
+## Telescope 调试工具
+https://learnku.com/docs/laravel/9.x/telescope/12275#available-watchers
 

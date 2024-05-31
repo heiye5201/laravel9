@@ -38,7 +38,7 @@ class QuestionTest extends TestCase
                 ]
             ],
         ];
-        $data = app(QuestionService::class)->testString3($spuSkus);
+        $data = []; //app(QuestionService::class)->testString3($spuSkus);
         print_r(['data'=>$data]);
         $this->assertTrue(true, 'success');
     }

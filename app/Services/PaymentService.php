@@ -1,10 +1,4 @@
 <?php
-/**
- * autor      : jiweijian
- * createTime : 2024/5/16 22:26
- * description:
- */
-
 namespace App\Services;
 
 use App\Models\Order;
@@ -16,6 +10,7 @@ use Yansongda\Pay\Pay;
 
 class PaymentService extends BaseService
 {
+
     // 第三方支付回调 paymentName [wechat | alipay]
     // $config 是多租户配置
     public function payment($paymentName = 'wechat', $device = 'web', $config = 'default')
@@ -38,14 +33,14 @@ class PaymentService extends BaseService
             if ($paymentName == 'wechat') {
                 if ($result->result_code != 'SUCCESS') {
                     Log::error($result);
-                    throw new \Exception('wechat pay error - ' . $result->out_trade_no);
+                    throw new \Exception('wechat pay error - '.$result->out_trade_no);
                 }
                 $trade_no = $result->transaction_id;
             }
             if ($paymentName == 'alipay') {
                 if ($result->trade_status != 'TRADE_SUCCESS') {
                     Log::error($result);
-                    throw new \Exception('alipay pay error - ' . $result->out_trade_no);
+                    throw new \Exception('alipay pay error - '.$result->out_trade_no);
                 }
                 $trade_no = $result->trade_no;
             }
@@ -56,9 +51,9 @@ class PaymentService extends BaseService
             // 如果是充值
             if ($orderPay->is_recharge == 1) {
                 app(MoneyLogService::class)->edit([
-                    'name' => __('tip.payment.onlineRecharge'),
-                    'user_id' => $userId,
-                    'money' => $orderPay->total,
+                    'name'  =>  __('tip.payment.onlineRecharge'),
+                    'user_id'  =>  $userId,
+                    'money'  =>  $orderPay->total,
                 ]);
                 DB::commit();
                 return Pay::$paymentName($this->config)->success();
@@ -66,16 +61,16 @@ class PaymentService extends BaseService
             // 如果不是充值
             if ($orderPay->is_recharge == 0) {
                 Order::query()->whereIn('id', $oid_arr)->update([
-                    'order_status' => 2,
-                    'pay_time' => now(),
-                    'payment_name' => $paymentName,
+                    'order_status'  =>  2,
+                    'pay_time'      =>  now(),
+                    'payment_name'  =>  $paymentName,
                 ]);
                 // 金额日志 用户账户变更
                 app(MoneyLogService::class)->edit([
-                    'user_id' => $userId,
-                    'money' => -$orderPay->total,
-                    'info' => $trade_no,
-                    'isLog' => true,
+                    'user_id'  =>  $userId,
+                    'money'  =>  -$orderPay->total,
+                    'info'  =>  $trade_no,
+                    'isLog'  =>  true,
                 ]);
                 // 分销处理
                 try {
@@ -93,11 +88,11 @@ class PaymentService extends BaseService
     }
 
     /**
-     * 调取第三方支付
-     * @param $paymentName
-     * @param $device
-     * @param $orderPay
-     * @param $recharge
+     * 调取第三方支付 function
+     * @param $paymentName 支付类型 如：wechat_jsapi
+     * @param $device 设备[web | app | wap | h5] 详细文档 https://pay.yansongda.cn/docs/v3/alipay/pay.html
+     * @param $orderPay 支付订单的支付数据 order_pay 表内数据
+     * @param $recharge 是否是充值方式
      * @param $config
      * @return array
      */
@@ -111,7 +106,7 @@ class PaymentService extends BaseService
         $this->payData['_config'] = $config;
         // 余额支付处理
         if ($paymentName == 'balance') {
-            $resp = app(MoneyLogService::class)->edit(['money' => -$orderPay['total']]);
+            $resp = app(MoneyLogService::class)->edit(['money'=>-$orderPay['total']]);
             if (!$resp['status']) {
                 return $this->formatError($resp['msg']);
             }
@@ -132,13 +127,12 @@ class PaymentService extends BaseService
             }
             // 订单状态修改
             Order::query()->whereIn('id', $orderIds)->update([
-                'order_status' => 2,
-                'pay_time' => now(),
-                'payment_name' => $paymentName,
+                'order_status'  =>  2,
+                'pay_time'      =>  now(),
+                'payment_name'  =>  $paymentName,
             ]);
             return $this->format();
         }
-        // orderPay 的数据进行赋值给payData
         // 充值管理
         if ($recharge) {
             $this->payData['name'] = __('tip.payment.onlineRecharge');
@@ -146,12 +140,12 @@ class PaymentService extends BaseService
         // 微信
         if ($paymentName == 'wechat') {
             $this->payData['out_trade_no'] = $orderPay['pay_no'];
-            $this->payData['description'] = $recharge ? $this->payData['name'] : $orderPay['name'];
+            $this->payData['description'] = $recharge?$this->payData['name']:$orderPay['name'];
             $this->payData['amount'] = [
-                'total' => $orderPay['total'] * 1000,
+                'total'=>$orderPay['total']*1000,
             ];
             // 小程序和公众号需要openID
-            if (in_array($device, ['mp', 'mini'])) {
+            if (in_array($device, ['mp','mini'])) {
                 $this->payData['payer'] = [
                     'openid' => request('openid', ''),
                 ];
@@ -160,7 +154,7 @@ class PaymentService extends BaseService
         // 支付宝
         if ($paymentName == 'alipay') {
             $this->payData['out_trade_no'] = $orderPay['pay_no'];
-            $this->payData['subject'] = $recharge ? $this->payData['name'] : $orderPay['name'];
+            $this->payData['subject'] = $recharge?$this->payData['name']:$orderPay['name'];
             $this->payData['total_amount'] = $orderPay['total'];
         }
         try {
@@ -168,7 +162,7 @@ class PaymentService extends BaseService
             $result = Pay::$paymentName($this->config)->$device($this->payData);
             return $this->format($result);
         } catch (\Exception $e) {
-            Log::error('[' . $paymentName . ']:' . $e->getMessage());
+            Log::error('['.$paymentName.']:'.$e->getMessage());
             return $this->formatError(__('tip.payment.paymentFailed'));
         }
     }
@@ -192,11 +186,11 @@ class PaymentService extends BaseService
         $this->config['logger']['file'] = storage_path('logs/alipay.log'); // 日志目录
         $pay = app(ConfigsService::class)->getFormatConfig('pay');
         // 给证书加上绝对链接
-        $payServiceConfig = $pay[$paymentName . $device];
+        $payServiceConfig = $pay[$paymentName.$device];
         if (!empty($payServiceConfig)) {
-            foreach ($payServiceConfig as $k => $v) {
+            foreach ($payServiceConfig as $k=>$v) {
                 if (stripos($k, 'cert') != false && $k != 'app_secret_cert') {
-                    $payServiceConfig[$k] = public_path() . $v;
+                    $payServiceConfig[$k] = public_path().$v;
                 }
             }
         }
@@ -259,7 +253,7 @@ class PaymentService extends BaseService
                 'sub_mch_id' => '',
                 // 选填-微信公钥证书路径, optional，强烈建议 php-fpm 模式下配置此参数
                 'wechat_public_cert_path' => [
-                    '45F59D4DABF31918AFCEC556D5D2C6E376675D57' => __DIR__ . '/Cert/wechatPublicKey.crt',
+                    '45F59D4DABF31918AFCEC556D5D2C6E376675D57' => __DIR__.'/Cert/wechatPublicKey.crt',
                 ],
                 // 选填-默认为正常模式。可选为： MODE_NORMAL, MODE_SERVICE
                 'mode' => Pay::MODE_NORMAL,

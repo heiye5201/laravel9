@@ -72,4 +72,15 @@ class FavoriteService extends BaseService
         }
         return $this->format(true);
     }
+
+
+    public function destroy($id)
+    {
+        $userId = $this->getUserId('users');
+        $fav_info = Favorite::query()->where(['user_id' => $userId, 'id' => $id])->delete();
+        if (empty($fav_info)) {
+            return $this->formatError('删除失败！');
+        }
+        return $this->format([]);
+    }
 }

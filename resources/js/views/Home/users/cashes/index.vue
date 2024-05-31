@@ -89,7 +89,7 @@ export default {
             let user = await store.dispatch('login/getUserSer')
             data.user = user
             data.check = await proxy.R.get('/user/check')
-            if(!user.check){
+            if(!data.check){
                 proxy.$message.error(proxy.$t('home.check.notCheck'))
                 return proxy.$router.push('/user/check')
             }

@@ -13,11 +13,6 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-// Route::get('/', function () {
-//     return view('welcome');
-// });
-
-
 // 放到最下面，用来访问vue地址
 Route::get('/{any}', [\App\Http\Controllers\SpaController::class,'index'])->where('any', '.*');
 

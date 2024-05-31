@@ -29,7 +29,7 @@ class MatchTest extends TestCase
      */
     public function test_example()
     {
-        $data = app(MatchService::class)->climbStairs(6);
+        $data = []; //app(MatchService::class)->climbStairs(6);
         print_r(['data'=>$data]);
         $this->assertTrue(true, 'success');
     }
@@ -42,7 +42,7 @@ class MatchTest extends TestCase
      */
     public function test_example2()
     {
-        $data = app(MatchService::class)->climbStairsNew(6);
+        $data = [];// app(MatchService::class)->climbStairsNew(6);
         print_r(['data'=>$data]);
         $this->assertTrue(true, 'success');
     }

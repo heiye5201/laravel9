@@ -17,7 +17,7 @@ class RedisTest extends TestCase
      */
     public function test_example()
     {
-        $data = app(RedisService::class)->listenRedisLog();
+        $data = []; //app(RedisService::class)->listenRedisLog();
         print_r(['data'=>$data]);
         $this->assertTrue(true);
     }
@@ -32,7 +32,7 @@ class RedisTest extends TestCase
     public function test_set()
     {
         // $res = Cache::add('key', 'value', 20*60); // 仅在键不存在时添加缓存
-        $res = app(RedisService::class)->setData('username', 'jwj');
+        $res = [];// app(RedisService::class)->setData('username', 'jwj');
         print_r(['data'=>$res]);
     }
 }

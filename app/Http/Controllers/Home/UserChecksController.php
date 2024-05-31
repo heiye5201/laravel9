@@ -11,7 +11,7 @@ class UserChecksController extends Controller
 
     public function edit(Request $request)
     {
-        return $this->handle(app(UserCheckService::class)->edit());
+        return $this->handle(app(UserCheckService::class)->edit($request->all()));
     }
 
     public function check(Request $request)

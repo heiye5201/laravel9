@@ -6,7 +6,7 @@ trait ResourceTrait
 {
 
     // service 返回格式化
-    protected function format($data=[], $msg='ok')
+    protected function format($data = [], $msg='ok')
     {
         return ['status'=>true,'data'=>$data,'msg'=>$msg];
     }

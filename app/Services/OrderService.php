@@ -686,27 +686,27 @@ class OrderService extends BaseService
         }, 'order_goods']);
 
         // 订单号
-        $order_no = $reqData['order_no'];
+        $order_no = $reqData['order_no'] ?? '';
         if (!empty($order_no)) {
             $order_model = $order_model->where('order_no', 'like', '%' . $order_no . '%');
         }
         // 拼团订单ID查询
-        $collective_id = $reqData['collective_id'];
+        $collective_id = $reqData['collective_id'] ?? '';
         if (!empty($collective_id)) {
             $order_model = $order_model->where('collective_id', $collective_id);
         }
         // 用户ID
-        $user_id = $reqData['user_id'];
+        $user_id = $reqData['user_id'] ?? '';
         if (!empty($user_id)) {
             $order_model = $order_model->where('user_id', $user_id);
         }
         // 店铺ID
-        $store_id = $reqData['store_id'];
+        $store_id = $reqData['store_id'] ?? '';
         if (!empty($store_id)) {
             $order_model = $order_model->where('store_id', $store_id);
         }
         // 下单时间
-        $created_at = $reqData['created_at'];
+        $created_at = $reqData['created_at'] ?? '';
         if (!empty($created_at)) {
             $order_model = $order_model->whereBetween('created_at', [$created_at[0], $created_at[1]]);
         }

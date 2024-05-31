@@ -89,5 +89,4 @@ Route::prefix('Admin')->middleware('auth:admins')->name('admin.')->namespace('Ad
     $route->get('/dashboard/user', 'DashboardController@user')->name('admin.dashboard.user'); // 数据统计
     $route->get('/dashboard/pay', 'DashboardController@pay')->name('admin.dashboard.pay'); // 数据统计
     $route->get('/dashboard/store', 'DashboardController@stores')->name('admin.dashboard.store'); // 数据统计
-
 });

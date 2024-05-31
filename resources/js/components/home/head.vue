@@ -31,6 +31,9 @@
                         <li>
                             <router-link to="/">{{$t('home.store_index.home_index')}}</router-link>
                         </li>
+                      <li>
+                        <router-link to="/s">产品分类</router-link>
+                      </li>
                         <li>
                             <router-link to="/stores">{{$t('home.store_index.shop_street')}}</router-link>
                         </li>

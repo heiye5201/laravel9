@@ -35,7 +35,7 @@ class DistributionService extends BaseService
     }
 
     // 获取分销日志
-    public function getLogList($auth = "user", $reqData)
+    public function getLogList($reqData, $auth = "user")
     {
         $dislog_model = new DistributionLog();
         if ($auth == 'user') {
@@ -154,10 +154,10 @@ class DistributionService extends BaseService
     {
         $userId = $this->getUserId('users');
         $user_model = new User();
-        if ($reqData['lev'] == 0) {
+        if (isset($reqData['lev']) && $reqData['lev'] == 0) {
             $user_model = $user_model->where('inviter_id', $userId);
         }
-        if ($reqData['lev'] == 1) {
+        if (isset($reqData['lev']) && $reqData['lev'] == 1) {
             $f = User::query()->select('id', 'inviter_id')->where('inviter_id', $userId)->get();
             if ($f->isEmpty()) {
                 $user_model = $user_model->where('id', 0);
@@ -169,7 +169,7 @@ class DistributionService extends BaseService
                 $user_model = $user_model->whereIn('inviter_id', $ids);
             }
         }
-        if ($reqData['lev'] == 2) {
+        if (isset($reqData['lev']) && $reqData['lev'] == 2) {
             $f = User::query()->select('id')->where('inviter_id', $userId)->get();
             if ($f->isEmpty()) {
                 $user_model = $user_model->where('id', 0);
