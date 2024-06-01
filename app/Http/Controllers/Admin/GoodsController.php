@@ -35,5 +35,4 @@ class GoodsController extends Controller
     {
         return $this->handle(app(GoodsService::class)->applyStatus());
     }
-
 }

@@ -39,7 +39,7 @@ class CashesController extends Controller
         }
         // 获取店铺提现手续费
         $storeConfig = app(ConfigsService::class)->getFormatConfig('store');
-        $cashRate = !isset($storeConfig['cash']) && empty($storeConfig['cash']) ? 0 : round(floatval($storeConfig['cash']) / 100, 2);
+        $cashRate = isset($storeConfig['cash']) && !empty($storeConfig['cash']) ? round(floatval($storeConfig['cash']) / 100, 2) : 0;
         $model = new Cash();
         $model->name = $request->name ?? '';
         $model->bank_name = $request->bank_name ?? '';

@@ -85,12 +85,11 @@ class AdminsController extends Controller
         $idArray = array_filter(explode(',', $id), function ($item) {
             return (is_numeric($item) && $item != 1); // 超级管理员也不允许删除
         });
-        foreach ($idArray as $v) {
-            $model = Admins::query()->find($v);
-            $model->roles()->detach();
-            $model->refresh();
-        }
-        $model->whereIn('id', $idArray)->where($this->belongName, $this->getBelongId())->delete();
-        return $this->success([], __('tip.success'));
+        Admins::whereIn('id', $idArray)
+            ->each(function ($model) {
+                $model->roles()->detach();
+            });
+        $result = Admins::whereIn('id', $idArray)->where($this->belongName, $this->getBelongId())->delete();
+        return $this->success(['status'=>$result], __('tip.success'));
     }
 }

@@ -72,13 +72,12 @@ class RolesController extends Controller
         $idArray = array_filter(explode(',', $id), function ($item) {
             return (is_numeric($item)); // 超级管理员也不允许删除
         });
-        foreach ($idArray as $v) {
-            $model = UserRole::query()->find($v);
+        UserRole::query()->whereIn('id', $idArray)->each(function ($model) {
             $model->menus()->detach();
             $model->permissions()->detach();
-            $model->refresh();
-        }
-        $res = $model->whereIn('id', $idArray)->where('belong_id', $this->getBelongId($this->auth))->delete();
+        });
+        $res = UserRole::query()->whereIn('id', $idArray)
+            ->where('belong_id', $this->getBelongId($this->auth))->delete();
         return $this->success($res, __('tip.success'));
     }
 }

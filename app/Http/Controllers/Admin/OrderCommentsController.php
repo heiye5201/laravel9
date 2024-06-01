@@ -14,7 +14,6 @@ class OrderCommentsController extends Controller
 
     protected $auth = 'admins';
 
-
     public function index(Request $request, OrderCommentQuery $query)
     {
         $query = $query->orderBy('id', 'desc');

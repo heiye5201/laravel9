@@ -26,7 +26,7 @@ class OrderSettlementsController extends Controller
 
 
     // 手动结算订单
-    public function handle_sett()
+    public function handle_sett(Request $request)
     {
         return $this->handle(app(OrderSettlementService::class)->add(false));
     }

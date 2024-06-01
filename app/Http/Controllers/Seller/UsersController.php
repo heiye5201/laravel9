@@ -53,16 +53,8 @@ class UsersController extends Controller
     public function show($id)
     {
         $rs = User::query()->where('belong_id', $this->getBelongId($this->auth))->with(['roles'])->find($id);
-        $role_id = [];
-        $role_name = [];
-        if (!empty($rs['roles'])) {
-            foreach ($rs['roles'] as $v) {
-                $role_id[] = $v['id'];
-                $role_name[] = $v['name'];
-            }
-        }
-        $rs['role_id'] = $role_id;
-        $rs['role_name'] = $role_name;
+        $rs['role_id'] = collect($rs['roles'] ?? [])->pluck('id')->toArray();
+        $rs['role_name'] = collect($rs['roles'] ?? [])->pluck('name')->toArray();
         unset($rs['password']);
         return $this->success(($rs), __('tip.success'));
     }
@@ -95,12 +87,11 @@ class UsersController extends Controller
         $idArray = array_filter(explode(',', $id), function ($item) {
             return (is_numeric($item));
         });
-        foreach ($idArray as $v) {
-            $model = User::query()->find($v);
+        User::query()->whereIn('id', $idArray)->each(function ($model) {
             $model->roles()->detach();
-            $model->refresh();
-        }
-        $model->whereIn('id', $idArray)->where('belong_id', $this->getBelongId($this->auth))->delete();
+        });
+        User::query()->whereIn('id', $idArray)
+            ->where('belong_id', $this->getBelongId($this->auth))->delete();
         return $this->success([], __('tip.success'));
     }
 }

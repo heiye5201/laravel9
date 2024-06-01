@@ -44,14 +44,13 @@ class GoodsAttrsController extends Controller
         ]);
         $specs = $request->specs ?? [];
         if (!empty($specs)) {
-            $specsData = [];
-            foreach ($specs as $v) {
-                $specsData[] = [
-                    'attr_id' => $attrId,
-                    'name' => $v,
-                ];
-            }
-            GoodsSpecs::query()->insert($specsData);
+            $specs = collect($specs)->map(function ($item) use ($attrId) {
+               return [
+                   'attr_id' => $attrId,
+                   'name' => $item,
+               ];
+            })->toArray();
+            GoodsSpecs::query()->insert($specs);
         }
         return $this->success($attrId);
     }
@@ -63,14 +62,13 @@ class GoodsAttrsController extends Controller
         GoodsSpecs::query()->where('attr_id', $id)->delete(); // 删除所有规格
         $specs = $request->specs ?? [];
         if (!empty($specs)) {
-            $specsData = [];
-            foreach ($specs as $v) {
-                $specsData[] = [
+            $specs = collect($specs)->map(function ($item) use ($id) {
+                return [
                     'attr_id' => $id,
-                    'name' => $v,
+                    'name' => $item,
                 ];
-            }
-            GoodsSpecs::query()->insert($specsData);
+            })->toArray();
+            GoodsSpecs::query()->insert($specs);
         }
         return $this->success($id);
     }

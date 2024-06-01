@@ -42,16 +42,14 @@ class IndexController extends Controller
         $data['class_adv'] = app(AdvService::class)->advNew('class_banner');
         //品牌图标
         $brand = GoodsBrand::query()->where('recommend',1)->limit(3)->get();
-        $brandData = [];
-        foreach ($brand as $val) {
-            $info['brand_id'] = $val['id'];
-            $brandData[] = [
-                'image'=>$val['thumb'],
-                'name'=>$val['name'],
-                'id'=>$val['id'],
-                'url'=>'/s/'.base64_encode(json_encode($info))
+        $brandData = collect($brand)->map(function ($item) {
+            return [
+                'image'=>$item['thumb'],
+                'name'=>$item['name'],
+                'id'=>$item['id'],
+                'url'=>'/s/'.base64_encode(json_encode(['brand_id'=>$item['id']]))
             ];
-        }
+        })->toArray();
         $data['brand'] = $brandData;
         return $this->success($data);
     }

@@ -20,14 +20,11 @@ class SellerMenusController extends Controller
         $deep = $request->deep ?? -1;
         // 配置是否超级管理员
         $this->isSuper = $this->getSuper($this->auth);
-        $data = [];
         if ($this->isSuper) {
             $data = UserMenu::query()->select('id', 'name', 'ename', 'apis', 'view', 'pid', 'is_open', 'icon')->orderBy('is_sort', 'asc')->get();
         } else {
             $roles = $this->getRoles($this->auth, ['menus']);
-            if (isset($data['menus']) && !empty($data['menus'])) {
-                $data = $roles['menus'];
-            }
+            $data = $roles['menus'] ?? [];
         }
         try {
             $tree = app(ToolService::class)->$treeType($data, 0, 0, $deep);

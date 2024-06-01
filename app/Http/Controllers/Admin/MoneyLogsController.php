@@ -17,7 +17,6 @@ class MoneyLogsController extends Controller
         return $this->success($data);
     }
 
-
     public function show($id)
     {
         $data = MoneyLog::query()->find($id)->toArray();

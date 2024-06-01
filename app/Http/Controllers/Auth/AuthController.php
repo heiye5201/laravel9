@@ -47,16 +47,10 @@ class AuthController extends Controller
     {
         $data = $request->except('provider');
         $id = $this->getUserId($request->provider);
-        if (!isset($data['password']) || empty($data['password'])) {
-            unset($data['password']);
-        }
-        if (isset($data['password'])) {
+        if (isset($data['password']) && !empty($data['password'])) {
             $data['password'] = Hash::make($data['password']);
         }
-        if (!isset($data['pay_password']) || empty($data['pay_password'])) {
-            unset($data['pay_password']);
-        }
-        if (isset($data['pay_password'])) {
+        if (isset($data['pay_password']) && !empty($data['pay_password'])) {
             $data['pay_password'] = Hash::make($data['pay_password']);
         }
         // 修改手机号码

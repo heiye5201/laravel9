@@ -136,41 +136,4 @@ class AuthService extends BaseService
         }
         return $info['data'] ?? [];
     }
-
-    // 账号编辑
-    public function edit($data)
-    {
-//        $data = $request->except('provider');
-//        $id = $this->getUserId($request->provider);
-//        $pro = lcfirst(str_replace('api/', '', $request->route()->action['prefix']));
-//        if ($pro != 'Admin') {
-//            $pro = 'User';
-//        }
-//        if (!isset($data['password']) || empty($data['password'])) {
-//            unset($data['password']);
-//        }
-//        if (isset($data['password'])) {
-//            $data['password'] = Hash::make($data['password']);
-//        }
-//        if (!isset($data['pay_password']) || empty($data['pay_password'])) {
-//            unset($data['pay_password']);
-//        }
-//        if (isset($data['pay_password'])) {
-//            $data['pay_password'] = Hash::make($data['pay_password']);
-//        }
-//        // 修改手机号码
-//        if (isset($data['phone']) && !empty($data['phone']) && $pro == 'User') {
-//            if ($this->getService($pro, true)->whereNotIn('id', [$id])->where('phone', $data['phone'])->exists()) {
-//                return $this->error(__('tip.phoneExist'));
-//            }
-//            $sms = $this->getService('Sms')->checkSms($data['phone'], $data['code']);
-//            if (!$sms['status']) {
-//                return $this->error($sms['msg']);
-//            } else {
-//                unset($data['code']);
-//            }
-//        }
-//        $rs = $this->getService($pro, true)->where('id', $id)->update($data);
-//        return $this->success($rs);
-    }
 }

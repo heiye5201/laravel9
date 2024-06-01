@@ -18,13 +18,10 @@ class StoresController extends Controller
         $storeId = app(StoreService::class)->getStoreId()['data'];
         $rs = StoreClass::query()->where('store_id', $storeId)->first();
         if ($rs && !empty($rs->class_id)) {
-            $class_id = [];
-            $classId = json_decode($rs->class_id, true);
-            foreach ($classId as $v) {
-                foreach ($v as $vo) {
-                    $class_id[] = intval($vo);
-                }
-            }
+            $class_id = collect(json_decode($rs->class_id, true))->flatten()
+                ->map(function ($item) {
+                    return intval($item);
+                })->toArray();
             $class = GoodsClass::query()->whereIn('id', $class_id)->get();
             $data = app(ToolService::class)->getChildren($class);
             return $this->success($data);

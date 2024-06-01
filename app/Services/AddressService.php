@@ -18,12 +18,7 @@ class AddressService extends BaseService
     public function add($addressData)
     {
         $area = Area::query()->select('name')->whereIn('id', $addressData['area'])->get();
-        $areaInfo = '';
-        if (!empty($area)) {
-            foreach ($area as $v) {
-                $areaInfo .= $v['name'].' ';
-            }
-        }
+        $areaInfo = collect($area)->pluck('name')->implode(' ');
         $areaInfo = rtrim($areaInfo, ' ');
         $userId = $this->getUserId('users');
         $data = [
@@ -51,12 +46,7 @@ class AddressService extends BaseService
     public function edit($id, $addressData)
     {
         $area = Area::query()->select('name')->whereIn('id', $addressData['area'])->get();
-        $areaInfo = '';
-        if (!empty($area)) {
-            foreach ($area as $v) {
-                $areaInfo .= $v['name'].' ';
-            }
-        }
+        $areaInfo = collect($area)->pluck('name')->implode(' ');
         $areaInfo = rtrim($areaInfo, ' ');
         $userId = $this->getUserId('users');
         $data = [

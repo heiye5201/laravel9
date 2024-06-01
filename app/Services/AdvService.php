@@ -35,9 +35,9 @@ class AdvService extends BaseService
         if ($space) {
             $list = Adv::query()->where('pid', $space['id'])->where('status', 1)
                 ->where('adv_start', '<', date('Y-m-d H:i:s'))->where('adv_end', '>', date('Y-m-d H:i:s'))->get();
-            foreach ($list as $val) {
-                $data[] = ['image' => $val['image']];
-            }
+            $data = collect($list)->map(function ($val) {
+                return ['image' => $val['image']];
+            })->all();
         }
         return $data;
     }

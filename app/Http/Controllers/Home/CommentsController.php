@@ -25,7 +25,7 @@ class CommentsController extends Controller
     public function store(Request $request)
     {
         $userId = $this->getUserId('users');
-        $orderId = request('order_id', 0);
+        $orderId = $request->input('order_id', 0);
         if (empty($orderId)) {
             return $this->error('not found order');
         }
@@ -39,20 +39,24 @@ class CommentsController extends Controller
         $orderGoods = OrderGoods::query()->where('order_id', $orderId)->get();
         try {
             DB::beginTransaction();
-            foreach ($orderGoods as $v) {
-                OrderComment::query()->create([
-                    'user_id'   =>  $userId,
-                    'order_id'   =>  $order->id,
-                    'goods_id'   =>  $v['goods_id'],
-                    'store_id'   =>  $order->store_id,
-                    'score'   =>  request('score', 5),
-                    'agree'   =>  request('agree', 5),
-                    'service'   =>  request('service', 5),
-                    'speed'   =>  request('speed', 5),
-                    'content'   =>  request('content', 5),
-                    'image'   =>  empty(request()->image)?'':implode(',', request()->image),
-                ]);
+            $dataToInsert = [];
+            foreach ($orderGoods as $goods) {
+                $image = $request->input('image', '');
+                $image = empty($image) ? '' : implode(',', $image);
+                $dataToInsert[] = [
+                    'user_id'   => $userId,
+                    'order_id'  => $order->id,
+                    'goods_id'  => $goods['goods_id'],
+                    'store_id'  => $order->store_id,
+                    'score'     => $request->input('score', 5),
+                    'agree'     => $request->input('agree', 5),
+                    'service'   => $request->input('service', 5),
+                    'speed'     => $request->input('speed', 5),
+                    'content'   => $request->input('content', ''),
+                    'image'     => $image,
+                ];
             }
+            OrderComment::query()->insert($dataToInsert);
             $order->order_status = 6;
             $order->comment_time = now();
             $order->save();

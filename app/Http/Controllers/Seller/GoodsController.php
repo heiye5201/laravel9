@@ -63,10 +63,7 @@ class GoodsController extends Controller
         if (empty($goodsList)) {
             return $this->success();
         }
-        $goodsId = [];
-        foreach ($goodsList as $v) {
-            $goodsId[] = $v->id;
-        }
+        $goodsId = collect($goodsList)->pluck('id')->toArray();
         GoodsSku::query()->where('goods_id', $goodsId)->delete();
         Goods::query()->whereIn('id', $goodsId)->delete();
         return $this->success();
