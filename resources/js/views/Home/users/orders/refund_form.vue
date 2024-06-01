@@ -13,6 +13,17 @@
                             {{data.info.refund_type==0?$t('user_center.order.refund.refund'):(data.info.refund_type==1?$t('user_center.order.refund.exchange'):$t('user_center.order.refund.after_end'))}}
                         </el-form-item>
                     </div></el-col>
+                  <el-col  :span="24"><div class="table-form-content">
+                    <el-form-item :label="$t('home.carts.order_sn')">
+                      {{data.info.order.order_no}}
+                    </el-form-item>
+                  </div></el-col>
+
+                  <el-col  :span="24"><div class="table-form-content">
+                    <el-form-item :label="$t('user_center.order.refund.after_sales_reasons')">
+                      {{data.info.refund_remark}}
+                    </el-form-item>
+                  </div></el-col>
                     <el-col  :span="24"><div class="table-form-content">
                         <el-form-item :label="$t('user_center.order.refund_from.after_status')">
                             <el-tag v-if="data.info.refund_verify==0">{{$t('user_center.order.refund_from.wait_apply')}}</el-tag>

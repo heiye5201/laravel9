@@ -53,6 +53,7 @@ export const baseRoute = [
             {path:'/user/order/refund/:id',component:_import('Home/users/orders/refund')},
             {path:'/user/order/refund_form/:id',component:_import('Home/users/orders/refund_form')},
             {path:'/user/integral_order',component:_import('Home/users/integrals/index')},
+            {path:'/user/integral_order/:id',component:_import('Home/users/integrals/info')},
             {path:'/user/coupons',component:_import('Home/users/coupons/index')},
             {path:'/user/distribution',component:_import('Home/users/distribution/index')},
             {path:'/user/distribution_users',component:_import('Home/users/distribution/user')},

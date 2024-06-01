@@ -85,6 +85,13 @@ export default {
                     {label:proxy.$t('order.orderCompletion'),value:6},
                 ]
             }},
+            {label:'审核状态',value:'filter[apply_status]',type:'select',data:{
+              'filter[apply_status]':[
+                {label:'待审核',value:0},
+                {label:'审核通过',value:1},
+                {label:'审核拒绝',value:2},
+              ]
+            }},
         ])
 
         const params = {

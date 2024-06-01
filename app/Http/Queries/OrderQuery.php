@@ -18,7 +18,7 @@ class OrderQuery extends QueryBuilder
         parent::__construct(Order::query());
         $this->defaultSort('-ID')
             ->allowedFilters([
-                'order_no', 'order_name','order_status','refund_status'
+                'order_no', 'order_name', 'order_status', 'refund_status', 'apply_status'
             ])
             ->allowedSorts([
                 AllowedSort::field('date', 'created_at'),

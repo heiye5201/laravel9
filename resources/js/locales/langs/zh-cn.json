@@ -621,7 +621,8 @@
                 "refund": "退款",
                 "return": "退货",
                 "exchange": "退换货",
-                "after_end": "售后结束"
+                "after_end": "售后结束",
+                "refund_from": "订单售后服务"
             },
             "refund_from": {
                 "apply": "申请售后",

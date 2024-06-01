@@ -25,9 +25,9 @@ return new class extends Migration
             $table->string('delivery_code', 10)->default('')->comment('快递公司编码');
             $table->string('re_delivery_no', 20)->default('')->comment('商家快递订单号');
             $table->string('re_delivery_code', 10)->default('')->comment('商家快递公司编码');
-            $table->text('refund_remark')->comment('售后原因');
-            $table->text('images')->comment('图片');
-            $table->text('refuse_remark')->comment('拒绝原因');
+            $table->text('refund_remark')->nullable()->comment('售后原因');
+            $table->text('images')->nullable()->comment('图片');
+            $table->text('refuse_remark')->nullable()->comment('拒绝原因');
             $table->timestamps();
             $table->softDeletes();
         });

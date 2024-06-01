@@ -85,6 +85,7 @@ Route::middleware('auth:users')->namespace('Home')->name('home.')->group(functio
 
     $route->post('/integral/pay', 'IntegralController@pay')->name('integral.pay');
     $route->get('/integral/orders', 'IntegralController@integral_orders')->name('integral.orders');
+    $route->get('/user/integral_order/{id}', 'IntegralController@orderInfo')->name('integral.orders.info');
 
     $route->get('/user/distributions', 'DistributionsController@index')->name('distribution.index');
     $route->get('/user/distribution_logs', 'DistributionLogsController@index')->name('distribution_log.index');

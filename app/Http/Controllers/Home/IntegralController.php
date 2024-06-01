@@ -7,6 +7,7 @@ use App\Models\IntegralGoods;
 use App\Models\IntegralGoodsClass;
 use App\Models\IntegralOrder;
 use App\Services\IntegralGoodsService;
+use App\Services\OrderService;
 use Illuminate\Http\Request;
 
 class IntegralController extends Controller
@@ -51,6 +52,17 @@ class IntegralController extends Controller
         $data = IntegralOrder::query()->orderBy('id', 'desc')
             ->where('user_id', $this->getUserId('users'))
             ->paginate(intval($request->input('page_size', 25)));
+        return $this->success($data);
+    }
+
+
+    public function orderInfo($id)
+    {
+        $data = IntegralOrder::query()->with(['order_goods'])->orderBy('id', 'desc')
+            ->where('user_id', $this->getUserId('users'))
+            ->where('id', $id)
+            ->first();
+        $data['order_status_cn'] = app(OrderService::class)->getOrderStatusCn($data);
         return $this->success($data);
     }
 }

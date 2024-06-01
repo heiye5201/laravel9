@@ -7,7 +7,7 @@
             </div>
             <div class="shop_top_seach float_left">
                 <ul>
-                    <li><input class="search_input" v-model="data.keywords" type="text" :placeholder="$t('home.store_index.search_key')"></li>
+                    <li><input class="search_input" v-model="data.keywords" type="text" :placeholder="$t('home.store_index.search_key')"  @keyup.enter="search"></li>
                     <li><button class="search_button" type="button" @click="search" > <el-icon><Search /></el-icon> </button></li>
                     <li>
                         <div class="index_my_car">
@@ -117,6 +117,7 @@ export default {
             params.keywords = encodeURIComponent(data.keywords);
             router.push('/s/'+window.btoa(JSON.stringify(params)))
         }
+
         onMounted(()=>{
             if(!proxy.R.isEmpty(route.params.params)  && route.path.indexOf('/s/') > -1){
                 data.keywords = decodeURIComponent(JSON.parse(window.atob(route.params.params)).keywords)

@@ -140,7 +140,7 @@ class RefundService extends BaseService
             $store_id = app(StoreService::class)->getStoreId()['data'];
             $refund_model = $refund_model->where('store_id', $store_id);
         }
-        $refund_info = $refund_model->where('order_id', $order_id)->first();
+        $refund_info = $refund_model->with(['order'])->where('order_id', $order_id)->first();
         if (!$refund_info) {
             return $this->formatError(__('tip.error'));
         }

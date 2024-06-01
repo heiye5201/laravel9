@@ -12,7 +12,7 @@
                     <div class="order_item_title">
                         {{$t('user_center.integrals.order_sn')}}：{{v.order_no||'-'}}
                     </div>
-                    <div class="order_item_list" >
+                    <div class="order_item_list"  @click="$router.push('/user/integral_order/'+v.id)">
                         <ul>
                             <li ><router-link to="">
                                 <div class="order_thumb"><img :src="v.order_image||require('@/assets/Home/default.png').default" :alt="v.order_name"></div>

@@ -29,6 +29,7 @@ Route::prefix('Seller')->middleware('auth:users')->name('seller.')->namespace('S
 
     $route->get('/orders/find/all', 'OrdersController@all')->name('seller.order.findall');
     $route->put('/orders/status/edit', 'OrdersController@edit')->name('seller.status.edit');
+    $route->put('/refunds/{id}', 'RefundsController@update')->name('seller.refunds.update');
 
     $route->resource('cashes', 'CashesController')->except(['update']);
     $route->resource('money_logs', 'MoneyLogsController')->only(['index','show']);
