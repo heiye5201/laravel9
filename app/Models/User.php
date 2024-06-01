@@ -8,6 +8,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
+use League\OAuth2\Server\Entities\Traits\AccessTokenTrait;
 
 class User extends Authenticatable
 {
@@ -55,5 +56,10 @@ class User extends Authenticatable
     public function roles()
     {
         return $this->belongsToMany('App\Models\UserRole', 'user_to_roles', 'user_id', 'role_id');
+    }
+
+    public function token()
+    {
+        return $this->hasOne('App\Models\OauthAccessToken', 'user_id', 'id');
     }
 }

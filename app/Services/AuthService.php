@@ -127,10 +127,6 @@ class AuthService extends BaseService
         }
         $pro = lcfirst(str_replace('api/', '', $prefix));
         if ($data['provider'] != 'users') {
-//            $defaultUrl = $this->getService($pro.'Menu', true)->whereRaw('apis!=""')->orderBy('is_sort', 'asc')->first();
-//            if ($defaultUrl) {
-//                $info['data']['defaultUrl'] = $defaultUrl->apis??'/';
-//            }
             $info['data']['prefix'] = $pro;
             $info['data']['defaultUrl'] = '/Admin/admins';
         }

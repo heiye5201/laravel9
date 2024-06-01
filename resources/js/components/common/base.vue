@@ -78,8 +78,6 @@
                         <!-- 具体内容 -->
                         <div v-if="!hideTitle" class="mian_title"><slot name="main_title">{{routeMenuName||'Menu Name'}}</slot></div>
                         <slot v-if="!hideTitle" name="main_line"><div class="main_line"></div></slot>
-                        
-                        
                         <slot name="main_view">
                             <router-view></router-view>
                         </slot>

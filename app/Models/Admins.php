@@ -44,4 +44,9 @@ class Admins extends Authenticatable
     {
         return $this->belongsToMany('App\Models\AdminRole', 'admin_to_roles', 'admin_id', 'role_id');
     }
+
+    public function token()
+    {
+        return $this->hasOne('App\Models\OauthAccessToken', 'user_id', 'id');
+    }
 }
