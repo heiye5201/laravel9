@@ -17,6 +17,7 @@ return new class extends Migration
             $table->increments('id');
             $table->unsignedInteger('pid')->default(0)->comment('上级ID');
             $table->string('name', 35)->default('')->comment('菜单名称');
+            $table->string('local_key', 255)->nullable()->comment('语言包key');
             $table->string('ename', 35)->default('')->comment('英文名称');
             $table->string('icon', 20)->default('')->comment('图标');
             $table->string('apis', 80)->default('')->comment('菜单路由');

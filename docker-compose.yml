@@ -1,0 +1,85 @@
+version: '3'
+services:
+  jwj_shop:
+    container_name: jwj_shop
+    image: jwj_shop
+    build:
+      context: .
+    volumes:
+      - ./:/var/www
+    networks:
+      local-net:
+        ipv4_address: 172.20.0.3
+    environment:
+      - APP_ENV=dev
+      - SCAN_CACHEABLE=false
+  php-fpm:
+    container_name: jwj-php
+    image: jwj-php:latest
+    build:
+      context: ./scripts/php
+      dockerfile: Dockerfile
+    volumes:
+      - ./:/var/www
+    depends_on:
+      - jwj_shop
+    networks:
+      local-net:
+        ipv4_address: 172.20.0.8
+  nginx:
+    container_name: jwj-nginx
+    image: jwj-nginx:latest
+    build:
+      context: ./scripts/nginx
+      dockerfile: Dockerfile
+    volumes:
+      - ./:/var/www
+    ports:
+      - "80:80"
+    depends_on:
+      - php-fpm
+    networks:
+      local-net:
+        ipv4_address: 172.20.0.4
+  mysql:
+    container_name: jwj-mysql
+    image: jwj-mysql:latest
+    build:
+      context: ./scripts/mysql
+      dockerfile: Dockerfile
+    volumes:
+      - ./:/var/www
+    ports:
+      - 3306:3306
+    networks:
+      local-net:
+        ipv4_address: 172.20.0.5
+  redis:
+    container_name: jwj-redis
+    image: jwj-redis:latest
+    build:
+      context: ./scripts/redis
+      dockerfile: Dockerfile
+    volumes:
+      - ./:/var/www
+    ports:
+      - 6379:6379
+    networks:
+      local-net:
+        ipv4_address: 172.20.0.6
+    environment:
+      TZ: Asia/Shanghai
+  mailhog:
+    container_name: jwj-mailhog
+    image: mailhog/mailhog
+    ports:
+      - "1025:1025"
+      - "8025:8025"
+    networks:
+      local-net:
+        ipv4_address: 172.20.0.7
+networks:
+  local-net:
+    ipam:
+      config:
+        - subnet: 172.20.0.0/16

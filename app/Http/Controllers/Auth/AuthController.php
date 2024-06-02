@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\User;
 use App\Services\AuthService;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Validation\Rule;
 
@@ -67,5 +68,15 @@ class AuthController extends Controller
         }
         $rs = User::query()->where('id', $id)->update($data);
         return $this->success($rs);
+    }
+
+    public function set_lang(Request $request)
+    {
+        //zh-cn en
+        $lang = $request->lang;
+        App::setLocale($lang);
+//        $res = $request->session()->put('language',$lang);
+        $seccess =  App::getLocale('language');
+        return $this->success($seccess);
     }
 }

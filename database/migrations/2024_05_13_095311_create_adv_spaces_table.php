@@ -20,6 +20,7 @@ return new class extends Migration
             $table->unsignedInteger('width')->default(0)->comment('建议宽度');
             $table->unsignedInteger('height')->default(0)->comment('建议高度');
             $table->string('adv_spaces', 255)->nullable()->comment('位置类型');
+            $table->string('local_type', 255)->nullable()->comment('位置类型');
             $table->timestamps();
             $table->softDeletes();
         });

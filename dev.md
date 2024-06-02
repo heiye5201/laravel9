@@ -121,3 +121,6 @@ php artisan make:request Admin/AgreementsRequest
 ## Telescope 调试工具
 https://learnku.com/docs/laravel/9.x/telescope/12275#available-watchers
 
+php artisan make:command GenerateAdminCommand
+
+
