@@ -5,7 +5,7 @@ LABEL description="官方纯净版基础镜像，php镜像"
 
 # 安装常用的 PHP 扩展和工具
 RUN apk update \
-    && apk add --no-cache git unzip libzip-dev autoconf build-base \
+    && apk add --no-cache autoconf build-base git unzip libzip-dev \
     && docker-php-ext-install zip pdo pdo_mysql mysqli \
     && pecl install redis \
     && docker-php-ext-enable redis
