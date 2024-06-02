@@ -14,23 +14,18 @@ ENV TIMEZONE=${timezone:-"Asia/Shanghai"} \
     SCAN_CACHEABLE=(true)
 
 # update
-RUN set -ex \
-    # show php version and extensions
-    && php -v \
-    && php -m \
-    # - config timezone
-    && ln -sf /usr/share/zoneinfo/${TIMEZONE} /etc/localtime \
-    && echo "${TIMEZONE}" > /etc/timezone \
-    # ---------- clear works ----------
-    && rm -rf /var/cache/apk/* /tmp/* /usr/share/man \
-    && echo -e "\033[42;37m Build Completed :).\033[0m\n"
+RUN apk update \
+    && apk add --no-cache autoconf build-base git unzip libzip-dev \
+    && docker-php-ext-install zip pdo pdo_mysql mysqli \
+    && pecl install redis \
+    && docker-php-ext-enable redis
 
 # 安装 Node.js，npm 及 yarn(如果需要)
 RUN apk update && apk add --no-cache nodejs npm
 
 # 安装 php-mysql 扩展
-RUN docker-php-ext-install mysqli pdo pdo_mysql
-RUN pecl install redis && docker-php-ext-enable redis
+RUN #docker-php-ext-install mysqli pdo pdo_mysql
+RUN #pecl install redis && docker-php-ext-enable redis
 
 # 安装 Composer
 RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer
