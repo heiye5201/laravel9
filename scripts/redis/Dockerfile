@@ -1,7 +1,7 @@
 # 拉取仓库的redis
 FROM redis:6.0
 
-LABEL maintainer="jwj <jwj@126.me>"
+LABEL maintainer="jwj <heiye5201@aliyun.com>"
 
 LABEL description="官方纯净版基础镜像"
 

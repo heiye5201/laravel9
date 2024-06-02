@@ -1,6 +1,6 @@
 FROM nginx:1.16
 
-LABEL maintainer="jwj <jwj@126.me>"
+LABEL maintainer="jwj <heiye5201@aliyun.com>"
 LABEL description="官方纯净版基础镜像，nginx镜像"
 
 # 创建名为"nginx"的用户，UID为1001

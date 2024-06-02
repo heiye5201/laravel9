@@ -1,6 +1,6 @@
 FROM php:8.1-fpm-alpine
 
-LABEL maintainer="jwj <jwj@126.me>"
+LABEL maintainer="jwj <heiye5201@aliyun.com>"
 LABEL description="官方纯净版基础镜像，php镜像"
 
 # 安装常用的 PHP 扩展和工具

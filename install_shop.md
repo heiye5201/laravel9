@@ -14,4 +14,11 @@ php artisan db:seed
 ## 生成oauth_clients 数据
 php artisan passport:client
 
+## 由于docker-compose.yml 设置自定义网络ip
+检查网络情况
+docker network ls
+删除网络
+docker network rm <network_name>
 
+检查默认Docker网络的IP范围
+docker network inspect bridge
