@@ -25,8 +25,8 @@ class AdvsRequest extends BaseRequest
     {
         return [
             'pid' => ['required', 'numeric'],
-            'url' => ['required', 'max:255'],
-            'name' => ['required', 'min:3', 'max:255'],
+            'url' => ['max:255'],
+            'name' => ['required', 'min:2', 'max:255'],
             'is_type' => ['required', 'numeric'],
             'adv_start' => ['required', 'date'],
             'adv_end' => ['required', 'date'],

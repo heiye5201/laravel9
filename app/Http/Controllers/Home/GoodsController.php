@@ -13,9 +13,9 @@ use Illuminate\Http\Request;
 
 class GoodsController extends Controller
 {
-    public function goods()
+    public function goods(Request $request)
     {
-        return $this->handle(app(GoodsService::class)->all());
+        return $this->handle(app(GoodsService::class)->all($request->all()));
     }
 
     public function show(Request $request, $id)

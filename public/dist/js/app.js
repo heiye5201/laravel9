@@ -7796,6 +7796,7 @@ var baseRoute = [
   path: '/Seller/login',
   component: (0,_plugins_config__WEBPACK_IMPORTED_MODULE_0__._import)('Seller/login')
 }
+
 // {path: "/:catchAll(.*)",name: '404',component: _import('Error/404')},
 ];
 

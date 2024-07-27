@@ -107,10 +107,10 @@ class ConfigsService
     }
 
     // 获取键值config
-    public function getKeyVal()
+    public function getKeyVal($filter = [])
     {
         $data = [];
-        $info = Configs::query()->get();
+        $info = Configs::query()->whereIn('name', $filter)->get();
         if (!$info) {
             return $this->format([]);
         }

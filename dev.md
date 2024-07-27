@@ -18,10 +18,14 @@ xdebug.mode=debug
 # 创建表
 php artisan make:migration create_configs_table --create="configs"
 php artisan make:migration create_user_menus_table --create="user_menus"
+php artisan make:migration create_discount_rule_filters_table --create="discount_rule_filters"
 
+php artisan make:migration create_discount_rules_table --create="discount_rules"
+
+php artisan migrate
 
 # 添加字段
-php artisan make:migration add_sales_to_discount_codes_table --table=discount_codes
+php artisan make:migration add_is_own_join_to_discount_rule_filters_table --table=discount_rule_filters
 
 php artisan make:controller PhotoController --resource
 
@@ -60,7 +64,7 @@ docker save -o laradock-redis.tar laradock-redis
 docker load -i C:\Users\YourUsername\my_macos_image.tar
 ```
 
-php artisan migrate
+
 
 
 ## Passport OAuth 认证

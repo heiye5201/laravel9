@@ -78,7 +78,6 @@ class GoodsService extends BaseService
         }
     }
 
-
     // 修改商品
     public function editGoods($goodsId, $reqData, $auth = 'users')
     {
@@ -277,7 +276,7 @@ class GoodsService extends BaseService
                     if (in_array($vo['id'], $spec_id)) {
                         $goods_attr[$k]['specs'][$key]['check'] = true;
                     } else {
-                        if ($reqData['saveCheck']) {
+                        if (isset($reqData['saveCheck']) && $reqData['saveCheck']) {
                             unset($goods_attr[$k]['specs'][$key]);
                         }
                     }
@@ -289,132 +288,20 @@ class GoodsService extends BaseService
         return $this->format($goodsInfo);
     }
 
-
-    // 获取商品详情
-    public function getGoodsInfoApp($goodsId)
+    public function all($params)
     {
-        $goodsInfo = Goods::query()->find($goodsId);
-        if (!$goodsInfo) {
-            return $this->formatError(__('tip.error'));
+        if (!empty($params)) {
+            $params = json_decode(base64_decode($params), true);
         }
-        // 获取商品分类信息
-        if ($goodsInfo->class_id == 0) {
-            return $this->formatError(__('tip.error') . 'c');
-        }
-        $classData = [];
-        $classData[] = GoodsClass::query()->find($goodsInfo->class_id);
-        $classData[] = GoodsClass::query()->find($classData[0]->pid);
-        $classData[] = GoodsClass::query()->find($classData[1]->pid);
-        $goodsInfo['classList'] = $classData;
-        // 图片转化
-        if (!empty($goodsInfo->goods_images)) {
-            $goods_images = explode(',', $goodsInfo->goods_images);
-            $images = [];
-            foreach ($goods_images as $key => $val) {
-                $images[] = [
-                    'file_id' => $key + 1,
-                    'preview_url' => getUrlByPath($val),
-                    'domain' => '',
-                    'external_url' => getUrlByPath($val),
-                ];
-            }
-            $goodsInfo['goods_images'] = $images;
-        }
-        // 获取处理后的规格信息
-        $sku = GoodsSku::query()->where('goods_id', $goodsId)->get()->toArray();
-        if (!empty($sku)) {
-            $spec_id = [];
-            foreach ($sku as $v) {
-                $v['spec_id'] = explode(',', $v['spec_id']);
-                $spec_id = array_merge($spec_id, $v['spec_id']);
-            }
-            $spec_id = array_unique($spec_id);
-            $spec_id = array_values($spec_id);
-            $goods_spec = GoodsSpecs::query()->whereIn('id', $spec_id)->orderBy('id', 'desc')->get()->toArray();
-            $attr_id = collect($goods_spec)->pluck('attr_id')->toArray();
-            $goods_attr = GoodsAttr::query()->whereIn('id', $attr_id)->orderBy('id', 'desc')->get()->toArray();
-            $specList = [];
-            foreach ($goods_attr as $key => $val) {
-                $specInfo = [
-                    'spec_id' => $val['id'],
-                    'spec_name' => $val['name'],
-                    'key' => $key,
-                ];
-                $specData = collect($goods_spec)->where('attr_id', $val['id'])->values();
-                $specValue = [];
-                foreach ($specData as $k => $va) {
-                    $specValue[] = [
-                        'key' => $k,
-                        'groupKey' => $key,
-                        'spec_value_id' => $va['id'],
-                        'spec_value' => $va['name']
-                    ];
-                }
-                $specInfo['valueList'] = $specValue;
-                $specList[] = $specInfo;
-            }
-            $goodsInfo['specList'] = $specList;
-            $skuList = [];
-            foreach ($sku as $key => $value) {
-                $info = [
-                    'id' => $value['id'],
-                    'goods_sku_id' => $value['id'],
-                    'goods_id' => $value['goods_id'],
-                    'image_id' => 0,
-                    'goods_sku_no' => '',
-                    'goods_price' => $value['goods_market_price'],
-                    'line_price' => $value['goods_price'],
-                    'stock_num' => $value['goods_stock'],
-                    'goods_weight' => $value['goods_weight'],
-                    'image_url' => $value['goods_image'],
-                ];
-                $goods_props = [];
-                $spec_value_ids = explode(',', $value['spec_id']);
-                $goodsSpecData = collect($goods_spec)->whereIn('id', $spec_value_ids)->values()->toArray();
-                $info['spec_value_ids'] = collect($goodsSpecData)->pluck('id');
-                foreach ($goodsSpecData as $val1) {
-                    $attr = collect($goods_attr)->where('id', $val1['attr_id'])->first();
-                    $spec = [
-                        'group' => ['name' => $attr['name'], 'id' => $attr['id']],
-                        'value' => ['name' => $val1['name'], 'id' => $val1['id']],
-                    ];
-                    $goods_props[] = $spec;
-                }
-                $info['goods_props'] = $goods_props;
-                $skuList[] = $info;
-            }
-            $goodsInfo['skuList'] = $skuList;
-        } else {
-            $skuList = [
-                'goods_id' => $goodsInfo['id'],
-                'goods_price' => $goodsInfo['goods_price'],
-                'goods_props' => '',
-                'goods_sku_id' => 0,
-                'goods_sku_no' => '',
-                'goods_weight' => $goodsInfo['goods_weight'],
-                'id' => $goodsInfo['id'],
-                'image_id' => 0,
-                'image_url' => '',
-                'line_price' => $goodsInfo['goods_market_price'],
-                'spec_value_ids' => '',
-                'stock_num' => $goodsInfo['goods_stock'],
-            ];
-            $goodsInfo['skuList'] = [$skuList];
-            $goodsInfo['specList'] = [];
-        }
-        $goodsInfo['goods_image'] = '';
-        return $this->format($goodsInfo);
+        return $this->getGoodsPage($params);
     }
 
-
     // 搜索 和 商品列表
-    public function all()
+    public function getGoodsPage($params)
     {
         $goodsModel = new Goods();
-        $params = request('params');
         try {
             if (!empty($params)) {
-                $params_array = json_decode(base64_decode($params), true);
                 // 品牌
                 if (isset($params_array['brand_id']) && !empty($params_array['brand_id'])) {
                     $goodsModel = $goodsModel->where('brand_id', $params_array['brand_id']);
@@ -444,11 +331,11 @@ class GoodsService extends BaseService
                 }
             }
             // 是否是拼团产品
-            if (!empty(request('is_collective'))) {
+            if (!empty($params['is_collective'])) {
                 $goodsModel = $goodsModel->whereHas('collective');
             }
             // 是否是分销产品
-            if (!empty(request('is_distribution'))) {
+            if (!empty($params['is_distribution'])) {
                 $goodsModel = $goodsModel->whereHas('distribution');
             }
             $list = $goodsModel->where($this->status)
@@ -459,83 +346,12 @@ class GoodsService extends BaseService
                 ->whereHas('store', function ($q) {
                     return $q->where(app(StoreService::class)->storeStatus);
                 })
-                ->paginate(intval(request('per_page')));
+                ->paginate(intval($params['per_page']));
         } catch (\Exception $e) {
             return $this->formatError($e->getMessage());
         }
         return $this->format(new GoodsHomeSearchCollection($list));
     }
-
-
-    // 搜索 和 商品列表
-    public function appAll($params)
-    {
-        $goodsModel = new Goods();
-        try {
-            if (!empty($params)) {
-                $params_array = $params;
-                // 品牌
-                if (isset($params_array['brand_id']) && !empty($params_array['brand_id'])) {
-                    $goodsModel = $goodsModel->where('brand_id', $params_array['brand_id']);
-                }
-                // 栏目
-                if (isset($params_array['categoryId']) && !empty($params_array['categoryId'])) {
-                    if (is_array($params_array['categoryId'])) {
-                        $goodsModel = $goodsModel->whereIn('class_id', $params_array['categoryId']);
-                    } else {
-                        $goodsModel = $goodsModel->where('class_id', $params_array['categoryId']);
-                    }
-                }
-                // 商家
-                if (isset($params_array['store_id']) && !empty($params_array['store_id'])) {
-                    $goodsModel = $goodsModel->where('store_id', $params_array['store_id']);
-                }
-                // 关键词
-                if (isset($params_array['goodsName']) && !empty($params_array['goodsName'])) {
-                    $params_array['keywords'] = urldecode($params_array['goodsName']);
-                    $goodsModel = $goodsModel->where('goods_name', 'like', '%' . $params_array['keywords'] . '%');
-                }
-                // 排序
-                if (isset($params_array['sortType']) && !empty($params_array['sortType'])) {
-                    $sortPrice = $params_array['sortPrice'] ? 'desc' : 'asc';
-                    switch ($params_array['sortType']) {
-                        case 'all':
-                            $goodsModel = $goodsModel->orderBy('id', $sortPrice);
-                            break;
-                        case 'sales':
-                            $goodsModel = $goodsModel->orderBy('goods_sale', $sortPrice);
-                            break;
-                        case 'price':
-                            $goodsModel = $goodsModel->orderBy('goods_market_price', $sortPrice);
-                            break;
-                    }
-                } else {
-                    $goodsModel = $goodsModel->orderBy('id', 'desc')->orderBy('goods_sale', 'desc');
-                }
-            }
-            // 是否是拼团产品
-            if (!empty(request('is_collective'))) {
-                $goodsModel = $goodsModel->whereHas('collective');
-            }
-            // 是否是分销产品
-            if (!empty(request('is_distribution'))) {
-                $goodsModel = $goodsModel->whereHas('distribution');
-            }
-            $list = $goodsModel->where($this->status)
-                ->with(['goods_skus' => function ($q) {
-                    return $q->select('goods_id', 'goods_price', 'goods_stock')->orderBy('goods_price', 'asc');
-                }])
-                ->withCount('order_comment')
-                ->whereHas('store', function ($q) {
-                    return $q->where(app(StoreService::class)->storeStatus);
-                })
-                ->paginate(intval(request('per_page')));
-        } catch (\Exception $e) {
-            return $this->formatError($e->getMessage());
-        }
-        return $this->format(new GoodsHomeSearchCollection($list));
-    }
-
 
     public function master($goodsNum = 6)
     {
@@ -622,6 +438,30 @@ class GoodsService extends BaseService
         $count = Goods::query()
             ->whereIn('id', $params['goods_id'])->update(['goods_verify' => $params['apply_status']]);
         return $this->format(['update_total' => $count, 'apply_status' => $params['apply_status']]);
+    }
+
+
+    public function getGoodsList($reqData = [])
+    {
+        $goodsModel = new Goods();
+        return $goodsModel->where($this->status)
+            ->with(['goods_skus' => function ($q) {
+                return $q->select('goods_id', 'goods_price', 'goods_stock', 'goods_market_price')
+                    ->orderBy('goods_price', 'asc');
+            }])
+            ->withCount('order_comment')
+            ->whereHas('store', function ($q) {
+                return $q->where(app(StoreService::class)->storeStatus);
+            })->get()->map(function ($item) {
+                collect($item['goods_skus'])->min('goods_market_price');
+                return [
+                    'goods_id' => $item['id'], 'goods_name' => $item['goods_name'], 'selling_point'=> '',
+                    'goods_price_min' => $item['goods_market_price'], 'goods_price_max' => $item['goods_price'],
+                    'line_price_min' =>  collect($item['goods_skus'])->min('goods_market_price'),
+                    'line_price_max' =>  collect($item['goods_skus'])->max('goods_market_price'),
+                    'goods_sales' => $item['goods_sale'], 'goods_image' => getUrlByPath($item['goods_images']),
+                ];
+            });
     }
 }
 
