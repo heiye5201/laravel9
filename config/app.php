@@ -201,6 +201,9 @@ return [
         Prettus\Repository\Providers\RepositoryServiceProvider::class,
         RepositoryServiceProvider::class,
         Laravel\Passport\PassportServiceProvider::class,
+
+        // kafka 服务注册
+        \App\Providers\KafkaServiceProvider::class,
     ],
 
     /*

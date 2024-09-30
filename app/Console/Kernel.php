@@ -18,6 +18,7 @@ class Kernel extends ConsoleKernel
         // $schedule->command('inspire')->hourly();
         $schedule->command('telescope:prune --hours=48')->daily();
         $schedule->command('cache:purge-tag')->dailyAt('00:00')->withoutOverlapping()->onOneServer()->runInBackground();
+        $schedule->command('kafka:consume')->everyMinute(); // 每分钟运行一次
     }
 
     /**
