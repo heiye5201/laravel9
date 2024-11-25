@@ -1,0 +1,17 @@
+
+laravel8
+
+早期版本用：composer require swooletw/laravel-swoole
+
+建议安装
+composer require laravel/octane
+php artisan octane:install
+
+你可以通过以下命令启动 Octane 并让 Laravel 应用运行在 Swoole 上：
+php artisan octane:start --server=swoole
+
+
+ab -n 10 -c 5 http://jwj.test/api/app/swoole/increment
+
+ab -n 10 -c 5 http://127.0.0.1:8000/api/app/swoole/increment
+
