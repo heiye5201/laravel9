@@ -204,6 +204,8 @@ return [
 
         // kafka 服务注册
         \App\Providers\KafkaServiceProvider::class,
+        \App\Providers\StudyServiceProvider::class
+
     ],
 
     /*
