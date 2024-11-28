@@ -6,6 +6,7 @@
  */
 namespace App\Http\Controllers\Learn;
 
+use App\Criteria\Goods\GoodsPublishedCriteria;
 use App\Http\Controllers\Controller;
 use App\Repositories\Goods\Interfaces\GoodsRepository;
 use App\Services\Study\GoodsService;

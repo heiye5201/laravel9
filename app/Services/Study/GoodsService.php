@@ -23,7 +23,7 @@ class GoodsService
     public function storeproductFilterAndSort($filterData)
     {
         $this->goodsRepository->pushCriteria(new GoodsSortCriteria($filterData));
-        $this->goodsRepository->pushCriteria(new GoodsPublishedCriteria($filterData));
+        $this->goodsRepository->pushCriteria(new GoodsPublishedCriteria());
         return $this->goodsRepository;
     }
 
