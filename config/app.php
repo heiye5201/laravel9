@@ -1,6 +1,5 @@
 <?php
 
-use App\Providers\RepositoryServiceProvider;
 use Illuminate\Support\Facades\Facade;
 
 return [
@@ -199,7 +198,7 @@ return [
         Maatwebsite\Excel\ExcelServiceProvider::class,
 
         Prettus\Repository\Providers\RepositoryServiceProvider::class,
-        RepositoryServiceProvider::class,
+        App\Providers\RepositoryServiceProvider::class,
         Laravel\Passport\PassportServiceProvider::class,
 
         // kafka 服务注册

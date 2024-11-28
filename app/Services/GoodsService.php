@@ -290,7 +290,7 @@ class GoodsService extends BaseService
 
     public function all($params)
     {
-        if (!empty($params)) {
+        if (!empty($params) && is_string($params)) {
             $params = json_decode(base64_decode($params), true);
         }
         return $this->getGoodsPage($params);

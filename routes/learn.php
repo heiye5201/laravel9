@@ -14,4 +14,8 @@ Route::prefix('Learn')->namespace('Learn')->name('learn.')->group(function ($rou
     $route->get('/redis/getSet', 'RedisController@getList')->name('getSet');
     $route->get('/redis/getHash', 'RedisController@getHash')->name('getHash');
     $route->get('/redis/getSortedSet', 'RedisController@getSortedSet')->name('getSortedSet');
+
+    $route->get('/goods/getList', 'GoodsController@getList')->name('getGoodsList');
+    $route->get('/goods/getServiceList', 'GoodsController@getServerList')->name('getGoodsServiceList');
+
 });
