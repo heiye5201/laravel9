@@ -2,13 +2,13 @@
 
 namespace App\Models;
 
-use Prettus\Repository\Contracts\Transformable;
-use Prettus\Repository\Traits\TransformableTrait;
 
-class Goods extends BaseModel implements Transformable
+use App\Services\Goods\Contracts\GoodsEntity;
+
+class Goods extends BaseModel implements GoodsEntity
 {
 
-    use TransformableTrait;
+    use \App\Models\Traits\GoodsEntity;
 
     public function goods_class()
     {

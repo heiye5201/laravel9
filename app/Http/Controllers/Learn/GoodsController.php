@@ -6,8 +6,9 @@
  */
 namespace App\Http\Controllers\Learn;
 
-use App\Criteria\Goods\GoodsPublishedCriteria;
 use App\Http\Controllers\Controller;
+use App\Http\Resources\Goods\GoodsResource;
+use App\Models\Goods;
 use App\Repositories\Goods\Interfaces\GoodsRepository;
 use App\Services\Study\GoodsService;
 use Illuminate\Http\Request;
@@ -39,5 +40,12 @@ class GoodsController extends Controller
     public function getServerList(Request $request)
     {
         return app(GoodsService::class)->goodsPaginator($request);
+    }
+
+
+    public function getEntityList()
+    {
+        $list = Goods::query()->get();
+        return GoodsResource::collection($list);
     }
 }

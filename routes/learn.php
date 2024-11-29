@@ -17,5 +17,6 @@ Route::prefix('Learn')->namespace('Learn')->name('learn.')->group(function ($rou
 
     $route->get('/goods/getList', 'GoodsController@getList')->name('getGoodsList');
     $route->get('/goods/getServiceList', 'GoodsController@getServerList')->name('getGoodsServiceList');
+    $route->get('/goods/getEntityList', 'GoodsController@getEntityList')->name('getGoodsEntityList');
 
 });
